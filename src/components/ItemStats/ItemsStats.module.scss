@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px - 40px);
+  background-color: lightgray;
+
+  .content {
+    display: flex;
+    flex-flow: row wrap;
+    .stats {
+      width: 250px;
+      margin-left: 10px;
+      padding: 20px;
+
+      ul {
+        margin-left: 10px;
+        list-style: none;
+      }
+    }
+  }
+}
