@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .formField {
+    height: calc(100vh - 80px - 40px);
+    background-color: lightgray;
+  }
+  .footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+}
