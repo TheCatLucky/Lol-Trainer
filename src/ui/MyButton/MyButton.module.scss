@@ -1,0 +1,12 @@
+.button {
+  width: 150px;
+  margin-left: 5px;
+  border: 1px solid lightblue;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover{
+    background-color: lightblue;
+  }
+}
+
