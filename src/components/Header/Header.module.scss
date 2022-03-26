@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  background: lightblue;
+
+  .navigation {
+    display: flex;
+    flex-direction: row;
+
+    a {
+      margin-left: 10px;
+      text-decoration: none;
+    }
+  }
+}
