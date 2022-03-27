@@ -7,15 +7,5 @@
   .content {
     display: flex;
     flex-flow: row wrap;
-    .stats {
-      width: 300px;
-      margin-left: 10px;
-      padding: 20px;
-
-      ul {
-        margin-left: 10px;
-        list-style: none;
-      }
-    }
   }
 }

@@ -9,6 +9,7 @@ const Header: FC = () => {
       <nav className={classes.navigation}>
         <Link to='/champStats'>Статистики персонажей</Link>
         <Link to='/itesmStats'>Статистики предметов</Link>
+        <Link to='/formField'>Form Field</Link>
       </nav>
     </div>
   );

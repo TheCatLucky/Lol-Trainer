@@ -1,47 +1,125 @@
-import { ItemModel } from '../models';
+import { Displayed, ItemModel, StatsEnum } from '../models';
 
 const itemsList: ItemModel[] = [
   {
     name: 'B.F.Sword',
-    attackDamage: 55,
+    stats: [
+      {
+        name: StatsEnum.attackDamage,
+        displayName: Displayed.attackDamage,
+        value: 40,
+      },
+    ],
   },
   {
     name: 'Axiom Arc',
-    attackDamage: 55,
-    lethality: 10,
+    stats: [
+      {
+        name: StatsEnum.attackDamage,
+        displayName: Displayed.attackDamage,
+        value: 55,
+      },
+      {
+        name: StatsEnum.lethality,
+        displayName: Displayed.lethality,
+        value: 10,
+      },
+    ],
   },
   {
     name: 'Berserker`s Greaves',
-    attackSpeed: 0.35,
+    stats: [
+      {
+        name: StatsEnum.attackSpeed,
+        displayName: Displayed.attackSpeed,
+        value: 0.35,
+      },
+    ],
   },
   {
     name: 'Black Cleaver',
-    attackDamage: 45,
-    health: 350,
+    stats: [
+      {
+        name: StatsEnum.attackDamage,
+        displayName: Displayed.attackDamage,
+        value: 45,
+      },
+      {
+        name: StatsEnum.health,
+        displayName: Displayed.health,
+        value: 350,
+      },
+    ],
   },
   {
     name: 'Black Mist Scythe',
-    attackDamage: 20,
-    health: 75,
+    stats: [
+      {
+        name: StatsEnum.attackDamage,
+        displayName: Displayed.attackDamage,
+        value: 20,
+      },
+      {
+        name: StatsEnum.health,
+        displayName: Displayed.health,
+        value: 75,
+      },
+    ],
   },
   {
     name: 'Blade of the Ruined King',
-    attackDamage: 40,
-    attackSpeed: 0.25,
+    stats: [
+      {
+        name: StatsEnum.attackDamage,
+        displayName: Displayed.attackDamage,
+        value: 40,
+      },
+      {
+        name: StatsEnum.attackSpeed,
+        displayName: Displayed.attackSpeed,
+        value: 0.25,
+      },
+    ],
   },
   {
     name: 'Bloodthirster ',
-    attackDamage: 55,
-    critChance: 0.2,
+    stats: [
+      {
+        name: StatsEnum.attackDamage,
+        displayName: Displayed.attackDamage,
+        value: 55,
+      },
+      {
+        name: StatsEnum.critChance,
+        displayName: Displayed.critChance,
+        value: 0.2,
+      },
+    ],
   },
   {
     name: 'Caulfield`s Warhammer ',
-    attackDamage: 25,
+    stats: [
+      {
+        name: StatsEnum.attackDamage,
+        displayName: Displayed.attackDamage,
+        value: 25,
+      },
+    ],
   },
   {
     name: 'Chempunk Chainsword',
-    attackDamage: 45,
-    health: 250
+    stats: [
+      {
+        name: StatsEnum.attackDamage,
+        displayName: Displayed.attackDamage,
+        value: 45,
+      },
+      {
+        name: StatsEnum.health,
+        displayName: Displayed.health,
+        value: 250,
+      },
+    ],
   },
 ];
 

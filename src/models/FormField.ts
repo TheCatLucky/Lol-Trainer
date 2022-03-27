@@ -2,7 +2,9 @@
  * Опции с персонажами
  */
 
-export type Options = {
+type Options = {
   value: string;
   name: string;
 }[];
+
+export default Options

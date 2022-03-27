@@ -29,6 +29,8 @@ class ChampionsStore {
       armorPenetration: 0,
       magicFlatPenetration: 0,
       magicPenetration: 0,
+      attackDamage: this.calcAd(champ, 1),
+      attackSpeed: this.calcAs(champ, 1),
     }));
   }
 

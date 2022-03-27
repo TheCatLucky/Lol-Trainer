@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Options } from '../../models/FormField';
+import { Options } from '../../models';
 import classes from './MySelectMultiple.module.scss';
 
 type Props = {

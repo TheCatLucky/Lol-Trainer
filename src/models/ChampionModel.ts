@@ -1,7 +1,9 @@
 /**
- * Модель элемента категории.
+ * Модель чемпиона.
  */
 class ChampionModel {
+  [index: string]: string | number;
+
   /**
    * Название персонажа
    */
@@ -66,36 +68,6 @@ class ChampionModel {
    * Магическое сопротивление на 18 уровне
    */
   magicResistanceLvl18: number;
-
-  /**
-   * Шанс нанесения критического урона
-   */
-  critChance?: number;
-
-  /**
-   * Магический урон
-   */
-  abilityDamage?: number;
-
-  /**
-   * Смертоносность
-   */
-  lethality?: number;
-
-  /**
-   * Физическое пробивание
-   */
-  armorPenetration?: number;
-
-  /**
-   * Магическое пробивание flat
-   */
-  magicFlatPenetration?: number;
-
-  /**
-   * Магическое пробивание в процентах
-   */
-  magicPenetration?: number;
 
   constructor(data: ChampionModel) {
     this.name = data.name;

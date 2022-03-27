@@ -1,9 +1,8 @@
 import { champsList, itemsList } from '../../data';
 import { ChampionsStore, ItemsStore } from '../../store';
 import AppRouter from '../AppRouter';
-import Footer from '../Footer';
-import FormField from '../FormField';
-import Header from '../Header';
+import Footer from '../../ui/Footer';
+import Header from '../../ui/Header';
 import classes from './App.module.scss';
 
 function App() {
@@ -12,8 +11,7 @@ function App() {
   return (
     <div className={classes.wrapper}>
       <Header />
-      <AppRouter champsStore={champsStore} itemsStore={itemsStore} />
-      {/* <FormField champsStore={champsStore} itemsStore={itemsStore} /> */}
+      <AppRouter champsStore={champsStore} itemsStore={itemsStore.items} />
       <div className={classes.footer}>
         <Footer />
       </div>
