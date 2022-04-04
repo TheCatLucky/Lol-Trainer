@@ -2,21 +2,20 @@
   display: flex;
   flex-direction: column;
   height: calc(100vh - 80px - 40px);
-    background-color: lightgray;
+  background-color: lightgray;
 
-  .content {
+  .itemsList {
     display: flex;
-    flex-flow: row wrap;
-    .itemsList {
-    }
+    flex-flow: column wrap;
+    height: 300px;
+  }
 
-    .stats {
-      margin-left: 10px;
-      padding: 20px;
+  .stats {
+    margin-left: 10px;
+    padding: 20px;
 
-      ul {
-        list-style: none;
-      }
+    ul {
+      list-style: none;
     }
   }
 }

@@ -1,10 +1,11 @@
-import { FC } from 'react';
+import { observer } from 'mobx-react-lite';
+import { FC, Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ItemModel } from '../../models';
 import { ChampionsStore } from '../../store';
-import ChampsPage from '../ChampsPage';
-import FormField from '../FormField';
-import ItemsPage from '../ItemsPage';
+const ChampsPage = lazy(() => import('../ChampsPage'));
+const FormField = lazy(() => import('../FormField'));
+const ItemsPage = lazy(() => import('../ItemsPage'));
 
 type Props = {
   champsStore: ChampionsStore;
@@ -16,17 +17,22 @@ const AppRouter: FC<Props> = (props) => {
 
   return (
     <div>
-      <Routes>
-        <Route path='/' element={<p> Привет!</p>} />
-        <Route path='/champStats' element={<ChampsPage champsStore={champsStore} />} />
-        <Route path='/itesmStats' element={<ItemsPage itemsStore={itemsStore} />} />
-        <Route
-          path='/formField'
-          element={<FormField itemsStore={itemsStore} champsStore={champsStore} />}
-        />
-      </Routes>
+      <Suspense fallback={<h1>Загрузка...</h1>}>
+        {/*
+      todo:
+      Сделать компонент лоадер */}
+        <Routes>
+          <Route path='/' element={<p> Привет!</p>} />
+          <Route path='/champStats' element={<ChampsPage champsStore={champsStore} />} />
+          <Route path='/itesmStats' element={<ItemsPage itemsStore={itemsStore} />} />
+          <Route
+            path='/formField'
+            element={<FormField itemsStore={itemsStore} champsStore={champsStore} />}
+          />
+        </Routes>
+      </Suspense>
     </div>
   );
 };
 
-export default AppRouter;
+export default observer(AppRouter);

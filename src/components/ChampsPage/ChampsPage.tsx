@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { FC, useMemo, useState } from 'react';
+import { FC, useMemo, useState, useEffect } from 'react';
 import { Options } from '../../models';
 import { ChampionsStore } from '../../store';
 import { MyButton, MyInput, MySelect } from '../../ui';
@@ -12,46 +12,63 @@ type Props = {
 
 const ChampsPage: FC<Props> = (props) => {
   const { champsStore } = props;
+  const { setChampions, champions } = champsStore;
 
   const [selectedChamp, setselectedChamp] = useState('');
   const [showAll, setShowAll] = useState(false);
+  const [champLvl, setChampLvl] = useState(1);
+
+  useEffect(() => {
+    setChampions(champions, champLvl);
+  }, [champLvl]);
 
   const showAllChamps = () => {
     setShowAll(!showAll);
   };
 
+  const handleSelect = (champName: string) => {
+    setselectedChamp(champName);
+    setShowAll(false);
+  };
   const optionsChamps: Options = useMemo(
     () =>
-      champsStore.champions.map((champ) => {
+      champions.map((champ) => {
         return {
           value: champ.name,
           name: champ.name,
         };
       }),
-    [champsStore],
+    [champions],
   );
   return (
     <div className={classes.wrapper}>
-      <MyInput type='text' placeholder='введите текст' />
       <MySelect
         defaultValue='выберте персонажа'
         options={optionsChamps}
         value={selectedChamp}
-        onChange={setselectedChamp}
+        onChange={handleSelect}
+      />
+      <MyInput
+        type='number'
+        min={1}
+        max={18}
+        placeholder='введите уровен персонажа'
+        value={champLvl}
+        onChange={setChampLvl}
       />
       <MyButton onClick={showAllChamps}>{showAll ? 'Убрать' : 'Показать всех'}</MyButton>
       <br />
       <div className={classes.content}>
         {!showAll &&
-          champsStore.champions.map((champ) => {
+          champions.map((champ) => {
             if (champ.name === selectedChamp) {
-              return <ChampStats champ={champ} />;
+              return <ChampStats champ={champ} lvl={champLvl} key={champ.name} />;
             }
             return null;
           })}
         {!!showAll &&
-          champsStore.champions.map((champ) => {
-            return <ChampStats champ={champ} key={champ.name} />;
+          champions.map((champ) => {
+            return <ChampStats champ={champ} lvl={champLvl} key={champ.name} />;
           })}
       </div>
     </div>

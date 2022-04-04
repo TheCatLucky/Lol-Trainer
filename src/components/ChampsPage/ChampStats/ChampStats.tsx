@@ -1,23 +1,35 @@
 import { FC } from 'react';
-import { ChampionModel } from '../../../models';
+import { ChampionModel, Displayed } from '../../../models';
 import classes from './ChampStats.module.scss';
 
 type Props = {
   champ: ChampionModel;
+  lvl: number;
 };
 
 const ChampStats: FC<Props> = (props) => {
-  const { champ } = props;
-
+  const { champ, lvl } = props;
   return (
     <div className={classes.stats} key={champ.name}>
-      <h3>{champ.name}</h3>
+      <h3>
+        {champ.name} на {lvl} уровне
+      </h3>
       <ul key={champ.name}>
-        <li>Ад на 1 уровне: {champ.attackDamageLvl1}</li>
-        <li>Ас на 1 уровне: {champ.attackSpeed}</li>
-        <li>Броня на 1 уровне: {champ.armorLvl1}</li>
-        <li>Магическое сопротивление на 1 уровне: {champ.magicResistanceLvl1}</li>
-        <li>Хп на 1 уровне : {champ.healthLvl1}</li>
+        <li>
+          {Displayed.attackDamage} : {champ.attackDamage}
+        </li>
+        <li>
+          {Displayed.attackSpeed} : {champ.attackSpeed}
+        </li>
+        <li>
+          {Displayed.armor} : {champ.armor}
+        </li>
+        <li>
+          {Displayed.magicResistance} : {champ.magicResistance}
+        </li>
+        <li>
+          {Displayed.health} : {champ.health}
+        </li>
       </ul>
     </div>
   );

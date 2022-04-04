@@ -32,7 +32,6 @@ const ItemsPage: FC<Props> = (props) => {
   );
   return (
     <div className={classes.wrapper}>
-      <MyInput type='text' placeholder='введите текст' />
       <MySelect
         defaultValue='выберте предмет'
         options={optionsItems}

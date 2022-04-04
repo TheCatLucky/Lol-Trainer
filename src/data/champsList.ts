@@ -5,7 +5,7 @@ const champsList: ChampionModel[] = [
     name: 'Ahri',
     attackDamageLvl1: 53,
     attackDamageLvl18: 104,
-    attackSpeed: 0.668,
+    attackSpeedBase: 0.668,
     attackSpeedBonus: 34,
     attackSpeedRatio: 0.668,
     critDamage: 1.75,
@@ -20,7 +20,7 @@ const champsList: ChampionModel[] = [
     name: 'Aatrox',
     attackDamageLvl1: 60,
     attackDamageLvl18: 145,
-    attackSpeed: 0.651,
+    attackSpeedBase: 0.651,
     attackSpeedBonus: 42.5,
     attackSpeedRatio: 0.651, // ???????????????????
     critDamage: 1.75,
@@ -35,7 +35,7 @@ const champsList: ChampionModel[] = [
     name: 'Akali',
     attackDamageLvl1: 62,
     attackDamageLvl18: 118.1,
-    attackSpeed: 0.625,
+    attackSpeedBase: 0.625,
     attackSpeedBonus: 54.4,
     attackSpeedRatio: 0.625, // ???????????????????
     critDamage: 1.75,
@@ -50,7 +50,7 @@ const champsList: ChampionModel[] = [
     name: 'Akshan',
     attackDamageLvl1: 52,
     attackDamageLvl18: 111.5,
-    attackSpeed: 0.638,
+    attackSpeedBase: 0.638,
     attackSpeedBonus: 68,
     attackSpeedRatio: 0.638, // ???????????????????
     critDamage: 1.75,

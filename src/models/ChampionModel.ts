@@ -22,7 +22,7 @@ class ChampionModel {
   /**
    * Скорость атаки
    */
-  attackSpeed: number;
+  attackSpeedBase: number;
 
   /**
    * Бонус скорости атаки к 18 уровню
@@ -73,7 +73,7 @@ class ChampionModel {
     this.name = data.name;
     this.attackDamageLvl1 = data.attackDamageLvl1;
     this.attackDamageLvl18 = data.attackDamageLvl18;
-    this.attackSpeed = data.attackSpeed;
+    this.attackSpeedBase = data.attackSpeedBase;
     this.attackSpeedBonus = data.attackSpeedBonus;
     this.attackSpeedRatio = data.attackSpeedRatio;
     this.critDamage = data.critDamage;
