@@ -1,8 +1,45 @@
 import { Displayed, ItemModel, StatsEnum } from '../models';
+import {
+  Axiom_Arc,
+  BFSword,
+  Berserkers,
+  Black_Cleaver,
+  Black_Mist_Scythe,
+  Botrk,
+  Bloodthirster,
+  Caulfields_Warhammer,
+  Chempunk_Chainsword,
+  Cloak_of_Agility,
+  Cull,
+  Dagger,
+  Deaths_Dance,
+  Divine_Sunderer,
+  Dorans_Blade,
+  Duskblade_of_Draktharr,
+  Eclipse,
+  Edge_of_Night,
+  Essence_Reaver,
+  Executioners_Calling,
+  Galeforce,
+  Goredrinker,
+  Guardian_Angel,
+  Guinsoos_Rageblade,
+  Hearthbound_Axe,
+  Hexdrinker,
+  Hullbreaker,
+  Immortal_Shieldbow,
+  Infinity_Edge,
+  Ironspike_Whip,
+  Kircheis_Shard,
+  Kraken_Slayer,
+  Last_Whisper,
+  Long_Sword,
+} from '../assets/Items';
 
 const itemsList: ItemModel[] = [
   {
     name: 'Axiom Arc',
+    img: Axiom_Arc,
     cost: 3000,
     stats: [
       {
@@ -20,6 +57,7 @@ const itemsList: ItemModel[] = [
   {
     name: 'B.F.Sword',
     cost: 1300,
+    img: BFSword,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -30,6 +68,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Berserker`s Greaves',
+    img: Berserkers,
     cost: 1100,
     stats: [
       {
@@ -41,6 +80,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Black Cleaver',
+    img: Black_Cleaver,
     cost: 3100,
     stats: [
       {
@@ -57,6 +97,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Black Mist Scythe',
+    img: Black_Mist_Scythe,
     cost: 400,
     stats: [
       {
@@ -73,6 +114,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Blade of the Ruined King',
+    img: Botrk,
     cost: 3300,
     stats: [
       {
@@ -88,7 +130,8 @@ const itemsList: ItemModel[] = [
     ],
   },
   {
-    name: 'Bloodthirster ',
+    name: 'Bloodthirster',
+    img: Bloodthirster,
     cost: 3400,
     stats: [
       {
@@ -105,6 +148,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Caulfield`s Warhammer ',
+    img: Caulfields_Warhammer,
     cost: 1100,
     stats: [
       {
@@ -116,6 +160,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Chempunk Chainsword',
+    img: Chempunk_Chainsword,
     cost: 2600,
     stats: [
       {
@@ -132,6 +177,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Cloak of Agility',
+    img: Cloak_of_Agility,
     cost: 600,
     stats: [
       {
@@ -143,6 +189,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: ' Cull',
+    img: Cull,
     cost: 450,
     stats: [
       {
@@ -154,6 +201,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Dagger',
+    img: Dagger,
     cost: 300,
     stats: [
       {
@@ -165,6 +213,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Death`s Dance',
+    img: Deaths_Dance,
     cost: 3300,
     stats: [
       {
@@ -181,6 +230,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Divine Sunderer',
+    img: Divine_Sunderer,
     cost: 3300,
     stats: [
       {
@@ -197,6 +247,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Doran`s Blade',
+    img: Dorans_Blade,
     cost: 450,
     stats: [
       {
@@ -213,6 +264,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Duskblade of Draktharr',
+    img: Duskblade_of_Draktharr,
     cost: 3100,
     stats: [
       {
@@ -229,6 +281,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Eclipse',
+    img: Eclipse,
     cost: 3100,
     stats: [
       {
@@ -245,6 +298,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Edge of Night',
+    img: Edge_of_Night,
     cost: 2900,
     stats: [
       {
@@ -266,6 +320,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Essence Reaver',
+    img: Essence_Reaver,
     cost: 2800,
     stats: [
       {
@@ -282,6 +337,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Executioner`s Calling',
+    img: Executioners_Calling,
     cost: 800,
     stats: [
       {
@@ -293,6 +349,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Galeforce',
+    img: Galeforce,
     cost: 3400,
     stats: [
       {
@@ -314,6 +371,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Goredrinker',
+    img: Goredrinker,
     cost: 3300,
     stats: [
       {
@@ -330,6 +388,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Guardian Angel',
+    img: Guardian_Angel,
     cost: 2800,
     stats: [
       {
@@ -346,6 +405,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Guinsoo`s Rageblade',
+    img: Guinsoos_Rageblade,
     cost: 2600,
     stats: [
       {
@@ -362,6 +422,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Hearthbound Axe',
+    img: Hearthbound_Axe,
     cost: 1000,
     stats: [
       {
@@ -378,6 +439,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Hexdrinker',
+    img: Hexdrinker,
     cost: 1300,
     stats: [
       {
@@ -394,6 +456,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Hullbreaker',
+    img: Hullbreaker,
     cost: 2800,
     stats: [
       {
@@ -410,6 +473,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Immortal Shieldbow',
+    img: Immortal_Shieldbow,
     cost: 3400,
     stats: [
       {
@@ -431,6 +495,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Infinity Edge',
+    img: Infinity_Edge,
     cost: 3400,
     stats: [
       {
@@ -447,6 +512,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Ironspike Whip',
+    img: Ironspike_Whip,
     cost: 1100,
     stats: [
       {
@@ -458,6 +524,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Kircheis Shard',
+    img: Kircheis_Shard,
     cost: 700,
     stats: [
       {
@@ -469,6 +536,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Kraken Slayer',
+    img: Kraken_Slayer,
     cost: 3400,
     stats: [
       {
@@ -490,6 +558,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Last Whisper',
+    img: Last_Whisper,
     cost: 1450,
     stats: [
       {
@@ -506,6 +575,7 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Long Sword',
+    img: Long_Sword,
     cost: 350,
     stats: [
       {

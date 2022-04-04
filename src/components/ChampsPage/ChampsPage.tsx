@@ -30,6 +30,7 @@ const ChampsPage: FC<Props> = (props) => {
     setselectedChamp(champName);
     setShowAll(false);
   };
+
   const optionsChamps: Options = useMemo(
     () =>
       champions.map((champ) => {
@@ -40,6 +41,7 @@ const ChampsPage: FC<Props> = (props) => {
       }),
     [champions],
   );
+
   return (
     <div className={classes.wrapper}>
       <MySelect

@@ -23,20 +23,20 @@ class ChampionsStore {
     this.setChampions(champions);
   }
 
-  setChampions(data: ChampionModel[], lvl = 1): void {
-    this.champions = data.map((champ) => ({
-      ...champ,
+  setChampions(champions: ChampionModel[], lvl = 1): void {
+    this.champions = champions.map((champion) => ({
+      ...champion,
       critChance: 0,
       abilityDamage: 0,
       lethality: 0,
       armorPenetration: 0,
       magicFlatPenetration: 0,
       magicPenetration: 0,
-      attackDamage: this.calcAd(champ, lvl),
-      attackSpeed: this.calcAs(champ, lvl),
-      health: this.calcHealth(champ, lvl),
-      armor: this.calcArmor(champ, lvl),
-      magicResistance: this.calcMagicResist(champ, lvl),
+      attackDamage: this.calcAd(champion, lvl),
+      attackSpeed: this.calcAs(champion, lvl),
+      health: this.calcHealth(champion, lvl),
+      armor: this.calcArmor(champion, lvl),
+      magicResistance: this.calcMagicResist(champion, lvl),
     }));
     console.log(this.champions[0].armor, 'хранилище', lvl, 'уровень');
   }
@@ -45,34 +45,36 @@ class ChampionsStore {
     return diff * (lvl - 1) * (0.7025 + 0.0175 * (lvl - 1));
   }
 
-  calcAd(data: ChampionModel, lvl: number): number {
-    const diff = (data.attackDamageLvl18 - data.attackDamageLvl1) / 17;
+  calcAd(champion: ChampionModel, lvl: number): number {
+    const diff = (champion.attackDamageLvl18 - champion.attackDamageLvl1) / 17;
     const growth = this.calcGrowth(diff, lvl);
-    return Math.trunc(data.attackDamageLvl1 + growth);
+    return Math.trunc(champion.attackDamageLvl1 + growth);
   }
 
-  calcAs(data: ChampionModel, lvl: number): number {
-    const diff = data.attackSpeedBonus / 1700;
+  calcAs(champion: ChampionModel, lvl: number): number {
+    const diff = champion.attackSpeedBonus / 1700;
     const growth = this.calcGrowth(diff, lvl);
-    return Math.floor((data.attackSpeedBase + growth * data.attackSpeedRatio) * 1000) / 1000;
+    return (
+      Math.floor((champion.attackSpeedBase + growth * champion.attackSpeedRatio) * 1000) / 1000
+    );
   }
 
-  calcArmor(data: ChampionModel, lvl: number): number {
-    const diff = (data.armorLvl18 - data.armorLvl1) / 17;
+  calcArmor(champion: ChampionModel, lvl: number): number {
+    const diff = (champion.armorLvl18 - champion.armorLvl1) / 17;
     const growth = this.calcGrowth(diff, lvl);
-    return Math.trunc(data.armorLvl1 + growth);
+    return Math.trunc(champion.armorLvl1 + growth);
   }
 
-  calcMagicResist(data: ChampionModel, lvl: number): number {
-    const diff = (data.magicResistanceLvl18 - data.magicResistanceLvl1) / 17;
+  calcMagicResist(champion: ChampionModel, lvl: number): number {
+    const diff = (champion.magicResistanceLvl18 - champion.magicResistanceLvl1) / 17;
     const growth = this.calcGrowth(diff, lvl);
-    return Math.trunc(data.magicResistanceLvl1 + growth);
+    return Math.trunc(champion.magicResistanceLvl1 + growth);
   }
 
-  calcHealth(data: ChampionModel, lvl: number): number {
-    const diff = (data.healthLvl18 - data.healthLvl1) / 17;
+  calcHealth(champion: ChampionModel, lvl: number): number {
+    const diff = (champion.healthLvl18 - champion.healthLvl1) / 17;
     const growth = this.calcGrowth(diff, lvl);
-    return Math.trunc(data.healthLvl1 + growth);
+    return Math.trunc(champion.healthLvl1 + growth);
   }
 }
 

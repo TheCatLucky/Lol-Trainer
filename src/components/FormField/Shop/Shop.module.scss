@@ -1,12 +1,12 @@
 .wrapper {
   display: flex;
-  flex-direction: column;
+  flex-flow: row wrap;
+  gap: 2px;
   height: calc(100vh - 80px - 40px);
   background-color: lightgray;
 
-  .content {
-    display: flex;
-    flex-flow: row wrap;
-    gap: 5px;
+  img {
+    height: 30px;
+    width: 30px;
   }
 }

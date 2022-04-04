@@ -12,7 +12,6 @@ type Props = {
 };
 
 const FormField: FC<Props> = (props) => {
-  console.log('рендер');
   const { champsStore, itemsStore } = props;
   const { setChampions, champions } = champsStore;
   /**
@@ -26,12 +25,12 @@ const FormField: FC<Props> = (props) => {
 
   const [champLvl, setChampLvl] = useState(1);
   const [compareFirst, setCompareFirst] = useState('Ahri');
-  const [selected, setSeleted] = useState(new Array(itemsStore.length).fill(false));
+  const [selected, setSeleted] = useState(new Array<boolean>(itemsStore.length).fill(false));
 
   /**
    * Устанавливает выбранного персонажа с его начальными характеристиками
    */
-  const setChamp = useCallback(
+  const setChampAndBaseStats = useCallback(
     (champ: string) => {
       const champISelect = champions.filter((char) => {
         if (char.name === champ) {
@@ -40,7 +39,7 @@ const FormField: FC<Props> = (props) => {
 
         return null;
       });
-      console.log('setChamp', champISelect[0].armor);
+      console.log('setChampAndBaseStats', champISelect[0].attackDamage);
       setBaseChampStats(champISelect[0]);
       setCompareFirst(champ);
     },
@@ -58,18 +57,12 @@ const FormField: FC<Props> = (props) => {
         return '';
       })
       .filter((item) => item !== '');
+    console.log(selected);
 
-    champions.filter((champ) => {
-      if (champ.name === compareFirst) {
-        return setBaseChampStats(champ);
-      }
-    });
     const itemsForCount = itemsStore.filter((item) => {
       if (res.includes(item.name)) {
         return item;
       }
-
-      return null;
     });
 
     itemsForCount.forEach((item) => {
@@ -89,15 +82,17 @@ const FormField: FC<Props> = (props) => {
         });
       });
     });
-
-    console.log(baseChampStats.armor, 'статы с итемами');
+    console.log(newStats.attackDamage, 'статы с итемами');
     setStatsWithItems(newStats);
-  }, [baseChampStats, champions, itemsStore, selected, compareFirst]);
+  }, [baseChampStats, itemsStore, selected]);
 
   useEffect(() => {
-    setChamp(compareFirst);
     summItemsStats();
-  }, [compareFirst, setChamp, summItemsStats]);
+  }, [summItemsStats]);
+
+  useEffect(() => {
+    setChampAndBaseStats(compareFirst);
+  }, [compareFirst, setChampAndBaseStats]);
 
   /**
    * Показывает выбранные предметы
@@ -114,7 +109,6 @@ const FormField: FC<Props> = (props) => {
   const checked = (position: number) => {
     const updatedChecked = selected.map((item, index) => (index === position ? !item : item));
     setSeleted(updatedChecked);
-    console.log('checked');
   };
 
   const optionsChamps: Options = useMemo(
@@ -134,7 +128,7 @@ const FormField: FC<Props> = (props) => {
         defaultValue='выберте персонажа'
         options={optionsChamps}
         value={compareFirst}
-        onChange={setChamp}
+        onChange={setChampAndBaseStats}
       />
       <MyInput
         type='number'
@@ -154,7 +148,6 @@ const FormField: FC<Props> = (props) => {
           </div>
         ))}
       </div>
-
       <div className={classes.content}>
         <div>
           <ChampStats champ={statsWithItems} lvl={champLvl} />
