@@ -11,7 +11,9 @@ function App() {
   return (
     <div className={classes.wrapper}>
       <Header />
-      <AppRouter champsStore={champsStore} itemsStore={itemsStore.items} />
+      <div className={classes.content}>
+        <AppRouter champsStore={champsStore} itemsStore={itemsStore.items} />
+      </div>
       <div className={classes.footer}>
         <Footer />
       </div>

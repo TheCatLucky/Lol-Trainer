@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import classes from './Shop.module.scss';
 import ItemModel from './../../../models/ItemModel';
+import { StatsEnum } from '../../../models';
+import ItemList from './ItemsList';
 
 type Props = {
   items: ItemModel[];
@@ -10,9 +12,7 @@ const Shop: FC<Props> = (props) => {
   const { items } = props;
   return (
     <div className={classes.wrapper}>
-      {items.map((item) => (
-        <img src={item.img} alt={item.name} key={item.name} />
-      ))}
+      <ItemList items={items} />
     </div>
   );
 };

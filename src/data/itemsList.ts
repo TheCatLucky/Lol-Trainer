@@ -188,7 +188,7 @@ const itemsList: ItemModel[] = [
     ],
   },
   {
-    name: ' Cull',
+    name: 'Cull',
     img: Cull,
     cost: 450,
     stats: [

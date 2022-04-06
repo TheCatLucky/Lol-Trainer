@@ -1,20 +1,19 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { ItemModel, StatsEnum } from '../../../models';
 import classes from './ItemStats.module.scss';
 
 type Props = {
   item: ItemModel;
-  onDragStart: (e:React.DragEvent<HTMLDivElement>, item:ItemModel) => void;
-  onDragEnd: (e:React.DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (e:React.DragEvent<HTMLDivElement>) => void;
-  onDragOver: (e:React.DragEvent<HTMLDivElement>) => void;
-  onDrop: (e:React.DragEvent<HTMLDivElement>, item:ItemModel) => void;
+  onDragStart: (e: React.DragEvent<HTMLDivElement>, item: ItemModel) => void;
+  onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDrop: (e: React.DragEvent<HTMLDivElement>, item: ItemModel) => void;
   draggable: boolean;
 };
 
 const ItemStats: FC<Props> = (props) => {
   const { item, onDragStart, onDragEnd, onDragLeave, onDragOver, onDrop, draggable } = props;
-
   return (
     <div
       className={classes.stats}

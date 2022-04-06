@@ -17,6 +17,7 @@ const ItemsPage: FC<Props> = (props) => {
   const [selectedItem, setSelectedItem] = useState('');
   const [showAll, setShowAll] = useState(false);
   const [currentItem, setCurrentItem] = useState<ItemModel | null>(null);
+  const [currentChamp, setCurrentChamp] = useState(null);
   const showAllChamps = () => {
     setShowAll(!showAll);
   };

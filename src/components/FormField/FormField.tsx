@@ -4,6 +4,7 @@ import { ChampionModel, ItemModel, Options } from '../../models';
 import { ChampionsStore } from '../../store';
 import { MyButton, MyCheckBox, MyInput, MySelect } from '../../ui';
 import ChampStats from '../ChampsPage/ChampStats';
+import DPSTable from './DPSTable';
 import classes from './FormField.module.scss';
 
 type Props = {
@@ -152,6 +153,7 @@ const FormField: FC<Props> = (props) => {
         <div>
           <ChampStats champ={statsWithItems} lvl={champLvl} />
         </div>
+        <DPSTable champion={statsWithItems} />
       </div>
     </div>
   );

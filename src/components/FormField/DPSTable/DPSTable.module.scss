@@ -1,0 +1,23 @@
+.table {
+  border: 1px solid black;
+  border-spacing: 0;
+  border-collapse: collapse;
+  background-color: #f8f8f8;
+  thead {
+    tr {
+      border-bottom: 1px solid black;
+      td {
+        text-align: center;
+      }
+    }
+  }
+  tbody {
+    tr {
+      border-bottom: 1px solid black;
+      td {
+        height: 30px;
+        width: 70px;
+      }
+    }
+  }
+}

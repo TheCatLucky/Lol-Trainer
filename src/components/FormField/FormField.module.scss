@@ -1,9 +1,9 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 80px - 40px);
   background-color: lightgray;
-
+  overflow-y: scroll;
+  height: calc(100vh - 120px);
   .itemsList {
     display: flex;
     flex-flow: column wrap;
@@ -17,5 +17,9 @@
     ul {
       list-style: none;
     }
+  }
+  .content {
+    display: flex;
+    flex-direction: row;
   }
 }

@@ -2,11 +2,6 @@
   display: flex;
   flex-flow: row wrap;
   gap: 2px;
-  height: calc(100vh - 80px - 40px);
-  background-color: lightgray;
 
-  img {
-    height: 30px;
-    width: 30px;
-  }
+  background-color: lightgray;
 }
