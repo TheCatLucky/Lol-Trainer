@@ -1,7 +1,6 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import classes from './Shop.module.scss';
 import ItemModel from './../../../models/ItemModel';
-import { StatsEnum } from '../../../models';
 import ItemList from './ItemsList';
 
 type Props = {
@@ -12,7 +11,7 @@ const Shop: FC<Props> = (props) => {
   const { items } = props;
   return (
     <div className={classes.wrapper}>
-      <ItemList items={items} />
+      <ItemList items={items} chooseItemClick={() => {}} />
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { Options } from '../../models';
-import classes from './MySelectMultiple.module.scss';
+import { Options } from '../../../models';
+import classes from './MySelect.module.scss';
 
 type Props = {
   options: Options;
   defaultValue: string;
-  value: string[];
+  value: string | string[];
   onChange: (item: string) => void;
 };
 

@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { FC, useMemo, useState } from 'react';
 import { ItemModel, Options } from '../../models';
-import { MyButton, MySelect } from '../../ui';
-import Shop from '../FormField/Shop';
+import { MyButton, MySelect } from '../../ui/uiKit';
+import Shop from './Shop';
 
 import classes from './ItemsPage.module.scss';
 import ItemStats from './ItemStats';
@@ -14,7 +14,7 @@ type Props = {
 const ItemsPage: FC<Props> = (props) => {
   const { itemsStore } = props;
 
-  const [selectedItem, setSelectedItem] = useState('');
+  /*  const [selectedItem, setSelectedItem] = useState('');
   const [showAll, setShowAll] = useState(false);
   const [currentItem, setCurrentItem] = useState<ItemModel | null>(null);
   const [currentChamp, setCurrentChamp] = useState(null);
@@ -48,19 +48,19 @@ const ItemsPage: FC<Props> = (props) => {
         };
       }),
     [itemsStore],
-  );
+  ); */
   return (
     <div className={classes.wrapper}>
-      <MySelect
+      {/*  <MySelect
         defaultValue='выберте предмет'
         options={optionsItems}
         value={selectedItem}
         onChange={setSelectedItem}
       />
       <MyButton onClick={showAllChamps}>{showAll ? 'Убрать' : 'Показать всех'}</MyButton>
-      <br />
+      <br /> */}
       <div className={classes.content}>
-        {!showAll &&
+        {/* {!showAll &&
           itemsStore.map((item) => {
             if (item.name === selectedItem) {
               return (
@@ -77,8 +77,8 @@ const ItemsPage: FC<Props> = (props) => {
             }
 
             return null;
-          })}
-        {!!showAll &&
+          })} */}
+        {/* {!!showAll &&
           itemsStore.map((item) => (
             <ItemStats
               item={item}
@@ -90,7 +90,7 @@ const ItemsPage: FC<Props> = (props) => {
               onDrop={(e) => dropHandler(e, item)}
               draggable={true}
             />
-          ))}
+          ))} */}
         <Shop items={itemsStore} />
       </div>
     </div>

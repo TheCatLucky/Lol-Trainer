@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { FC, useMemo, useState, useEffect } from 'react';
 import { Options } from '../../models';
 import { ChampionsStore } from '../../store';
-import { MyButton, MyInput, MySelect } from '../../ui';
+import { MyButton, MyInput, MySelect } from '../../ui/uiKit';
 import classes from './ChampsPage.module.scss';
 import ChampStats from './ChampStats';
 

@@ -30,6 +30,15 @@ const ChampStats: FC<Props> = (props) => {
         <li>
           {Displayed.health} : {champ.health}
         </li>
+        <li>
+          {Displayed.critChance} : {champ.critChance}
+        </li>
+        <li>
+          {Displayed.critDamage} : {champ.critDamage}
+        </li>
+        <li>
+          {Displayed.lethality} : {champ.lethality}
+        </li>
       </ul>
     </div>
   );

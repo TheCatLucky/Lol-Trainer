@@ -8,38 +8,36 @@ type Props = {
 const DPSTable: FC<Props> = (props) => {
   const { champion } = props;
   const { attackDamage, attackSpeed, critDamage, critChance } = champion;
-  const armorResistance = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+  const armorResistance = [17, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110];
   const [damage, setDamage] = useState([0]);
   const [criticalDamage, setCriticalDamage] = useState([0]);
   const [dps, setDps] = useState([0]);
 
   useEffect(() => {
-    // проследить кол-во рендеров
     const nonCritDmg: number[] = [];
     const critDMG: number[] = [];
     const dpsDMG: number[] = [];
     armorResistance.forEach((armor) => {
-      critDMG.push(Math.floor(+attackDamage * (100 / (100 + armor)) * critDamage));
-      nonCritDmg.push(Math.floor(+attackDamage * (100 / (100 + armor))));
+      const defaultAttack = attackDamage * (100 / (100 + armor));
+      const critAttack = attackDamage * (100 / (100 + armor)) * critDamage;
+      nonCritDmg.push(Math.floor(defaultAttack));
+      critDMG.push(Math.floor(critAttack));
       dpsDMG.push(
-        Math.floor(
-          +attackDamage * (100 / (100 + armor)) * critDamage * +attackSpeed * (1 + +critChance),
-        ),
+        Math.floor((defaultAttack * (1 - critChance) + critAttack * critChance) * attackSpeed),
       );
     });
 
-    console.log(nonCritDmg);
     setDamage(nonCritDmg);
     setCriticalDamage(critDMG);
     setDps(dpsDMG);
   }, [champion]);
-  console.log(damage);
   return (
-    <div>
+    <div className={classes.wrapper}>
       <table className={classes.table}>
         <thead>
           <tr>
-            <td colSpan={12}>Расчет урона в зависимости от сопортивлений</td>
+            <td></td>
+            <td colSpan={11}>Расчет урона в зависимости от сопортивлений</td>
           </tr>
         </thead>
         <tbody>

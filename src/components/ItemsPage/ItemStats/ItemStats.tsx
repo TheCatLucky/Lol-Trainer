@@ -35,7 +35,6 @@ const ItemStats: FC<Props> = (props) => {
               </li>
             );
           }
-
           return (
             <li key={field.name}>
               {field.displayName}: {field.value}

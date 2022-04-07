@@ -2,8 +2,9 @@ import { observer } from 'mobx-react-lite';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { ChampionModel, ItemModel, Options } from '../../models';
 import { ChampionsStore } from '../../store';
-import { MyButton, MyCheckBox, MyInput, MySelect } from '../../ui';
+import { MyInput, MySelect } from '../../ui/uiKit';
 import ChampStats from '../ChampsPage/ChampStats';
+import ItemsList from '../ItemsPage/Shop/ItemsList';
 import DPSTable from './DPSTable';
 import classes from './FormField.module.scss';
 
@@ -11,6 +12,11 @@ type Props = {
   champsStore: ChampionsStore;
   itemsStore: ItemModel[];
 };
+
+//ToDo: селектор для выбора отображаемой таблицы
+//ToDo: идентификаторы для всех предметов
+//ToDo: uniqID для мифических предметов && предметов с одинаковой пасссивкой
+//ToDo: поле legendary для легендарных предметов
 
 const FormField: FC<Props> = (props) => {
   const { champsStore, itemsStore } = props;
@@ -23,10 +29,9 @@ const FormField: FC<Props> = (props) => {
    * Статы после применения предметов
    */
   const [statsWithItems, setStatsWithItems] = useState<ChampionModel>(() => champions[0]);
-
+  const [selectedItems, setSelectedItems] = useState<ItemModel[]>([]);
   const [champLvl, setChampLvl] = useState(1);
   const [compareFirst, setCompareFirst] = useState('Ahri');
-  const [selected, setSeleted] = useState(new Array<boolean>(itemsStore.length).fill(false));
 
   /**
    * Устанавливает выбранного персонажа с его начальными характеристиками
@@ -47,45 +52,51 @@ const FormField: FC<Props> = (props) => {
     [champions],
   );
 
+  const chooseItemClick = (e: React.MouseEvent, item: ItemModel) => {
+    e.preventDefault();
+    if (selectedItems && selectedItems.length >= 6) {
+      console.log('много предметов');
+      return;
+    } else if (selectedItems) {
+      setSelectedItems([...selectedItems, item]);
+    } else {
+      setSelectedItems([item]);
+    }
+  };
+
+  const removeItem = (index: number) => {
+    const newArr = [...selectedItems];
+    newArr.splice(index, 1);
+    setSelectedItems(newArr);
+  };
   /**
    * Показывает статы персонажей с выбранными предметами
    */
   const summItemsStats = useCallback(() => {
     let newStats = { ...baseChampStats };
-    const res = selected
-      .map((el, index) => {
-        if (el === true) return itemsStore[index].name;
-        return '';
-      })
-      .filter((item) => item !== '');
-    console.log(selected);
-
-    const itemsForCount = itemsStore.filter((item) => {
-      if (res.includes(item.name)) {
-        return item;
-      }
-    });
-
-    itemsForCount.forEach((item) => {
-      item.stats.forEach((field) => {
-        if (field.name === 'attackSpeed') {
-          const newAS =
-            Math.floor((+newStats[field.name] + field.value * newStats.attackSpeedRatio) * 1000) /
-            1000;
+    if (selectedItems) {
+      selectedItems.forEach((item) => {
+        item.stats.forEach((field) => {
+          if (field.name === 'attackSpeed') {
+            const newAS =
+              Math.floor((+newStats[field.name] + field.value * newStats.attackSpeedRatio) * 1000) /
+              1000;
+            return (newStats = {
+              ...newStats,
+              [field.name]: newAS,
+            });
+          }
           return (newStats = {
             ...newStats,
-            [field.name]: newAS,
+            [field.name]: +newStats[field.name] + field.value,
           });
-        }
-        return (newStats = {
-          ...newStats,
-          [field.name]: +newStats[field.name] + field.value,
         });
       });
-    });
+    }
+
     console.log(newStats.attackDamage, 'статы с итемами');
     setStatsWithItems(newStats);
-  }, [baseChampStats, itemsStore, selected]);
+  }, [baseChampStats, itemsStore, selectedItems]);
 
   useEffect(() => {
     summItemsStats();
@@ -95,21 +106,9 @@ const FormField: FC<Props> = (props) => {
     setChampAndBaseStats(compareFirst);
   }, [compareFirst, setChampAndBaseStats]);
 
-  /**
-   * Показывает выбранные предметы
-   */
-  const showSelectedItems = () => {
-    console.log('ничего');
-  };
-
   const handleLvlChange = (lvl: number) => {
     setChampLvl(lvl);
     setChampions(champions, lvl);
-  };
-
-  const checked = (position: number) => {
-    const updatedChecked = selected.map((item, index) => (index === position ? !item : item));
-    setSeleted(updatedChecked);
   };
 
   const optionsChamps: Options = useMemo(
@@ -139,19 +138,20 @@ const FormField: FC<Props> = (props) => {
         value={champLvl}
         onChange={handleLvlChange}
       />
-      <br />
-      <MyButton onClick={showSelectedItems}>Показать статистики с предметами</MyButton>
       <div className={classes.itemsList}>
-        {itemsStore.map((item, index) => (
-          <div className={classes.items} key={item.name}>
-            <MyCheckBox type='checkbox' onChange={() => checked(index)} />
-            {item.name}
-          </div>
-        ))}
+        <ItemsList items={itemsStore} chooseItemClick={chooseItemClick} />
       </div>
       <div className={classes.content}>
         <div>
           <ChampStats champ={statsWithItems} lvl={champLvl} />
+          {selectedItems?.map((item, index) => (
+            <img
+              src={item.img}
+              alt={item.name}
+              key={item.name + index}
+              onClick={() => removeItem(index)}
+            />
+          ))}
         </div>
         <DPSTable champion={statsWithItems} />
       </div>

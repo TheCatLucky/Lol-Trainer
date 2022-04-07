@@ -34,13 +34,13 @@ import {
   Kraken_Slayer,
   Last_Whisper,
   Long_Sword,
-} from '../assets/Items';
+} from '../assets';
 
 const itemsList: ItemModel[] = [
   {
     name: 'Axiom Arc',
-    img: Axiom_Arc,
     cost: 3000,
+    img: Axiom_Arc,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -68,8 +68,8 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Berserker`s Greaves',
-    img: Berserkers,
     cost: 1100,
+    img: Berserkers,
     stats: [
       {
         name: StatsEnum.attackSpeed,
@@ -80,8 +80,8 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Black Cleaver',
-    img: Black_Cleaver,
     cost: 3100,
+    img: Black_Cleaver,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -97,8 +97,8 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Black Mist Scythe',
-    img: Black_Mist_Scythe,
     cost: 400,
+    img: Black_Mist_Scythe,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -114,8 +114,8 @@ const itemsList: ItemModel[] = [
   },
   {
     name: 'Blade of the Ruined King',
-    img: Botrk,
     cost: 3300,
+    img: Botrk,
     stats: [
       {
         name: StatsEnum.attackDamage,

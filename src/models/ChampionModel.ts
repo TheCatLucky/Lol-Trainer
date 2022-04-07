@@ -10,29 +10,74 @@ class ChampionModel {
   name: string;
 
   /**
-   * Физический урон на 1 уровне
+   * Базовый физический урон
    */
-  attackDamageLvl1: number;
+  attackDamageBase: number;
 
   /**
-   * Физический урон на 18 уровне
+   * Скейл физического урона
    */
-  attackDamageLvl18: number;
+  attackDamageScale: number;
 
   /**
-   * Скорость атаки
+   * Текущий физический урон
+   */
+  attackDamage: number;
+
+  /**
+   * Базовый магический урон
+   */
+  abilityDamageBase: number;
+
+  /**
+   * Текущий магический урон
+   */
+  abilityDamage: number;
+
+  /**
+   * Базовая скорость атаки
    */
   attackSpeedBase: number;
 
   /**
-   * Бонус скорости атаки к 18 уровню
+   * Скейл скорости атаки
    */
-  attackSpeedBonus: number;
+  attackSpeedScale: number;
 
   /**
-   * Множитель бонусов скорости атаки от предметов
+   * Множитель бонусов скорости атаки от предметов и уровня
    */
   attackSpeedRatio: number;
+
+  /**
+   * Текущая скорость атаки
+   */
+  attackSpeed: number;
+
+  /**
+   * Смертоносность
+   */
+  lethality: number;
+
+  /**
+   * Физическое пробивание
+   */
+  armorPenetration: number;
+
+  /**
+   * Магическое пробивание flat
+   */
+  magicFlatPenetration: number;
+
+  /**
+   * Магическое пробивание
+   */
+  magicPenetration: number;
+
+  /**
+   * Шанс критического урона
+   */
+  critChance: number;
 
   /**
    * Множитель критического урона
@@ -40,49 +85,76 @@ class ChampionModel {
   critDamage: number;
 
   /**
-   * Количество здоровья на 1 уровне
+   * Базовое количество здоровья
    */
-  healthLvl1: number;
+  healthBase: number;
 
   /**
-   * Количество здоровья на 18 уровне
+   * Скейл здоровья
    */
-  healthLvl18: number;
+  healthScale: number;
 
   /**
-   * Физическое сопротивление на 1 уровне
+   * Текущее здоровье
    */
-  armorLvl1: number;
+  health: number;
 
   /**
-   * Физическое сопротивление на 18 уровне
+   * Базовое физическое сопротивление
    */
-  armorLvl18: number;
+  armorBase: number;
 
   /**
-   * Магическое сопротивление на 1 уровне
+   * Скейл физического сопротивления
    */
-  magicResistanceLvl1: number;
+  armorScale: number;
 
   /**
-   * Магическое сопротивление на 18 уровне
+   * Текущее физическое сопротивление
    */
-  magicResistanceLvl18: number;
+  armor: number;
+
+  /**
+   * Магическое сопротивление Базовый
+   */
+  magicResistanceBase: number;
+
+  /**
+   * Скейл магического сопротивления
+   */
+  magicResistanceScale: number;
+
+  /**
+   * Текущее магическое сопротивление
+   */
+  magicResistance: number;
 
   constructor(data: ChampionModel) {
     this.name = data.name;
-    this.attackDamageLvl1 = data.attackDamageLvl1;
-    this.attackDamageLvl18 = data.attackDamageLvl18;
+    this.attackDamageBase = data.attackDamageBase;
+    this.attackDamageScale = data.attackDamageScale;
+    this.attackDamage = data.attackDamage;
+    this.abilityDamageBase = data.abilityDamageBase;
+    this.abilityDamage = data.abilityDamage;
     this.attackSpeedBase = data.attackSpeedBase;
-    this.attackSpeedBonus = data.attackSpeedBonus;
+    this.attackSpeedScale = data.attackSpeedScale;
     this.attackSpeedRatio = data.attackSpeedRatio;
+    this.attackSpeed = data.attackSpeed;
+    this.lethality = data.lethality;
+    this.armorPenetration = data.armorPenetration;
+    this.magicFlatPenetration = data.magicFlatPenetration;
+    this.magicPenetration = data.magicPenetration;
+    this.critChance = data.critChance;
     this.critDamage = data.critDamage;
-    this.healthLvl1 = data.healthLvl1;
-    this.healthLvl18 = data.healthLvl18;
-    this.armorLvl1 = data.armorLvl1;
-    this.armorLvl18 = data.armorLvl18;
-    this.magicResistanceLvl1 = data.magicResistanceLvl1;
-    this.magicResistanceLvl18 = data.magicResistanceLvl18;
+    this.healthBase = data.healthBase;
+    this.healthScale = data.healthScale;
+    this.health = data.health;
+    this.armorBase = data.armorBase;
+    this.armorScale = data.armorScale;
+    this.armor = data.armor;
+    this.magicResistanceBase = data.magicResistanceBase;
+    this.magicResistanceScale = data.magicResistanceScale;
+    this.magicResistance = data.magicResistance;
   }
 }
 
