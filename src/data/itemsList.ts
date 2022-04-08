@@ -1,4 +1,4 @@
-import { Displayed, ItemModel, StatsEnum } from '../models';
+import { Displayed, ItemModel, LegendaryIDs, StatsEnum } from '../models';
 import {
   Axiom_Arc,
   BFSword,
@@ -40,6 +40,8 @@ const itemsList: ItemModel[] = [
   {
     name: 'Axiom Arc',
     cost: 3000,
+    id: 1,
+    legendaryID: LegendaryIDs.axiom_arc,
     img: Axiom_Arc,
     stats: [
       {
@@ -58,6 +60,7 @@ const itemsList: ItemModel[] = [
     name: 'B.F.Sword',
     cost: 1300,
     img: BFSword,
+    id: 2,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -70,6 +73,8 @@ const itemsList: ItemModel[] = [
     name: 'Berserker`s Greaves',
     cost: 1100,
     img: Berserkers,
+    id: 2,
+    legendaryID: LegendaryIDs.boots,
     stats: [
       {
         name: StatsEnum.attackSpeed,
@@ -82,6 +87,8 @@ const itemsList: ItemModel[] = [
     name: 'Black Cleaver',
     cost: 3100,
     img: Black_Cleaver,
+    id: 3,
+    legendaryID: LegendaryIDs.black_cleaver,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -99,6 +106,8 @@ const itemsList: ItemModel[] = [
     name: 'Black Mist Scythe',
     cost: 400,
     img: Black_Mist_Scythe,
+    id: 4,
+    legendaryID: LegendaryIDs.jungle_or_support,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -116,6 +125,8 @@ const itemsList: ItemModel[] = [
     name: 'Blade of the Ruined King',
     cost: 3300,
     img: Botrk,
+    id: 5,
+    legendaryID: LegendaryIDs.botrk,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -133,6 +144,8 @@ const itemsList: ItemModel[] = [
     name: 'Bloodthirster',
     img: Bloodthirster,
     cost: 3400,
+    id: 6,
+    legendaryID: LegendaryIDs.bloodThister,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -150,6 +163,7 @@ const itemsList: ItemModel[] = [
     name: 'Caulfield`s Warhammer ',
     img: Caulfields_Warhammer,
     cost: 1100,
+    id: 7,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -162,6 +176,8 @@ const itemsList: ItemModel[] = [
     name: 'Chempunk Chainsword',
     img: Chempunk_Chainsword,
     cost: 2600,
+    id: 8,
+    legendaryID: LegendaryIDs.chempunk_chainsword,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -179,6 +195,7 @@ const itemsList: ItemModel[] = [
     name: 'Cloak of Agility',
     img: Cloak_of_Agility,
     cost: 600,
+    id: 9,
     stats: [
       {
         name: StatsEnum.critChance,
@@ -191,6 +208,7 @@ const itemsList: ItemModel[] = [
     name: 'Cull',
     img: Cull,
     cost: 450,
+    id: 10,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -203,6 +221,7 @@ const itemsList: ItemModel[] = [
     name: 'Dagger',
     img: Dagger,
     cost: 300,
+    id: 11,
     stats: [
       {
         name: StatsEnum.attackSpeed,
@@ -215,6 +234,8 @@ const itemsList: ItemModel[] = [
     name: 'Death`s Dance',
     img: Deaths_Dance,
     cost: 3300,
+    id: 12,
+    legendaryID: LegendaryIDs.death_dance,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -232,6 +253,8 @@ const itemsList: ItemModel[] = [
     name: 'Divine Sunderer',
     img: Divine_Sunderer,
     cost: 3300,
+    id: 13,
+    isMythic: true,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -249,6 +272,7 @@ const itemsList: ItemModel[] = [
     name: 'Doran`s Blade',
     img: Dorans_Blade,
     cost: 450,
+    id: 14,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -266,6 +290,8 @@ const itemsList: ItemModel[] = [
     name: 'Duskblade of Draktharr',
     img: Duskblade_of_Draktharr,
     cost: 3100,
+    id: 15,
+    isMythic: true,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -283,6 +309,8 @@ const itemsList: ItemModel[] = [
     name: 'Eclipse',
     img: Eclipse,
     cost: 3100,
+    id: 16,
+    isMythic: true,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -300,6 +328,8 @@ const itemsList: ItemModel[] = [
     name: 'Edge of Night',
     img: Edge_of_Night,
     cost: 2900,
+    id: 17,
+    legendaryID: LegendaryIDs.edge_of_night,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -322,6 +352,8 @@ const itemsList: ItemModel[] = [
     name: 'Essence Reaver',
     img: Essence_Reaver,
     cost: 2800,
+    id: 18,
+    legendaryID: LegendaryIDs.essence_reaver,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -339,6 +371,7 @@ const itemsList: ItemModel[] = [
     name: 'Executioner`s Calling',
     img: Executioners_Calling,
     cost: 800,
+    id: 19,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -351,6 +384,8 @@ const itemsList: ItemModel[] = [
     name: 'Galeforce',
     img: Galeforce,
     cost: 3400,
+    id: 20,
+    isMythic: true,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -373,6 +408,8 @@ const itemsList: ItemModel[] = [
     name: 'Goredrinker',
     img: Goredrinker,
     cost: 3300,
+    id: 21,
+    isMythic: true,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -390,6 +427,8 @@ const itemsList: ItemModel[] = [
     name: 'Guardian Angel',
     img: Guardian_Angel,
     cost: 2800,
+    id: 22,
+    legendaryID: LegendaryIDs.guardian_angel,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -407,6 +446,8 @@ const itemsList: ItemModel[] = [
     name: 'Guinsoo`s Rageblade',
     img: Guinsoos_Rageblade,
     cost: 2600,
+    id: 23,
+    legendaryID: LegendaryIDs.crit_modifier,
     stats: [
       {
         name: StatsEnum.attackSpeed,
@@ -424,6 +465,7 @@ const itemsList: ItemModel[] = [
     name: 'Hearthbound Axe',
     img: Hearthbound_Axe,
     cost: 1000,
+    id: 24,
     stats: [
       {
         name: StatsEnum.attackSpeed,
@@ -441,6 +483,8 @@ const itemsList: ItemModel[] = [
     name: 'Hexdrinker',
     img: Hexdrinker,
     cost: 1300,
+    id: 25,
+    legendaryID: LegendaryIDs.lifeline,
     stats: [
       {
         name: StatsEnum.magicResistance,
@@ -458,6 +502,8 @@ const itemsList: ItemModel[] = [
     name: 'Hullbreaker',
     img: Hullbreaker,
     cost: 2800,
+    id: 26,
+    legendaryID: LegendaryIDs.hullbreaker,
     stats: [
       {
         name: StatsEnum.health,
@@ -475,6 +521,9 @@ const itemsList: ItemModel[] = [
     name: 'Immortal Shieldbow',
     img: Immortal_Shieldbow,
     cost: 3400,
+    id: 27,
+    legendaryID: LegendaryIDs.lifeline,
+    isMythic: true,
     stats: [
       {
         name: StatsEnum.attackSpeed,
@@ -497,6 +546,8 @@ const itemsList: ItemModel[] = [
     name: 'Infinity Edge',
     img: Infinity_Edge,
     cost: 3400,
+    id: 28,
+    legendaryID: LegendaryIDs.crit_modifier,
     stats: [
       {
         name: StatsEnum.attackSpeed,
@@ -514,6 +565,8 @@ const itemsList: ItemModel[] = [
     name: 'Ironspike Whip',
     img: Ironspike_Whip,
     cost: 1100,
+    id: 29,
+    legendaryID: LegendaryIDs.mythic_component,
     stats: [
       {
         name: StatsEnum.attackDamage,
@@ -526,6 +579,7 @@ const itemsList: ItemModel[] = [
     name: 'Kircheis Shard',
     img: Kircheis_Shard,
     cost: 700,
+    id: 30,
     stats: [
       {
         name: StatsEnum.attackSpeed,
@@ -538,6 +592,8 @@ const itemsList: ItemModel[] = [
     name: 'Kraken Slayer',
     img: Kraken_Slayer,
     cost: 3400,
+    id: 31,
+    isMythic: true,
     stats: [
       {
         name: StatsEnum.attackSpeed,
@@ -560,6 +616,8 @@ const itemsList: ItemModel[] = [
     name: 'Last Whisper',
     img: Last_Whisper,
     cost: 1450,
+    id: 32,
+    legendaryID: LegendaryIDs.last_wisper,
     stats: [
       {
         name: StatsEnum.armorPenetration,
@@ -577,6 +635,7 @@ const itemsList: ItemModel[] = [
     name: 'Long Sword',
     img: Long_Sword,
     cost: 350,
+    id: 33,
     stats: [
       {
         name: StatsEnum.attackDamage,

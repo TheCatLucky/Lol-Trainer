@@ -13,6 +13,7 @@ const champsList: ChampionModel[] = [
     attackSpeedRatio: 0.668,
     attackSpeed: 0,
     lethality: 0,
+    armorFlatPenetration: 0,
     armorPenetration: 0,
     magicFlatPenetration: 0,
     magicPenetration: 0,
@@ -40,6 +41,7 @@ const champsList: ChampionModel[] = [
     attackSpeedRatio: 0.651, // ???????????????????
     attackSpeed: 0,
     lethality: 0,
+    armorFlatPenetration: 0,
     armorPenetration: 0,
     magicFlatPenetration: 0,
     magicPenetration: 0,
@@ -67,6 +69,7 @@ const champsList: ChampionModel[] = [
     attackSpeedRatio: 0.625, // ???????????????????
     attackSpeed: 0,
     lethality: 0,
+    armorFlatPenetration: 0,
     armorPenetration: 0,
     magicFlatPenetration: 0,
     magicPenetration: 0,
@@ -94,6 +97,7 @@ const champsList: ChampionModel[] = [
     attackSpeedRatio: 0.638, // ???????????????????
     attackSpeed: 0,
     lethality: 0,
+    armorFlatPenetration: 0,
     armorPenetration: 0,
     magicFlatPenetration: 0,
     magicPenetration: 0,

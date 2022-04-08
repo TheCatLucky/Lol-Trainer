@@ -7,8 +7,15 @@ type Props = {
 };
 const DPSTable: FC<Props> = (props) => {
   const { champion } = props;
-  const { attackDamage, attackSpeed, critDamage, critChance } = champion;
-  const armorResistance = [17, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110];
+  const {
+    attackDamage,
+    attackSpeed,
+    critDamage,
+    critChance,
+    armorFlatPenetration,
+    armorPenetration,
+  } = champion;
+  const baseArmorResistance = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
   const [damage, setDamage] = useState([0]);
   const [criticalDamage, setCriticalDamage] = useState([0]);
   const [dps, setDps] = useState([0]);
@@ -17,9 +24,14 @@ const DPSTable: FC<Props> = (props) => {
     const nonCritDmg: number[] = [];
     const critDMG: number[] = [];
     const dpsDMG: number[] = [];
-    armorResistance.forEach((armor) => {
-      const defaultAttack = attackDamage * (100 / (100 + armor));
-      const critAttack = attackDamage * (100 / (100 + armor)) * critDamage;
+    baseArmorResistance.forEach((armor) => {
+      const baseDamage =
+        attackDamage *
+        (100 / (100 + Math.max(armor * (1 - armorPenetration) - armorFlatPenetration, 0)));
+
+      const defaultAttack = baseDamage;
+      const critAttack = baseDamage * critDamage;
+
       nonCritDmg.push(Math.floor(defaultAttack));
       critDMG.push(Math.floor(critAttack));
       dpsDMG.push(
@@ -43,7 +55,7 @@ const DPSTable: FC<Props> = (props) => {
         <tbody>
           <tr>
             <td>Армор</td>
-            {armorResistance.map((arm, index) => (
+            {baseArmorResistance.map((arm, index) => (
               <td key={index}>{arm}</td>
             ))}
           </tr>

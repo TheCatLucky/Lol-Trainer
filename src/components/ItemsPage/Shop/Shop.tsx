@@ -11,7 +11,7 @@ const Shop: FC<Props> = (props) => {
   const { items } = props;
   return (
     <div className={classes.wrapper}>
-      <ItemList items={items} chooseItemClick={() => {}} />
+      <ItemList items={items} chooseItemLeftClick={() => {}} chooseItemRightClick={() => {}} />
     </div>
   );
 };

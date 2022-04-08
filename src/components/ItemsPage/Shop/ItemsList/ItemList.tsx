@@ -4,10 +4,18 @@ import classes from './ItemList.module.scss';
 
 type Props = {
   items: ItemModel[];
-  chooseItemClick: (event: React.MouseEvent<HTMLImageElement, MouseEvent>, item: ItemModel) => void;
+  chooseItemLeftClick: (
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    item: ItemModel,
+  ) => void;
+
+  chooseItemRightClick: (
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    item: ItemModel,
+  ) => void;
 };
 const ItemList: FC<Props> = (props) => {
-  const { items, chooseItemClick } = props;
+  const { items, chooseItemLeftClick, chooseItemRightClick } = props;
 
   const [curentItem, setCurrentItem] = useState<ItemModel | null>(null);
 
@@ -22,7 +30,8 @@ const ItemList: FC<Props> = (props) => {
               key={item.name}
               onMouseEnter={() => setCurrentItem(item)}
               onMouseLeave={() => setCurrentItem(null)}
-              onClick={(event) => chooseItemClick(event, item)}
+              onClick={(event) => chooseItemLeftClick(event, item)}
+              onContextMenu={(event) => chooseItemRightClick(event, item)}
             />
             {curentItem?.name === item.name && (
               <div className={classes.popup}>

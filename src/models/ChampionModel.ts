@@ -60,6 +60,11 @@ class ChampionModel {
   lethality: number;
 
   /**
+   * Физическое пробивание flat
+   */
+  armorFlatPenetration: number;
+
+  /**
    * Физическое пробивание
    */
   armorPenetration: number;
@@ -141,6 +146,7 @@ class ChampionModel {
     this.attackSpeedRatio = data.attackSpeedRatio;
     this.attackSpeed = data.attackSpeed;
     this.lethality = data.lethality;
+    this.armorFlatPenetration = data.armorFlatPenetration;
     this.armorPenetration = data.armorPenetration;
     this.magicFlatPenetration = data.magicFlatPenetration;
     this.magicPenetration = data.magicPenetration;
