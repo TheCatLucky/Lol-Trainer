@@ -2,9 +2,15 @@
  * Опции с персонажами
  */
 
-type Options = {
+import { ItemModel, LegendaryIDs } from '.';
+
+export type Options = {
   value: string;
   name: string;
 }[];
 
-export default Options
+export type SelectedItems = {
+  items: ItemModel[];
+  haveMythic: boolean;
+  legendaryIDs: LegendaryIDs[];
+};

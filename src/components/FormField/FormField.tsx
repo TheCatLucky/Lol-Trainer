@@ -1,11 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { FC, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
-import { ChampionModel, ItemModel, LegendaryIDs, Options, StatsEnum } from '../../models';
+import { FC, useCallback, useEffect, useState } from 'react';
+import { ChampionModel, ItemModel, Options, SelectedItems } from '../../models';
 import { ChampionsStore } from '../../store';
 import { MyInput, MySelect } from '../../ui/uiKit';
-import ChampStats from '../ChampsPage/ChampStats';
 import ItemsList from '../ItemsPage/Shop/ItemsList';
-import DPSTable from './DPSTable';
+import ChampionTable from './ChampionTable';
 import classes from './FormField.module.scss';
 
 type Props = {
@@ -16,32 +15,28 @@ type Props = {
 //ToDo: селектор для выбора отображаемой таблицы
 
 const FormField: FC<Props> = (props) => {
-  type SelectedItems = {
-    items: ItemModel[];
-    haveMythic: boolean;
-    legendaryIDs: LegendaryIDs[];
-  };
   const { champsStore, itemsStore } = props;
-  const { setChampions, champions, calcArmFlatPen, calcAsWithItems } = champsStore;
+  const { setChampions, champions, champToCompare, setChampsToCompare, calcNewStats } = champsStore;
+
   /**
    * Начальные статы для расчет
    */
   const [baseChampStats, setBaseChampStats] = useState<ChampionModel>(() => champions[0]);
   const [champLvl, setChampLvl] = useState(1);
   const [compare, setCompare] = useState('Ahri');
+
   /**
-   * Статы после применения предметов
+   * Статы после применения предметов - первый персонаж
    */
-  const [statsWithItems, setStatsWithItems] = useState<ChampionModel>(() => champions[0]);
   const [selectedItems, setSelectedItems] = useState<SelectedItems>({
     items: [],
     haveMythic: false,
     legendaryIDs: [],
   });
+
   /**
-   * Статы после применения предметов
+   * Статы после применения предметов - второй персонаж
    */
-  const [statsWithItems2, setStatsWithItems2] = useState<ChampionModel>(() => champions[0]);
   const [selectedItems2, setSelectedItems2] = useState<SelectedItems>({
     items: [],
     haveMythic: false,
@@ -61,6 +56,9 @@ const FormField: FC<Props> = (props) => {
         return null;
       });
       setBaseChampStats(champISelect[0]);
+      setChampsToCompare(champISelect[0]);
+      setSelectedItems({ items: [], haveMythic: false, legendaryIDs: [] });
+      setSelectedItems2({ items: [], haveMythic: false, legendaryIDs: [] });
       setCompare(champ);
     },
     [champions],
@@ -72,130 +70,117 @@ const FormField: FC<Props> = (props) => {
   const chooseItemLeftClick = (e: React.MouseEvent, item: ItemModel) => {
     e.preventDefault();
     let addItemFunction = setSelectedItems;
-    let addObj = selectedItems;
+    let itemsToApply = selectedItems;
+    let champId = 1;
     if (e.type === 'contextmenu') {
       addItemFunction = setSelectedItems2;
-      addObj = selectedItems2;
+      itemsToApply = selectedItems2;
+      champId = 2;
     }
     const actions = {
-      maxItems: addObj && addObj.items.length >= 6,
-      haveMythic: item.isMythic && addObj.haveMythic,
-      alreadyHaveThisLegenday: item.legendaryID && addObj.legendaryIDs.includes(item.legendaryID),
+      maxItems: itemsToApply && itemsToApply.items.length >= 6,
+      haveMythic: item.isMythic && itemsToApply.haveMythic,
+      alreadyHaveThisLegenday:
+        item.legendaryID && itemsToApply.legendaryIDs.includes(item.legendaryID),
     };
     if (actions.maxItems) {
       return;
     } else if (actions.haveMythic) {
-      console.log('есть мифик');
       return;
     } else if (actions.alreadyHaveThisLegenday) {
-      console.log('есть похожий легендарный предмет');
       return;
     } else if (item.isMythic) {
       addItemFunction({
-        ...addObj,
-        items: [...addObj.items, item],
+        ...itemsToApply,
+        items: [...itemsToApply.items, item],
         legendaryIDs: item.legendaryID
-          ? [...addObj.legendaryIDs, item.legendaryID]
-          : [...addObj.legendaryIDs],
+          ? [...itemsToApply.legendaryIDs, item.legendaryID]
+          : [...itemsToApply.legendaryIDs],
         haveMythic: true,
       });
     } else if (item.legendaryID) {
       addItemFunction({
-        ...addObj,
-        items: [...addObj.items, item],
-        legendaryIDs: [...addObj.legendaryIDs, item.legendaryID],
+        ...itemsToApply,
+        items: [...itemsToApply.items, item],
+        legendaryIDs: [...itemsToApply.legendaryIDs, item.legendaryID],
       });
     } else {
-      addItemFunction({ ...addObj, items: [...addObj.items, item] });
+      addItemFunction({ ...itemsToApply, items: [...itemsToApply.items, item] });
     }
+
+    calcNewStats(baseChampStats, itemsToApply, champId, champLvl);
   };
 
-  const removeItem = (
-    removeItemSet: (value: SetStateAction<SelectedItems>) => void,
-    removeObj: SelectedItems,
-    index: number,
-  ) => {
-    const newItems = [...removeObj.items];
-    newItems.splice(index, 1);
-    removeItemSet({ ...removeObj, items: newItems });
-  };
   /**
    * Показывает статы персонажей с выбранными предметами
    */
-  const summItemsStats = useCallback(() => {
+  /* const summItemsStats = useCallback(() => {
     let newStats = { ...baseChampStats };
     let newStats2 = { ...baseChampStats };
-    if (selectedItems) {
-      console.log('зашел в 1');
-      selectedItems.items.forEach((item) => {
-        item.stats.forEach((field) => {
-          if (field.name === StatsEnum.attackSpeed) {
-            const newAS = calcAsWithItems(
-              newStats[field.name],
-              field.value,
-              newStats.attackSpeedRatio,
-            );
-            return (newStats = {
-              ...newStats,
-              [field.name]: newAS,
-            });
-          }
-          if (field.name === StatsEnum.lethality) {
-            const armorFlatPen = calcArmFlatPen(newStats[field.name] + field.value, champLvl);
-            return (newStats = {
-              ...newStats,
-              [field.name]: newStats[field.name] + field.value,
-              armorFlatPenetration: armorFlatPen,
-            });
-          }
+
+    selectedItems.items.forEach((item) => {
+      item.stats.forEach((field) => {
+        if (field.name === StatsEnum.attackSpeed) {
+          const newAS = calcAsWithItems(
+            newStats[field.name],
+            field.value,
+            newStats.attackSpeedRatio,
+          );
+          return (newStats = {
+            ...newStats,
+            [field.name]: newAS,
+          });
+        }
+        if (field.name === StatsEnum.lethality) {
+          const armorFlatPen = calcArmFlatPen(newStats[field.name] + field.value, champLvl);
           return (newStats = {
             ...newStats,
             [field.name]: newStats[field.name] + field.value,
+            armorFlatPenetration: armorFlatPen,
           });
+        }
+        return (newStats = {
+          ...newStats,
+          [field.name]: newStats[field.name] + field.value,
         });
       });
-    }
-    if (selectedItems2) {
-      console.log('зашел в 2');
-      selectedItems2.items.forEach((item) => {
-        item.stats.forEach((field) => {
-          if (field.name === StatsEnum.attackSpeed) {
-            const newAS = calcAsWithItems(
-              newStats2[field.name],
-              field.value,
-              newStats2.attackSpeedRatio,
-            );
-            return (newStats2 = {
-              ...newStats2,
-              [field.name]: newAS,
-            });
-          }
-          if (field.name === StatsEnum.lethality) {
-            const armorFlatPen = calcArmFlatPen(newStats2[field.name] + field.value, champLvl);
-            return (newStats2 = {
-              ...newStats2,
-              [field.name]: newStats2[field.name] + field.value,
-              armorFlatPenetration: armorFlatPen,
-            });
-          }
+    });
+
+    selectedItems2.items.forEach((item) => {
+      item.stats.forEach((field) => {
+        if (field.name === StatsEnum.attackSpeed) {
+          const newAS = calcAsWithItems(
+            newStats2[field.name],
+            field.value,
+            newStats2.attackSpeedRatio,
+          );
+          return (newStats2 = {
+            ...newStats2,
+            [field.name]: newAS,
+          });
+        }
+        if (field.name === StatsEnum.lethality) {
+          const armorFlatPen = calcArmFlatPen(newStats2[field.name] + field.value, champLvl);
           return (newStats2 = {
             ...newStats2,
             [field.name]: newStats2[field.name] + field.value,
+            armorFlatPenetration: armorFlatPen,
           });
+        }
+        return (newStats2 = {
+          ...newStats2,
+          [field.name]: newStats2[field.name] + field.value,
         });
       });
-    }
+    });
 
-    setStatsWithItems(newStats);
-    setStatsWithItems2(newStats2);
+    setCompareChampionsStats(newStats, 1, selectedItems);
+    setCompareChampionsStats(newStats2, 2, selectedItems2);
+  }, [baseChampStats, itemsStore, selectedItems, selectedItems2]); */
 
-    console.log(newStats, 'первая');
-    console.log(newStats2, 'вторая');
-  }, [baseChampStats, itemsStore, selectedItems, selectedItems2]);
-
-  useEffect(() => {
+  /* useEffect(() => {
     summItemsStats();
-  }, [summItemsStats]);
+  }, [summItemsStats]); */
 
   useEffect(() => {
     setChampAndBaseStats(compare);
@@ -206,16 +191,12 @@ const FormField: FC<Props> = (props) => {
     setChampions(champions, lvl);
   };
 
-  const optionsChamps: Options = useMemo(
-    () =>
-      champions.map((champ) => {
-        return {
-          value: champ.name,
-          name: champ.name,
-        };
-      }),
-    [champions],
-  );
+  const optionsChamps: Options = champions.map((champ) => {
+    return {
+      value: champ.name,
+      name: champ.name,
+    };
+  });
 
   return (
     <div className={classes.wrapper}>
@@ -241,33 +222,21 @@ const FormField: FC<Props> = (props) => {
         />
       </div>
       <div className={classes.content}>
-        <div>
-          <ChampStats champ={statsWithItems} lvl={champLvl} />
-          {selectedItems.items.map((item, index) => (
-            <img
-              src={item.img}
-              alt={item.name}
-              key={item.name + index}
-              onClick={() => removeItem(setSelectedItems, selectedItems, index)}
-            />
-          ))}
-        </div>
-        <DPSTable champion={statsWithItems} />
-        <div>
-          <ChampStats champ={statsWithItems2} lvl={champLvl} />
-          {selectedItems2.items.map((item, index) => (
-            <img
-              src={item.img}
-              alt={item.name}
-              key={item.name + index}
-              onClick={() => removeItem(setSelectedItems2, selectedItems2, index)}
-            />
-          ))}
-        </div>
-        <DPSTable champion={statsWithItems2} />
+        <ChampionTable
+          champLvl={champLvl}
+          championStats={champToCompare[0].champion}
+          selectedItems={champToCompare[0].equipment}
+          setSelectedItems={setSelectedItems}
+        />
+        <ChampionTable
+          champLvl={champLvl}
+          championStats={champToCompare[1].champion}
+          selectedItems={champToCompare[1].equipment}
+          setSelectedItems={setSelectedItems2}
+        />
       </div>
     </div>
   );
 };
 
-export default observer(FormField);
+export default FormField;

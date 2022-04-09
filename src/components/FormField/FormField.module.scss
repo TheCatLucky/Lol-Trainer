@@ -3,6 +3,7 @@
   flex-direction: column;
   background-color: lightgray;
   overflow-y: scroll;
+  margin-left: 10px;
   height: calc(100vh - 110px);
   .itemsList {
     display: flex;

@@ -1,10 +1,15 @@
-import { action, configure, makeObservable } from 'mobx';
-import { ChampionModel } from '../models';
+import { action, configure, makeObservable, observable, toJS } from 'mobx';
+import { ChampionModel, SelectedItems, StatsEnum } from '../models';
 
 configure({
   enforceActions: 'always',
 });
 
+type ChampionsToCompare = {
+  champion: ChampionModel;
+  id: number;
+  equipment: SelectedItems;
+};
 //ToDo: куда-то сетить выбранного персонажа, чтобы не изменять весь стор.
 class ChampionsStore {
   /**
@@ -12,11 +17,14 @@ class ChampionsStore {
    */
   champions: ChampionModel[] = [];
 
-  champToCompare: ChampionModel | null = null;
+  champToCompare: ChampionsToCompare[] = [];
 
   constructor(champions: ChampionModel[]) {
     makeObservable(this, {
+      champToCompare: observable,
       setChampions: action.bound,
+      setChampsToCompare: action.bound,
+      setCompareChampionsStats: action.bound,
       calcAd: action.bound,
       calcBaseAsWithLvl: action.bound,
       calcAsWithItems: action.bound,
@@ -24,8 +32,10 @@ class ChampionsStore {
       calcArmFlatPen: action.bound,
       calcMagicResist: action.bound,
       calcHealth: action.bound,
+      calcNewStats: action.bound,
     });
     this.setChampions(champions);
+    this.setChampsToCompare(champions[0]);
   }
 
   setChampions(champions: ChampionModel[], lvl = 1): void {
@@ -37,6 +47,88 @@ class ChampionsStore {
       armor: this.calcArmor(champion, lvl),
       magicResistance: this.calcMagicResist(champion, lvl),
     }));
+  }
+
+  setChampsToCompare(champ: ChampionModel): void {
+    this.champToCompare = [
+      {
+        champion: { ...champ },
+        id: 1,
+        equipment: {
+          items: [],
+          haveMythic: false,
+          legendaryIDs: [],
+        },
+      },
+      {
+        champion: { ...champ },
+        id: 2,
+        equipment: {
+          items: [],
+          haveMythic: false,
+          legendaryIDs: [],
+        },
+      },
+    ];
+  }
+
+  setCompareChampionsStats(
+    championStats: ChampionModel,
+    champId: number,
+    items: SelectedItems,
+  ): void {
+    this.champToCompare = this.champToCompare.map((champion) => {
+      if (champId === champion.id) {
+        return {
+          champion: { ...championStats },
+          id: champId,
+          equipment: { ...items },
+        };
+      } else {
+        return {
+          champion: { ...champion.champion },
+          id: champion.id,
+          equipment: { ...champion.equipment },
+        };
+      }
+    });
+  }
+
+  calcNewStats(
+    baseStats: ChampionModel,
+    items: SelectedItems,
+    champId: number,
+    champLvl: number,
+  ): void {
+    let newStats = { ...baseStats };
+    items.items.forEach((item) => {
+      item.stats.forEach((field) => {
+        if (field.name === StatsEnum.attackSpeed) {
+          const newAS = this.calcAsWithItems(
+            newStats[field.name],
+            field.value,
+            newStats.attackSpeedRatio,
+          );
+          return (newStats = {
+            ...newStats,
+            [field.name]: newAS,
+          });
+        }
+        if (field.name === StatsEnum.lethality) {
+          const armorFlatPen = this.calcArmFlatPen(newStats[field.name] + field.value, champLvl);
+          return (newStats = {
+            ...newStats,
+            [field.name]: newStats[field.name] + field.value,
+            armorFlatPenetration: armorFlatPen,
+          });
+        }
+        return (newStats = {
+          ...newStats,
+          [field.name]: newStats[field.name] + field.value,
+        });
+      });
+    });
+    this.setCompareChampionsStats(newStats, champId, items);
   }
 
   calcGrowth(scale: number, lvl: number): number {
