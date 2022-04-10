@@ -17,7 +17,6 @@ const ChampsPage: FC<Props> = (props) => {
   const [selectedChamp, setselectedChamp] = useState('');
   const [showAll, setShowAll] = useState(false);
   const [champLvl, setChampLvl] = useState(1);
-
   useEffect(() => {
     setChampions(champions, champLvl);
   }, [champLvl]);
@@ -29,6 +28,10 @@ const ChampsPage: FC<Props> = (props) => {
   const handleSelect = (champName: string) => {
     setselectedChamp(champName);
     setShowAll(false);
+  };
+
+  const handleLvlChange = (lvl: number) => {
+    setChampLvl(lvl);
   };
 
   const optionsChamps: Options = useMemo(
@@ -56,7 +59,7 @@ const ChampsPage: FC<Props> = (props) => {
         max={18}
         placeholder='введите уровен персонажа'
         value={champLvl}
-        onChange={setChampLvl}
+        onChange={handleLvlChange}
       />
       <MyButton onClick={showAllChamps}>{showAll ? 'Убрать' : 'Показать всех'}</MyButton>
       <br />
@@ -64,13 +67,13 @@ const ChampsPage: FC<Props> = (props) => {
         {!showAll &&
           champions.map((champ) => {
             if (champ.name === selectedChamp) {
-              return <ChampStats champ={champ} lvl={champLvl} key={champ.name} />;
+              return <ChampStats champion={champ} lvl={champLvl} key={champ.name} />;
             }
             return null;
           })}
         {!!showAll &&
           champions.map((champ) => {
-            return <ChampStats champ={champ} lvl={champLvl} key={champ.name} />;
+            return <ChampStats champion={champ} lvl={champLvl} key={champ.name} />;
           })}
       </div>
     </div>

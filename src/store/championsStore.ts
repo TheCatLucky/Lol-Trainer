@@ -1,4 +1,4 @@
-import { action, configure, makeObservable } from 'mobx';
+import { action, configure, makeObservable, observable } from 'mobx';
 import { ChampionModel } from '../models';
 
 configure({
@@ -16,6 +16,7 @@ class ChampionsStore {
 
   constructor(champions: ChampionModel[]) {
     makeObservable(this, {
+      champions: observable,
       setChampions: action.bound,
       calcAd: action.bound,
       calcBaseAsWithLvl: action.bound,

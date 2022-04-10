@@ -229,7 +229,7 @@ const FormField: FC<Props> = (props) => {
         type='number'
         min={1}
         max={18}
-        placeholder='введите уровен персонажа'
+        placeholder='введите уровень персонажа'
         value={champLvl}
         onChange={handleLvlChange}
       />
@@ -242,7 +242,7 @@ const FormField: FC<Props> = (props) => {
       </div>
       <div className={classes.content}>
         <div>
-          <ChampStats champ={statsWithItems} lvl={champLvl} />
+          <ChampStats champion={statsWithItems} lvl={champLvl} />
           {selectedItems.items.map((item, index) => (
             <img
               src={item.img}
@@ -254,7 +254,7 @@ const FormField: FC<Props> = (props) => {
         </div>
         <DPSTable champion={statsWithItems} />
         <div>
-          <ChampStats champ={statsWithItems2} lvl={champLvl} />
+          <ChampStats champion={statsWithItems2} lvl={champLvl} />
           {selectedItems2.items.map((item, index) => (
             <img
               src={item.img}

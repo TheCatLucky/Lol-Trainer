@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import classes from './MyInput.module.scss';
 
 type Props = {
-  type: string;
+  type: 'string' | 'number';
   placeholder: string;
   value: string | number;
-  onChange: (lvl: number) => void;
+  onChange: (value: number) => void;
   min?: number;
   max?: number;
 };
@@ -14,7 +14,11 @@ const MyInput: FC<Props> = (props) => {
   const { type, placeholder, value, onChange, min, max } = props;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(Number(event.currentTarget.value));
+    if (max && Number(event.currentTarget.value) > max) {
+      onChange(Number(max));
+    } else if (type === 'number') {
+      onChange(Number(event.currentTarget.value));
+    }
   };
   const classNames = [];
 

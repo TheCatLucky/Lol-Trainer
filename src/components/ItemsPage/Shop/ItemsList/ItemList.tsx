@@ -37,7 +37,7 @@ const ItemList: FC<Props> = (props) => {
               <div className={classes.popup}>
                 {curentItem?.name}
                 <ul>
-                  <li>Стоимость предмета: {curentItem.cost}</li>
+                  <li>Стоимость предмета : {curentItem.cost}</li>
                   {curentItem?.stats.map((field) => {
                     if (
                       field.name === StatsEnum.attackSpeed ||
@@ -45,13 +45,13 @@ const ItemList: FC<Props> = (props) => {
                     ) {
                       return (
                         <li key={field.name}>
-                          {field.displayName}: {field.value * 100}%
+                          {field.displayName} : {field.value * 100}%
                         </li>
                       );
                     }
                     return (
                       <li key={field.name}>
-                        {field.displayName}: {field.value}
+                        {field.displayName} : {field.value}
                       </li>
                     );
                   })}

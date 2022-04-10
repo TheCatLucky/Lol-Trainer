@@ -62,19 +62,25 @@ const DPSTable: FC<Props> = (props) => {
           <tr>
             <td>Урон</td>
             {damage?.map((dmg, index) => (
-              <td key={index}>{dmg}</td>
+              <td key={index} data-testid='baseDMG'>
+                {dmg}
+              </td>
             ))}
           </tr>
           <tr>
             <td>Критический урон</td>
             {criticalDamage?.map((dmg, index) => (
-              <td key={index}>{dmg}</td>
+              <td key={index} data-testid='critDMG'>
+                {dmg}
+              </td>
             ))}
           </tr>
           <tr>
             <td>Урон в секунду</td>
             {dps?.map((dmg, index) => (
-              <td key={index}>{dmg}</td>
+              <td key={index} data-testid='dpsDMG'>
+                {dmg}
+              </td>
             ))}
           </tr>
         </tbody>
