@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { champsList, itemsList } from '../../../data';
+import TestsValues from '../../../models/enums/TestsEnum';
 import { ChampionsStore, ItemsStore } from '../../../store';
 import FormField from '../FormField';
 
@@ -17,8 +18,8 @@ describe('Компонент FormField', () => {
     render(renderComponent);
 
     const baseDamageArray = screen.getAllByTestId('baseDMG');
-    expect(baseDamageArray[0].innerHTML).toBe('53');
-    expect(baseDamageArray[10].innerHTML).toBe('26');
+    expect(baseDamageArray[0].innerHTML).toBe(TestsValues.ahri_BaseDmg_ZeroArmor);
+    expect(baseDamageArray[10].innerHTML).toBe(TestsValues.ahri_BaseDmg_100Armor);
   });
 
   it('отображает критический урон', () => {
@@ -28,6 +29,7 @@ describe('Компонент FormField', () => {
     expect(critDamageArray[0].innerHTML).toBe('92');
     expect(critDamageArray[10].innerHTML).toBe('46');
   });
+
   it('отображает dps', () => {
     render(renderComponent);
 
@@ -35,6 +37,7 @@ describe('Компонент FormField', () => {
     expect(dpsArray[0].innerHTML).toBe('35');
     expect(dpsArray[10].innerHTML).toBe('17');
   });
+
   it('отображает верно статистику при изменении уровня', async () => {
     render(renderComponent);
 
@@ -53,6 +56,7 @@ describe('Компонент FormField', () => {
     expect(dpsArray[0].innerHTML).toBe('58');
     expect(dpsArray[10].innerHTML).toBe('29');
   });
+
   it('отображает верно статистику при добавлении предметов', async () => {
     render(renderComponent);
 
@@ -146,6 +150,7 @@ describe('Компонент FormField', () => {
     expect(dpsArray[0].innerHTML).toBe('72');
     expect(dpsArray[10].innerHTML).toBe('37');
   });
+
   it('позволяет выбирать не уникальный предметы 2+ раз', async () => {
     render(renderComponent);
 
@@ -164,5 +169,60 @@ describe('Компонент FormField', () => {
     expect(baseDamageArray[10].innerHTML).toBe('66');
     expect(dpsArray[0].innerHTML).toBe('88');
     expect(dpsArray[10].innerHTML).toBe('44');
+  });
+
+  it('позволяет удалить выбранный легендарный предмет и взять его снова', async () => {
+    render(renderComponent);
+
+    const baseDamageArray = screen.getAllByTestId('baseDMG');
+    const dpsArray = screen.getAllByTestId('dpsDMG');
+    const items = screen.getAllByRole('img');
+
+    await userEvent.click(items[0]);
+    expect(champsStore.champToCompare[0].equipment.legendaryIDs.length).toBe(1);
+    expect(baseDamageArray[0].innerHTML).toBe('108');
+    expect(baseDamageArray[10].innerHTML).toBe('55');
+    expect(dpsArray[0].innerHTML).toBe('72');
+    expect(dpsArray[10].innerHTML).toBe('37');
+
+    const leftChampItems = screen.getAllByRole('img');
+
+    await userEvent.click(leftChampItems[34]);
+    expect(champsStore.champToCompare[0].equipment.legendaryIDs.length).toBe(0);
+    expect(baseDamageArray[0].innerHTML).toBe(TestsValues.ahri_BaseDmg_ZeroArmor);
+    expect(baseDamageArray[10].innerHTML).toBe(TestsValues.ahri_BaseDmg_100Armor);
+    expect(dpsArray[0].innerHTML).toBe(TestsValues.ahri_DpsDmg_ZeroArmor);
+    expect(dpsArray[10].innerHTML).toBe(TestsValues.ahri_DpsDmg_100Armor);
+
+    await userEvent.click(items[0]);
+    expect(champsStore.champToCompare[0].equipment.legendaryIDs.length).toBe(1);
+    expect(baseDamageArray[0].innerHTML).toBe('108');
+    expect(baseDamageArray[10].innerHTML).toBe('55');
+    expect(dpsArray[0].innerHTML).toBe('72');
+    expect(dpsArray[10].innerHTML).toBe('37');
+  });
+
+  it('позволяет выбрать мифический предмет, затему удалить его и взять снова', async () => {
+    render(renderComponent);
+
+    const baseDamageArray = screen.getAllByTestId('baseDMG');
+    const dpsArray = screen.getAllByTestId('dpsDMG');
+    const items = screen.getAllByRole('img');
+
+    await userEvent.click(items[13]);
+    expect(champsStore.champToCompare[0].equipment.haveMythic).toBe(true);
+    expect(baseDamageArray[0].innerHTML).toBe('93');
+    expect(baseDamageArray[10].innerHTML).toBe('46');
+    expect(dpsArray[0].innerHTML).toBe('62');
+    expect(dpsArray[10].innerHTML).toBe('31');
+
+    const leftChampItems = screen.getAllByRole('img');
+
+    await userEvent.click(leftChampItems[34]);
+    expect(champsStore.champToCompare[0].equipment.haveMythic).toBe(false);
+    expect(baseDamageArray[0].innerHTML).toBe(TestsValues.ahri_BaseDmg_ZeroArmor);
+    expect(baseDamageArray[10].innerHTML).toBe(TestsValues.ahri_BaseDmg_100Armor);
+    expect(dpsArray[0].innerHTML).toBe(TestsValues.ahri_DpsDmg_ZeroArmor);
+    expect(dpsArray[10].innerHTML).toBe(TestsValues.ahri_DpsDmg_100Armor);
   });
 });

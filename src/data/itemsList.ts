@@ -475,7 +475,7 @@ const itemsList: ItemModel[] = [
       {
         name: StatsEnum.attackDamage,
         displayName: Displayed.attackDamage,
-        value: 0.15,
+        value: 15,
       },
     ],
   },

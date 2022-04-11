@@ -24,6 +24,7 @@ const DPSTable: FC<Props> = (props) => {
     const nonCritDmg: number[] = [];
     const critDMG: number[] = [];
     const dpsDMG: number[] = [];
+    
     baseArmorResistance.forEach((armor) => {
       const baseDamage =
         attackDamage *

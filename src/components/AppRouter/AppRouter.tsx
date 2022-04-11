@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { FC, Suspense, lazy } from 'react';
+import { FC, lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ItemModel } from '../../models';
 import { ChampionsStore } from '../../store';

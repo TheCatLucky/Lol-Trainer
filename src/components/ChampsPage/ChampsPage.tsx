@@ -17,6 +17,10 @@ const ChampsPage: FC<Props> = (props) => {
   const [selectedChamp, setselectedChamp] = useState('');
   const [showAll, setShowAll] = useState(false);
   const [champLvl, setChampLvl] = useState(1);
+
+  /**
+   * Изменение статистик ВСЕХ персонажей в сторе
+   */
   useEffect(() => {
     setChampions(champions, champLvl);
   }, [champLvl]);
