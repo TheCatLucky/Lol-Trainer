@@ -1,10 +1,9 @@
 enum StatsEnum {
   attackDamage = 'attackDamage',
-  attackDamageBase = 'attackDamageBase',
-  attackDamageScale = 'attackDamageScale',
+  abilityDamage = 'abilityDamage',
 
   attackSpeed = 'attackSpeed',
-  attackSpeedScale = 'attackSpeedScale',
+
   attackSpeedRatio = 'attackSpeedRatio',
 
   critChance = 'critChance',
@@ -16,17 +15,21 @@ enum StatsEnum {
 
   magicFlatPenetration = 'magicFlatPenetration',
   magicPenetration = 'magicPenetration',
-
   health = 'health',
-  healthBase = 'healthBase',
-  healthScale = 'healthScale',
-
   armor = 'armor',
-  armorBase = 'armorBase',
-  armorScale = 'armorScale',
-
   magicResistance = 'magicResistance',
-  magicResistanceBase = 'magicResistanceBase',
-  magicResistanceScale = 'magicResistanceScale',
 }
+/* enum ScaleStatEnum {
+  magicResistanceScale = 'magicResistanceScale',
+  armorScale = 'armorScale',
+  healthScale = 'healthScale',
+  attackSpeedScale = 'attackSpeedScale',
+  attackDamageScale = 'attackDamageScale',
+}
+enum BaseStatEnum {
+  armorBase = 'armorBase',
+  healthBase = 'healthBase',
+  attackDamageBase = 'attackDamageBase',
+  magicResistanceBase = 'magicResistanceBase',
+} */
 export default StatsEnum;

@@ -41,11 +41,14 @@ class ChampionsStore {
   setChampions(champions: ChampionModel[], lvl = 1): void {
     this.champions = champions.map((champion) => ({
       ...champion,
-      attackDamage: this.calcAd(champion, lvl),
-      attackSpeed: this.calcBaseAsWithLvl(champion, lvl),
-      health: this.calcHealth(champion, lvl),
-      armor: this.calcArmor(champion, lvl),
-      magicResistance: this.calcMagicResist(champion, lvl),
+      stats: {
+        ...champion.stats,
+        attackDamage: this.calcAd(champion, lvl),
+        attackSpeed: this.calcBaseAsWithLvl(champion, lvl),
+        health: this.calcHealth(champion, lvl),
+        armor: this.calcArmor(champion, lvl),
+        magicResistance: this.calcMagicResist(champion, lvl),
+      },
     }));
   }
 
@@ -105,26 +108,38 @@ class ChampionsStore {
       item.stats.forEach((field) => {
         if (field.name === StatsEnum.attackSpeed) {
           const newAS = this.calcAsWithItems(
-            newStats[field.name],
+            newStats.stats[field.name],
             field.value,
-            newStats.attackSpeedRatio,
+            newStats.stats.attackSpeedRatio,
           );
           return (newStats = {
             ...newStats,
-            [field.name]: newAS,
+            stats: {
+              ...newStats.stats,
+              [field.name]: newAS,
+            },
           });
         }
         if (field.name === StatsEnum.lethality) {
-          const armorFlatPen = this.calcArmFlatPen(newStats[field.name] + field.value, champLvl);
+          const armorFlatPen = this.calcArmFlatPen(
+            newStats.stats[field.name] + field.value,
+            champLvl,
+          );
           return (newStats = {
             ...newStats,
-            [field.name]: newStats[field.name] + field.value,
-            armorFlatPenetration: armorFlatPen,
+            stats: {
+              ...newStats.stats,
+              [field.name]: newStats.stats[field.name] + field.value,
+              armorFlatPenetration: armorFlatPen,
+            },
           });
         }
         return (newStats = {
           ...newStats,
-          [field.name]: newStats[field.name] + field.value,
+          stats: {
+            ...newStats.stats,
+            [field.name]: newStats.stats[field.name] + field.value,
+          },
         });
       });
     });
@@ -136,30 +151,33 @@ class ChampionsStore {
   }
 
   calcAd(champion: ChampionModel, lvl: number): number {
-    const growth = this.calcGrowth(champion.attackDamageScale, lvl);
-    return Math.trunc(champion.attackDamageBase + growth);
+    const growth = this.calcGrowth(champion.scale.attackDamage, lvl);
+    return Math.trunc(champion.base.attackDamage + growth);
   }
 
   calcBaseAsWithLvl(champion: ChampionModel, lvl: number): number {
-    const growth = this.calcGrowth(champion.attackSpeedScale, lvl);
+    const growth = this.calcGrowth(champion.scale.attackSpeed, lvl);
     return (
-      Math.floor((champion.attackSpeedBase + growth * champion.attackSpeedRatio) * 1000) / 1000
+      Math.floor((champion.base.attackSpeed + growth * champion.stats.attackSpeedRatio) * 1000) /
+      1000
     );
   }
 
+  //TODO переделать расчет армора с учетом новых характеристик:
+  // базовый армор, текущий базовый, текущий бонусный и общий армор.
   calcArmor(champion: ChampionModel, lvl: number): number {
-    const growth = this.calcGrowth(champion.armorScale, lvl);
-    return Math.trunc(champion.armorBase + growth);
+    const growth = this.calcGrowth(champion.scale.armor, lvl);
+    return Math.trunc(champion.base.armor + growth);
   }
 
   calcMagicResist(champion: ChampionModel, lvl: number): number {
-    const growth = this.calcGrowth(champion.magicResistanceScale, lvl);
-    return Math.trunc(champion.magicResistanceBase + growth);
+    const growth = this.calcGrowth(champion.scale.magicResistance, lvl);
+    return Math.trunc(champion.base.magicResistance + growth);
   }
 
   calcHealth(champion: ChampionModel, lvl: number): number {
-    const growth = this.calcGrowth(champion.healthScale, lvl);
-    return Math.trunc(champion.healthBase + growth);
+    const growth = this.calcGrowth(champion.scale.health, lvl);
+    return Math.trunc(champion.base.health + growth);
   }
 
   calcArmFlatPen(lethality: number, lvl: number): number {

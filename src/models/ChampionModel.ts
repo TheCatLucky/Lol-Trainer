@@ -2,165 +2,159 @@
  * Модель чемпиона.
  */
 class ChampionModel {
-  [index: string]: string | number;
+  [index: string]: string | number | {};
 
   /**
    * Название персонажа
    */
   name: string;
 
-  /**
-   * Базовый физический урон
-   */
-  attackDamageBase: number;
+  base: {
+    /**
+     * Базовый физический урон
+     */
+    attackDamage: number;
 
-  /**
-   * Скейл физического урона
-   */
-  attackDamageScale: number;
+    /**
+     * Базовый магический урон
+     */
+    abilityDamage: number;
 
-  /**
-   * Текущий физический урон
-   */
-  attackDamage: number;
+    /**
+     * Базовая скорость атаки
+     */
+    attackSpeed: number;
 
-  /**
-   * Базовый магический урон
-   */
-  abilityDamageBase: number;
+    /**
+     * Базовое количество здоровья
+     */
 
-  /**
-   * Текущий магический урон
-   */
-  abilityDamage: number;
+    health: number;
+    /**
+     * Базовое физическое сопротивление
+     */
+    armor: number;
 
-  /**
-   * Базовая скорость атаки
-   */
-  attackSpeedBase: number;
+    /**
+     * Магическое сопротивление Базовый
+     */
+    magicResistance: number;
+  };
 
-  /**
-   * Скейл скорости атаки
-   */
-  attackSpeedScale: number;
+  scale: {
+    /**
+     * Скейл физического урона
+     */
+    attackDamage: number;
 
-  /**
-   * Множитель бонусов скорости атаки от предметов и уровня
-   */
-  attackSpeedRatio: number;
+    /**
+     * Скейл скорости атаки
+     */
+    attackSpeed: number;
 
-  /**
-   * Текущая скорость атаки
-   */
-  attackSpeed: number;
+    /**
+     * Скейл здоровья
+     */
+    health: number;
 
-  /**
-   * Смертоносность
-   */
-  lethality: number;
+    /**
+     * Скейл физического сопротивления
+     */
+    armor: number;
 
-  /**
-   * Физическое пробивание flat
-   */
-  armorFlatPenetration: number;
+    /**
+     * Скейл магического сопротивления
+     */
+    magicResistance: number;
+  };
 
-  /**
-   * Физическое пробивание
-   */
-  armorPenetration: number;
+  stats: {
+    /**
+     * Текущий физический урон
+     */
+    attackDamage: number;
 
-  /**
-   * Магическое пробивание flat
-   */
-  magicFlatPenetration: number;
+    /**
+     * Текущий магический урон
+     */
+    abilityDamage: number;
 
-  /**
-   * Магическое пробивание
-   */
-  magicPenetration: number;
+    /**
+     * Множитель бонусов скорости атаки от предметов и уровня
+     */
+    attackSpeedRatio: number;
 
-  /**
-   * Шанс критического урона
-   */
-  critChance: number;
+    /**
+     * Текущая скорость атаки
+     */
+    attackSpeed: number;
 
-  /**
-   * Множитель критического урона
-   */
-  critDamage: number;
+    /**
+     * Смертоносность
+     */
+    lethality: number;
 
-  /**
-   * Базовое количество здоровья
-   */
-  healthBase: number;
+    /**
+     * Физическое пробивание flat
+     */
+    armorFlatPenetration: number;
 
-  /**
-   * Скейл здоровья
-   */
-  healthScale: number;
+    /**
+     * Физическое пробивание
+     */
+    armorPenetration: number;
 
-  /**
-   * Текущее здоровье
-   */
-  health: number;
+    /**
+     * Магическое пробивание flat
+     */
+    magicFlatPenetration: number;
 
-  /**
-   * Базовое физическое сопротивление
-   */
-  armorBase: number;
+    /**
+     * Магическое пробивание
+     */
+    magicPenetration: number;
 
-  /**
-   * Скейл физического сопротивления
-   */
-  armorScale: number;
+    /**
+     * Шанс критического урона
+     */
+    critChance: number;
 
-  /**
-   * Текущее физическое сопротивление
-   */
-  armor: number;
+    /**
+     * Множитель критического урона
+     */
+    critDamage: number;
 
-  /**
-   * Магическое сопротивление Базовый
-   */
-  magicResistanceBase: number;
+    /**
+     * Текущее здоровье
+     */
+    health: number;
 
-  /**
-   * Скейл магического сопротивления
-   */
-  magicResistanceScale: number;
+    /**
+     * Текущее общее физическое сопротивление
+     */
+    armor: number;
 
-  /**
-   * Текущее магическое сопротивление
-   */
-  magicResistance: number;
+    /**
+     * Текущее дополнительное физическое сопротивление
+     */
+    armorBonus: number;
+
+    /**
+     * Текущее базовое физическое сопротивление
+     */
+    armorBaseCurrent: number;
+
+    /**
+     * Текущее магическое сопротивление
+     */
+    magicResistance: number;
+  };
 
   constructor(data: ChampionModel) {
     this.name = data.name;
-    this.attackDamageBase = data.attackDamageBase;
-    this.attackDamageScale = data.attackDamageScale;
-    this.attackDamage = data.attackDamage;
-    this.abilityDamageBase = data.abilityDamageBase;
-    this.abilityDamage = data.abilityDamage;
-    this.attackSpeedBase = data.attackSpeedBase;
-    this.attackSpeedScale = data.attackSpeedScale;
-    this.attackSpeedRatio = data.attackSpeedRatio;
-    this.attackSpeed = data.attackSpeed;
-    this.lethality = data.lethality;
-    this.armorFlatPenetration = data.armorFlatPenetration;
-    this.armorPenetration = data.armorPenetration;
-    this.magicFlatPenetration = data.magicFlatPenetration;
-    this.magicPenetration = data.magicPenetration;
-    this.critChance = data.critChance;
-    this.critDamage = data.critDamage;
-    this.healthBase = data.healthBase;
-    this.healthScale = data.healthScale;
-    this.health = data.health;
-    this.armorBase = data.armorBase;
-    this.armorScale = data.armorScale;
-    this.armor = data.armor;
-    this.magicResistanceBase = data.magicResistanceBase;
-    this.magicResistanceScale = data.magicResistanceScale;
-    this.magicResistance = data.magicResistance;
+    this.base = data.base;
+    this.scale = data.scale;
+    this.stats = data.stats;
   }
 }
 

@@ -14,7 +14,7 @@ const DPSTable: FC<Props> = (props) => {
     critChance,
     armorFlatPenetration,
     armorPenetration,
-  } = champion;
+  } = champion.stats;
   const baseArmorResistance = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
   const [damage, setDamage] = useState([0]);
   const [criticalDamage, setCriticalDamage] = useState([0]);
@@ -24,7 +24,7 @@ const DPSTable: FC<Props> = (props) => {
     const nonCritDmg: number[] = [];
     const critDMG: number[] = [];
     const dpsDMG: number[] = [];
-    
+
     baseArmorResistance.forEach((armor) => {
       const baseDamage =
         attackDamage *

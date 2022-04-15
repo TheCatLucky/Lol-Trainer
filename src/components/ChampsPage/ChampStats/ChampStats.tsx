@@ -16,28 +16,28 @@ const ChampStats: FC<Props> = (props) => {
       </h3>
       <ul key={champion.name}>
         <li>
-          {Displayed.attackDamage} : {champion.attackDamage}
+          {Displayed.attackDamage} : {champion.stats.attackDamage}
         </li>
         <li>
-          {Displayed.attackSpeed} : {champion.attackSpeed}
+          {Displayed.attackSpeed} : {champion.stats.attackSpeed}
         </li>
         <li>
-          {Displayed.armor} : {champion.armor}
+          {Displayed.armor} : {champion.stats.armor}
         </li>
         <li>
-          {Displayed.magicResistance} : {champion.magicResistance}
+          {Displayed.magicResistance} : {champion.stats.magicResistance}
         </li>
         <li>
-          {Displayed.health} : {champion.health}
+          {Displayed.health} : {champion.stats.health}
         </li>
         <li>
-          {Displayed.critChance} : {champion.critChance}
+          {Displayed.critChance} : {champion.stats.critChance}
         </li>
         <li>
-          {Displayed.critDamage} : {champion.critDamage}
+          {Displayed.critDamage} : {champion.stats.critDamage}
         </li>
         <li>
-          {Displayed.lethality} : {champion.lethality}
+          {Displayed.lethality} : {champion.stats.lethality}
         </li>
       </ul>
     </div>

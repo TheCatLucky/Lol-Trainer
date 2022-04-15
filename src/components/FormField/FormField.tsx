@@ -108,6 +108,11 @@ const FormField: FC<Props> = (props) => {
     setChampAndBaseStats(compare);
   }, [compare, setChampAndBaseStats]);
 
+  //TODO  придумать как исправить этот костыль
+  useEffect(() => {
+    setChampions(champions);
+  }, []);
+
   const handleLvlChange = (lvl: number) => {
     setChampLvl(lvl);
     setChampions(champions, lvl);
