@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { riotAPI } from '../../api';
 import { champsList, itemsList } from '../../data';
 import { ChampionsStore, ItemsStore } from '../../store';
 import Footer from '../../ui/Footer';
@@ -6,8 +8,17 @@ import AppRouter from '../AppRouter';
 import classes from './App.module.scss';
 
 function App() {
+  const [champsStore,setChampsStore] = useState<ChampionsStore>(new ChampionsStore(champsList));
 
-  const champsStore = new ChampionsStore(champsList);
+  const getData = async () => {
+    const data = await riotAPI.getRuChamps().then(data => data);
+    setChampsStore( new ChampionsStore(data));
+  };
+
+  useEffect(() => {
+    getData();
+  },[]);
+
   const itemsStore = new ItemsStore(itemsList);
 
   return (
@@ -22,6 +33,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;
