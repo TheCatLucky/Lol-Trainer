@@ -8,8 +8,10 @@ type Props = {
 
 const MyButton: FC<Props> = (props) => {
   const { children, onClick } = props;
+
   return (
-    <button className={classes.button} onClick={onClick}>
+    <button className={classes.button}
+      onClick={onClick}>
       {children}
     </button>
   );

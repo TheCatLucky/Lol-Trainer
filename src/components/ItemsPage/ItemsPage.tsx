@@ -1,11 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import { FC, useMemo, useState } from 'react';
-import { ItemModel, Options } from '../../models';
-import { MyButton, MySelect } from '../../ui/uiKit';
+import { FC } from 'react';
+import { ItemModel } from '../../models';
 import Shop from './Shop';
 
 import classes from './ItemsPage.module.scss';
-import ItemStats from './ItemStats';
 
 type Props = {
   itemsStore: ItemModel[];

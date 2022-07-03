@@ -1,6 +1,5 @@
 import { Displayed, ItemModel, LegendaryIDs, StatsEnum } from '../models';
-import {
-  Axiom_Arc,
+import {Axiom_Arc,
   BFSword,
   Berserkers,
   Black_Cleaver,
@@ -34,9 +33,14 @@ import {
   Kraken_Slayer,
   Last_Whisper,
   Long_Sword,
-} from '../assets';
+  Abyssal_Mask,
+  Amplifying_Tome,
+  Blasting_Wand,} from '../assets';
 
 const itemsList: ItemModel[] = [
+  /*
+  Физические предметы
+  */
   {
     name: 'Axiom Arc',
     cost: 3000,
@@ -641,6 +645,54 @@ const itemsList: ItemModel[] = [
         name: StatsEnum.attackDamage,
         displayName: Displayed.attackDamage,
         value: 10,
+      },
+    ],
+  },
+  /*
+  Магические предметы
+  */
+  {
+    name: 'Abyssal mask',
+    img: Abyssal_Mask,
+    cost: 2700,
+    id: 34,
+    legendaryID: LegendaryIDs.abyssal_mask,
+    stats: [
+      {
+        name: StatsEnum.health,
+        displayName: Displayed.health,
+        value: 450,
+      },
+      {
+        name: StatsEnum.magicResistance,
+        displayName: Displayed.magicResistance,
+        value: 30,
+      },
+    ],
+  },
+  {
+    name: 'Amplifying Tome',
+    img: Amplifying_Tome,
+    cost: 450,
+    id: 35,
+    stats: [
+      {
+        name: StatsEnum.abilityDamage,
+        displayName: Displayed.abilityDamage,
+        value: 20,
+      },
+    ],
+  },
+  {
+    name: 'Blasting Wand',
+    img: Blasting_Wand,
+    cost: 850,
+    id: 36,
+    stats: [
+      {
+        name: StatsEnum.abilityDamage,
+        displayName: Displayed.abilityDamage,
+        value: 40,
       },
     ],
   },

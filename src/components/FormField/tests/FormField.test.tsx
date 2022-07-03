@@ -10,10 +10,21 @@ const champsStore = new ChampionsStore(champsList);
 const itemStore = new ItemsStore(itemsList);
 const renderComponent = (
   <BrowserRouter>
-    <FormField champsStore={champsStore} itemsStore={itemStore.items} />
+    <FormField champsStore={champsStore}
+      itemsStore={itemStore.items} />
   </BrowserRouter>
 );
+const itemsLength = itemStore.items.length;
+
 describe('Компонент FormField', () => {
+  beforeEach(() => {
+    const intersectionObserverMock = () => ({
+      observe: () => null,
+      disconnect: () => null,
+    });
+    window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
+  });
+
   it('отображает базовый урон', () => {
     render(renderComponent);
 
@@ -105,13 +116,13 @@ describe('Компонент FormField', () => {
 
     const leftChampionItems = screen.getAllByRole('img');
 
-    await userEvent.click(leftChampionItems[34]);
+    await userEvent.click(leftChampionItems[itemsLength + 4]);
     expect(baseDamageArray[0].innerHTML).toBe('104');
     expect(baseDamageArray[10].innerHTML).toBe('52');
     expect(dpsArray[0].innerHTML).toBe('117');
     expect(dpsArray[10].innerHTML).toBe('58');
 
-    await userEvent.click(leftChampionItems[36]);
+    await userEvent.click(leftChampionItems[itemsLength + 10]);
     expect(baseDamageArray[11].innerHTML).toBe('159');
     expect(baseDamageArray[21].innerHTML).toBe('79');
     expect(dpsArray[11].innerHTML).toBe('163');
@@ -187,7 +198,7 @@ describe('Компонент FormField', () => {
 
     const leftChampItems = screen.getAllByRole('img');
 
-    await userEvent.click(leftChampItems[34]);
+    await userEvent.click(leftChampItems[itemsLength + 4]);
     expect(champsStore.champToCompare[0].equipment.legendaryIDs.length).toBe(0);
     expect(baseDamageArray[0].innerHTML).toBe(TestsValues.ahri_BaseDmg_ZeroArmor);
     expect(baseDamageArray[10].innerHTML).toBe(TestsValues.ahri_BaseDmg_100Armor);
@@ -218,7 +229,7 @@ describe('Компонент FormField', () => {
 
     const leftChampItems = screen.getAllByRole('img');
 
-    await userEvent.click(leftChampItems[34]);
+    await userEvent.click(leftChampItems[itemsLength + 4]);
     expect(champsStore.champToCompare[0].equipment.haveMythic).toBe(false);
     expect(baseDamageArray[0].innerHTML).toBe(TestsValues.ahri_BaseDmg_ZeroArmor);
     expect(baseDamageArray[10].innerHTML).toBe(TestsValues.ahri_BaseDmg_100Armor);

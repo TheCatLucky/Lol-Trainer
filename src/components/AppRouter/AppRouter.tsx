@@ -3,6 +3,7 @@ import { FC, lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ItemModel } from '../../models';
 import { ChampionsStore } from '../../store';
+
 const ChampsPage = lazy(() => import('../ChampsPage'));
 const FormField = lazy(() => import('../FormField'));
 const ItemsPage = lazy(() => import('../ItemsPage'));
@@ -22,12 +23,15 @@ const AppRouter: FC<Props> = (props) => {
       todo:
       Сделать компонент лоадер */}
         <Routes>
-          <Route path='/' element={<p> Привет!</p>} />
-          <Route path='/champStats' element={<ChampsPage champsStore={champsStore} />} />
-          <Route path='/itesmStats' element={<ItemsPage itemsStore={itemsStore} />} />
-          <Route
-            path='/formField'
-            element={<FormField itemsStore={itemsStore} champsStore={champsStore} />}
+          <Route element={<p> Привет!</p>}
+            path='/' />
+          <Route element={<ChampsPage champsStore={champsStore} />}
+            path='/champStats' />
+          <Route element={<ItemsPage itemsStore={itemsStore} />}
+            path='/itesmStats' />
+          <Route element={<FormField champsStore={champsStore}
+            itemsStore={itemsStore} />}
+          path='/formField'
           />
         </Routes>
       </Suspense>

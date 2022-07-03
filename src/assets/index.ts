@@ -49,8 +49,62 @@ import Recurve_Bow from './items/Recurve_Bow_item.webp';
 import Last_Whisper from './items/Last_Whisper_item.webp';
 import Seryldas_Grudge from './items/Seryldas_Grudge_item.webp';
 import Lord_Dominiks_Regards from './items/Lord_Dominiks_Regards_item.webp';
+import Abyssal_Mask from './items/Abyssal_Mask_item.webp';
+import Spectres_Cowl from './items/Spectres_Cowl_item.webp';
+import Aegis_of_the_Legion from './items/Aegis_of_the_Legion_item.webp';
+import Bamis_Cinder from './items/Bamis_Cinder_item.webp';
+import Sunfire_Aegis from './items/Sunfire_Aegis_item.webp';
+import Amplifying_Tome from './items/Amplifying_Tome_item.webp';
+import Aether_Wisp from './items/Aether_Wisp_item.webp';
+import Cosmic_Drive from './items/Cosmic_Drive_item.webp';
+import Lich_Bane from './items/Lich_Bane_item.webp';
+import Fiendish_Codex from './items/Fiendish_Codex_item.webp';
+import Blasting_Wand from './items/Blasting_Wand_item.webp';
+import Giants_Belt from './items/Giants_Belt_item.webp';
+import Oblivion_Orb from './items/Oblivion_Orb_item.webp';
+import Morellonomicon from './items/Morellonomicon_item.webp';
+import Anathemas_Chains from './items/Anathemas_Chains_item.webp';
+import Rejuvenation_Bead from './items/Rejuvenation_Bead_item.webp';
+import Crystalline_Bracer from './items/Crystalline_Bracer_item.webp';
+import Warmogs_Armor from './items/Warmogs_Armor_item.webp';
+import Lost_Chapter from './items/Lost_Chapter_item.webp';
+import Crown_of_the_Shattered_Queen from './items/Crown_of_the_Shattered_Queen_item.webp';
+import Hextech_Alternator from './items/Hextech_Alternator_item.webp';
+import Hextech_Rocketbelt from './items/Hextech_Rocketbelt_item.webp';
+import Everfrost from './items/Everfrost_item.webp';
+import Seekers_Armguard from './items/Seekers_Armguard_item.webp';
+import Zhonyas_Hourglass from './items/Zhonyas_Hourglass_item.webp';
+import Needlessly_Large_Rod from './items/Needlessly_Large_Rod_item.webp';
+import Rabadons_Deathcap from './items/Rabadons_Deathcap_item.webp';
 
 export {
+  Rabadons_Deathcap,
+  Needlessly_Large_Rod,
+  Zhonyas_Hourglass,
+  Seekers_Armguard,
+  Everfrost,
+  Hextech_Rocketbelt,
+  Hextech_Alternator,
+  Crown_of_the_Shattered_Queen,
+  Lost_Chapter,
+  Warmogs_Armor,
+  Crystalline_Bracer,
+  Rejuvenation_Bead,
+  Anathemas_Chains,
+  Morellonomicon,
+  Oblivion_Orb,
+  Giants_Belt,
+  Blasting_Wand,
+  Fiendish_Codex,
+  Lich_Bane,
+  Cosmic_Drive,
+  Aether_Wisp,
+  Amplifying_Tome,
+  Sunfire_Aegis,
+  Bamis_Cinder,
+  Aegis_of_the_Legion,
+  Spectres_Cowl,
+  Abyssal_Mask,
   Immortal_Shieldbow,
   Lord_Dominiks_Regards,
   Last_Whisper,

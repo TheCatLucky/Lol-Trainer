@@ -95,12 +95,10 @@ const FormField: FC<Props> = (props) => {
    * Изменение статистик персонажей в зависимости от выбранных предметов и уровня
    */
   useEffect(() => {
-    console.log('первые вычисления');
     calcNewStats(baseChampStats, selectedItems, 1, champLvl);
   }, [selectedItems]);
 
   useEffect(() => {
-    console.log('вторые вычисления');
     calcNewStats(baseChampStats, selectedItems2, 2, champLvl);
   }, [selectedItems2]);
 
@@ -127,37 +125,32 @@ const FormField: FC<Props> = (props) => {
 
   return (
     <div className={classes.wrapper}>
-      <MySelect
-        defaultValue='выберте персонажа'
+      <MySelect defaultValue='выберте персо нажа'
         options={optionsChamps}
         value={compare}
         onChange={setChampAndBaseStats}
       />
-      <MyInput
-        type='number'
+      <MyInput max={18}
         min={1}
-        max={18}
         placeholder='введите уровень персонажа'
+        type='number'
         value={champLvl}
         onChange={handleLvlChange}
       />
       <div className={classes.itemsList}>
-        <ItemsList
-          items={itemsStore}
-          chooseItemLeftClick={chooseItemLeftClick}
+        <ItemsList chooseItemLeftClick={chooseItemLeftClick}
           chooseItemRightClick={chooseItemLeftClick}
+          items={itemsStore}
         />
       </div>
       <div className={classes.content}>
-        <ChampionTable
-          champLvl={champLvl}
-          championStats={champToCompare[0].champion}
+        <ChampionTable champLvl={champLvl}
+          champion={champToCompare[0].champion}
           selectedItems={champToCompare[0].equipment}
           setSelectedItems={setSelectedItems}
         />
-        <ChampionTable
-          champLvl={champLvl}
-          championStats={champToCompare[1].champion}
+        <ChampionTable champLvl={champLvl}
+          champion={champToCompare[1].champion}
           selectedItems={champToCompare[1].equipment}
           setSelectedItems={setSelectedItems2}
         />

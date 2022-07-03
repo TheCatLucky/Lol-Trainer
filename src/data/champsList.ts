@@ -1,3 +1,7 @@
+import AhriE from '../assets/Spells/Ahri_E.webp';
+import AhriQ from '../assets/Spells/Ahri_Q.webp';
+import AhriR from '../assets/Spells/Ahri_R.webp';
+import AhriW from '../assets/Spells/Ahri_W.webp';
 import ChampionModel from '../models/ChampionModel';
 
 const champsList: ChampionModel[] = [
@@ -7,15 +11,15 @@ const champsList: ChampionModel[] = [
       attackDamage: 53,
       abilityDamage: 0,
       attackSpeed: 0.668,
-      health: 500,
+      health: 570,
       armor: 18,
       magicResistance: 30,
     },
     scale: {
       attackDamage: 3,
       attackSpeed: 0.02,
-      health: 82,
-      armor: 3.5,
+      health: 96,
+      armor: 4.7,
       magicResistance: 0.5,
     },
     stats: {
@@ -36,6 +40,36 @@ const champsList: ChampionModel[] = [
       armorBaseCurrent: 0,
       magicResistance: 0,
     },
+    spells: [
+      {
+        name: 'Q',
+        img: AhriQ,
+        baseDamage: [40, 65, 90, 115, 140],
+        scaleAd: [0, 0, 0, 0, 0],
+        scaleAp: [0.4, 0.4, 0.4, 0.4, 0.4],
+      },
+      {
+        name: 'W',
+        img: AhriW,
+        baseDamage: [80, 120, 160, 200, 240],
+        scaleAd: [0, 0, 0, 0, 0],
+        scaleAp: [0.48, 0.48, 0.48, 0.48, 0.48],
+      },
+      {
+        name: 'E',
+        img: AhriE,
+        baseDamage: [80, 110, 140, 170, 200],
+        scaleAd: [0, 0, 0, 0, 0],
+        scaleAp: [0.6, 0.6, 0.6, 0.6, 0.6],
+      },
+      {
+        name: 'R',
+        img: AhriR,
+        baseDamage: [60, 90, 120],
+        scaleAd: [0, 0, 0, 0, 0],
+        scaleAp: [0.35, 0.35, 0.35],
+      },
+    ],
   },
   {
     name: 'Aatrox',
@@ -72,6 +106,15 @@ const champsList: ChampionModel[] = [
       armorBaseCurrent: 0,
       magicResistance: 0,
     },
+    spells: [
+      {
+        name: 'Q',
+        img: 's',
+        baseDamage: [0],
+        scaleAd: [0],
+        scaleAp: [0, 0, 0, 0, 0],
+      },
+    ],
   },
   {
     name: 'Akali',
@@ -108,6 +151,15 @@ const champsList: ChampionModel[] = [
       armor: 0,
       magicResistance: 0,
     },
+    spells: [
+      {
+        name: 'Q',
+        img: 's',
+        baseDamage: [0],
+        scaleAd: [0],
+        scaleAp: [0, 0, 0, 0, 0],
+      },
+    ],
   },
   {
     name: 'Akshan',
@@ -144,6 +196,15 @@ const champsList: ChampionModel[] = [
       armor: 0,
       magicResistance: 0,
     },
+    spells: [
+      {
+        name: 'Q',
+        img: 's',
+        baseDamage: [0],
+        scaleAd: [0],
+        scaleAp: [0, 0, 0, 0, 0],
+      },
+    ],
   },
 ];
 

@@ -4,19 +4,46 @@ import { BrowserRouter } from 'react-router-dom';
 import { itemsList } from '../../../../../data';
 import ItemList from '../ItemList';
 
+/* eslint-disable no-console */
 const renderComponent = (
   <BrowserRouter>
-    <ItemList chooseItemLeftClick={() => {}} chooseItemRightClick={() => {}} items={itemsList} />
+    <ItemList chooseItemLeftClick={() => {
+
+      console.log('first');
+
+    }}
+    chooseItemRightClick={() => {
+
+      console.log('first');
+
+    }}
+    items={itemsList}
+    />
   </BrowserRouter>
 );
+
 describe('Компонент ChampsPage', () => {
+
+  beforeEach(() => {
+
+    const intersectionObserverMock = () => ({
+      observe: () => null,
+      disconnect: () => null,
+    });
+    window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
+
+  });
+
   it('отображает все предметы', () => {
+
     render(renderComponent);
     const items = screen.getAllByRole('img');
-    expect(items.length).toBe(34);
+    expect(items.length).toBe(37);
+
   });
 
   it('при наведении на предмет показывает его статистики', async () => {
+
     render(renderComponent);
 
     const items = screen.getAllByRole('img');
@@ -27,8 +54,11 @@ describe('Компонент ChampsPage', () => {
 
     expect(itemName).toBeInTheDocument();
     expect(itemCost.innerHTML).toEqual('Стоимость предмета : 3000');
+
   });
+
   it('при быстром перемещение с предмета на предмет изменяет показываемое описание', async () => {
+
     render(renderComponent);
 
     const items = screen.getAllByRole('img');
@@ -48,5 +78,7 @@ describe('Компонент ChampsPage', () => {
 
     const sixthItem = screen.getByText(/Blood/i);
     expect(sixthItem).toBeInTheDocument();
+
   });
+
 });

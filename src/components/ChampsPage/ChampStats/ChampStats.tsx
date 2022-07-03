@@ -9,14 +9,19 @@ type Props = {
 
 const ChampStats: FC<Props> = (props) => {
   const { champion, lvl } = props;
+
   return (
-    <div className={classes.stats} key={champion.name}>
+    <div className={classes.stats}
+      key={champion.name}>
       <h3>
         {champion.name} на {lvl} уровне
       </h3>
       <ul key={champion.name}>
         <li>
           {Displayed.attackDamage} : {champion.stats.attackDamage}
+        </li>
+        <li>
+          {Displayed.abilityDamage} : {champion.stats.abilityDamage}
         </li>
         <li>
           {Displayed.attackSpeed} : {champion.stats.attackSpeed}

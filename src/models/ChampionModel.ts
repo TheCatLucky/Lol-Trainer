@@ -1,8 +1,15 @@
 /**
  * Модель чемпиона.
  */
+export type Spell = {
+  name: string;
+  img: string;
+  baseDamage: number[];
+  scaleAp: number[];
+  scaleAd: number[];
+};
 class ChampionModel {
-  [index: string]: string | number | {};
+  [index: string]: string | number | Record<string, unknown> | Spell[];
 
   /**
    * Название персонажа
@@ -150,11 +157,14 @@ class ChampionModel {
     magicResistance: number;
   };
 
+  spells: Spell[];
+
   constructor(data: ChampionModel) {
     this.name = data.name;
     this.base = data.base;
     this.scale = data.scale;
     this.stats = data.stats;
+    this.spells = data.spells;
   }
 }
 

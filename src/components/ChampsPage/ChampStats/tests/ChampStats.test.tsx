@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import { ChampionModel } from '../../../../models';
 import ChampStats from '../ChampStats';
 
-const champion = {
+const champion: ChampionModel = {
   name: 'Ahri',
   base: {
     attackDamage: 53,
@@ -37,24 +38,58 @@ const champion = {
     armorBaseCurrent: 0,
     magicResistance: 0,
   },
+  spells: [
+    {
+      name: 'Q',
+      img: 'Q',
+      baseDamage: [40, 65, 90, 115, 140],
+      scaleAd: [0, 0, 0, 0, 0],
+      scaleAp: [0.4, 0.4, 0.4, 0.4, 0.4],
+    },
+    {
+      name: 'W',
+      img: 'W',
+      baseDamage: [80, 120, 160, 200, 240],
+      scaleAd: [0, 0, 0, 0, 0],
+      scaleAp: [0.48, 0.48, 0.48, 0.48, 0.48],
+    },
+    {
+      name: 'E',
+      img: 'E',
+      baseDamage: [80, 110, 140, 170, 200],
+      scaleAd: [0, 0, 0, 0, 0],
+      scaleAp: [0.6, 0.6, 0.6, 0.6, 0.6],
+    },
+    {
+      name: 'R',
+      img: 'R',
+      baseDamage: [60, 90, 120],
+      scaleAd: [0, 0, 0, 0, 0],
+      scaleAp: [0.35, 0.35, 0.35],
+    },
+  ],
 };
 const renderComponent = (
   <BrowserRouter>
-    <ChampStats lvl={1} champion={champion} />
+    <ChampStats champion={champion}
+      lvl={1} />
   </BrowserRouter>
 );
+
 describe('Компонент ChampStats', () => {
-  it('отображает имя персонажа', () => {
+  beforeEach(() => {
     render(renderComponent);
+  });
 
+  it('отображает имя персонажа', () => {
     const optionName = screen.getByText(/Ahri/i);
-
     expect(optionName).toBeInTheDocument();
   });
+
   it('отображает статистику персонажа', () => {
-    render(renderComponent);
 
     const attackDamage = screen.getByText(/Физический урон/i);
+    const abilityDamage = screen.getByText(/Магический урон/i);
     const attackSpeed = screen.getByText(/Скорость атаки/i);
     const armor = screen.getByText(/Броня/i);
     const magicResistance = screen.getByText(/Сопротивление магии/i);
@@ -64,6 +99,7 @@ describe('Компонент ChampStats', () => {
     const lethality = screen.getByText(/Смертоносность/i);
 
     expect(attackDamage).toBeInTheDocument();
+    expect(abilityDamage).toBeInTheDocument();
     expect(attackSpeed).toBeInTheDocument();
     expect(armor).toBeInTheDocument();
     expect(magicResistance).toBeInTheDocument();

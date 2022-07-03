@@ -14,11 +14,14 @@ const MySelect: FC<Props> = (props) => {
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(event.currentTarget.value);
   };
+
   return (
-    <select className={classes.select} onChange={handleSelect}>
+    <select className={classes.select}
+      onChange={handleSelect}>
       <option disabled>{defaultValue}</option>
       {options.map((option) => (
-        <option value={option.value} key={option.value}>
+        <option key={option.value}
+          value={option.value}>
           {option.name}
         </option>
       ))}

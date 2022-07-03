@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import classes from './Shop.module.scss';
 import ItemModel from './../../../models/ItemModel';
 import ItemList from './ItemsList';
+import classes from './Shop.module.scss';
 
 type Props = {
   items: ItemModel[];
@@ -9,9 +9,17 @@ type Props = {
 
 const Shop: FC<Props> = (props) => {
   const { items } = props;
+
   return (
     <div className={classes.wrapper}>
-      <ItemList items={items} chooseItemLeftClick={() => {}} chooseItemRightClick={() => {}} />
+      <ItemList chooseItemLeftClick={() => {
+        console.log('first');
+      }}
+      chooseItemRightClick={() => {
+        console.log('first');
+      }}
+      items={items}
+      />
     </div>
   );
 };
