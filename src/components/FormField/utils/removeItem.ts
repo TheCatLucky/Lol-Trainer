@@ -23,7 +23,10 @@ const removeItem = (
       legendaryIDs: removeObj.legendaryIDs.filter((id) => id !== item.legendaryID),
     });
   } else {
-    removeItemSet({ ...removeObj, items: newItems });
+    removeItemSet({
+      ...removeObj,
+      items: newItems
+    });
   }
 };
 export default removeItem;

@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { ItemModel, SelectedItems } from '../../../models';
+
 type Props = {
   itemsToApply: SelectedItems;
   item: ItemModel;
@@ -35,7 +36,10 @@ const addItem = (props: Props) => {
       legendaryIDs: [...itemsToApply.legendaryIDs, item.legendaryID],
     });
   } else {
-    addItemFunction({ ...itemsToApply, items: [...itemsToApply.items, item] });
+    addItemFunction({
+      ...itemsToApply,
+      items: [...itemsToApply.items, item]
+    });
   }
 };
 

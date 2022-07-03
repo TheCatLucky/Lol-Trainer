@@ -14,7 +14,7 @@ const DPSTable: FC<Props> = (props) => {
     critChance,
     armorFlatPenetration,
     armorPenetration,
-  } = champion;
+  } = champion.stats;
   const baseArmorResistance = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
   const [damage, setDamage] = useState([0]);
   const [criticalDamage, setCriticalDamage] = useState([0]);
@@ -24,7 +24,7 @@ const DPSTable: FC<Props> = (props) => {
     const nonCritDmg: number[] = [];
     const critDMG: number[] = [];
     const dpsDMG: number[] = [];
-    
+
     baseArmorResistance.forEach((armor) => {
       const baseDamage =
         attackDamage *
@@ -44,6 +44,7 @@ const DPSTable: FC<Props> = (props) => {
     setCriticalDamage(critDMG);
     setDps(dpsDMG);
   }, [champion]);
+
   return (
     <div className={classes.wrapper}>
       <table className={classes.table}>
@@ -63,7 +64,8 @@ const DPSTable: FC<Props> = (props) => {
           <tr>
             <td>Урон</td>
             {damage?.map((dmg, index) => (
-              <td key={index} data-testid='baseDMG'>
+              <td data-testid='baseDMG'
+                key={index}>
                 {dmg}
               </td>
             ))}
@@ -71,7 +73,8 @@ const DPSTable: FC<Props> = (props) => {
           <tr>
             <td>Критический урон</td>
             {criticalDamage?.map((dmg, index) => (
-              <td key={index} data-testid='critDMG'>
+              <td data-testid='critDMG'
+                key={index}>
                 {dmg}
               </td>
             ))}
@@ -79,7 +82,8 @@ const DPSTable: FC<Props> = (props) => {
           <tr>
             <td>Урон в секунду</td>
             {dps?.map((dmg, index) => (
-              <td key={index} data-testid='dpsDMG'>
+              <td data-testid='dpsDMG'
+                key={index}>
                 {dmg}
               </td>
             ))}

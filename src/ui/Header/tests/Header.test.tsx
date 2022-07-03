@@ -9,10 +9,11 @@ const renderComponent = (
     <Header />
   </BrowserRouter>
 );
+
 describe('Компонент Header', () => {
   it('отображает все ссылки', () => {
     render(renderComponent);
-    
+
     const title = screen.getByText(/lol trainer/i);
     const firstLink = screen.getByText(/статистики персонажей/i);
     const secondLink = screen.getByText(/статистики предметов/i);
@@ -23,6 +24,7 @@ describe('Компонент Header', () => {
     expect(secondLink).toBeInTheDocument();
     expect(thirdLink).toBeInTheDocument();
   });
+
   it('при клике на ссылку меняет URL', async () => {
     render(renderComponent);
 

@@ -38,21 +38,32 @@ class ChampionsStore {
     this.setChampsToCompare(champions[0]);
   }
 
+  /**
+   * @param champions Массив чемпионов
+   * @param lvl Уровень персонажа
+   */
   setChampions(champions: ChampionModel[], lvl = 1): void {
     this.champions = champions.map((champion) => ({
       ...champion,
-      attackDamage: this.calcAd(champion, lvl),
-      attackSpeed: this.calcBaseAsWithLvl(champion, lvl),
-      health: this.calcHealth(champion, lvl),
-      armor: this.calcArmor(champion, lvl),
-      magicResistance: this.calcMagicResist(champion, lvl),
+      stats: {
+        ...champion.stats,
+        attackDamage: this.calcAd(champion, lvl),
+        attackSpeed: this.calcBaseAsWithLvl(champion, lvl),
+        health: this.calcHealth(champion, lvl),
+        armor: this.calcArmor(champion, lvl),
+        magicResistance: this.calcMagicResist(champion, lvl),
+      },
     }));
   }
-
+  /**
+   * @param champ Чемпион для сравнения
+   */
   setChampsToCompare(champ: ChampionModel): void {
     this.champToCompare = [
       {
-        champion: { ...champ },
+        champion: {
+          ...champ
+        },
         id: 1,
         equipment: {
           items: [],
@@ -61,7 +72,9 @@ class ChampionsStore {
         },
       },
       {
-        champion: { ...champ },
+        champion: {
+          ...champ
+        },
         id: 2,
         equipment: {
           items: [],
@@ -71,7 +84,12 @@ class ChampionsStore {
       },
     ];
   }
-
+  /**
+   *
+   * @param championStats Статистики чемпиона
+   * @param champId ID чемпиона
+   * @param items Объект с  предметами
+   */
   setCompareChampionsStats(
     championStats: ChampionModel,
     champId: number,
@@ -80,94 +98,145 @@ class ChampionsStore {
     this.champToCompare = this.champToCompare.map((champion) => {
       if (champId === champion.id) {
         return {
-          champion: { ...championStats },
+          champion: {
+            ...championStats
+          },
           id: champId,
-          equipment: { ...items },
+          equipment: {
+            ...items
+          },
         };
       } else {
         return {
-          champion: { ...champion.champion },
+          champion: {
+            ...champion.champion
+          },
           id: champion.id,
-          equipment: { ...champion.equipment },
+          equipment: {
+            ...champion.equipment
+          },
         };
       }
     });
   }
-
+  /**
+   *
+   * @param baseStats Базовые статистики
+   * @param items Объект с предметами
+   * @param champId ID чемпиона
+   * @param champLvl Уровень чемпиона
+   */
   calcNewStats(
     baseStats: ChampionModel,
     items: SelectedItems,
     champId: number,
     champLvl: number,
   ): void {
-    let newStats = { ...baseStats };
+    let newStats = {
+      ...baseStats
+    };
     items.items.forEach((item) => {
       item.stats.forEach((field) => {
-        if (field.name === StatsEnum.attackSpeed) {
+        switch (field.name) {
+        case StatsEnum.attackSpeed: {
           const newAS = this.calcAsWithItems(
-            newStats[field.name],
+            newStats.stats[field.name],
             field.value,
-            newStats.attackSpeedRatio,
+            newStats.stats.attackSpeedRatio,
           );
+
           return (newStats = {
             ...newStats,
-            [field.name]: newAS,
+            stats: {
+              ...newStats.stats,
+              [field.name]: newAS,
+            },
           });
         }
-        if (field.name === StatsEnum.lethality) {
-          const armorFlatPen = this.calcArmFlatPen(newStats[field.name] + field.value, champLvl);
+
+        case StatsEnum.lethality: {
+          const armorFlatPen = this.calcArmFlatPen(
+            newStats.stats[field.name] + field.value,
+            champLvl,
+          );
+
           return (newStats = {
             ...newStats,
-            [field.name]: newStats[field.name] + field.value,
-            armorFlatPenetration: armorFlatPen,
+            stats: {
+              ...newStats.stats,
+              [field.name]: newStats.stats[field.name] + field.value,
+              armorFlatPenetration: armorFlatPen,
+            },
           });
         }
-        return (newStats = {
-          ...newStats,
-          [field.name]: newStats[field.name] + field.value,
-        });
+
+        default:
+          return (newStats = {
+            ...newStats,
+            stats: {
+              ...newStats.stats,
+              [field.name]: newStats.stats[field.name] + field.value,
+            },
+          });
+        }
       });
     });
     this.setCompareChampionsStats(newStats, champId, items);
   }
 
+  /**
+   * @param scale Прирост за уровень
+   * @param lvl Уровень персонажа
+   */
   calcGrowth(scale: number, lvl: number): number {
     return scale * (lvl - 1) * (0.7025 + 0.0175 * (lvl - 1));
   }
 
+  /**
+   * @param champion Чемпион
+   * @param lvl Уровень чемпиона
+   */
   calcAd(champion: ChampionModel, lvl: number): number {
-    const growth = this.calcGrowth(champion.attackDamageScale, lvl);
-    return Math.trunc(champion.attackDamageBase + growth);
+    const growth = this.calcGrowth(champion.scale.attackDamage, lvl);
+
+    return Math.round(champion.base.attackDamage + growth);
   }
 
   calcBaseAsWithLvl(champion: ChampionModel, lvl: number): number {
-    const growth = this.calcGrowth(champion.attackSpeedScale, lvl);
+    const growth = this.calcGrowth(champion.scale.attackSpeed, lvl);
+
     return (
-      Math.floor((champion.attackSpeedBase + growth * champion.attackSpeedRatio) * 1000) / 1000
+      Math.round((champion.base.attackSpeed + growth * champion.stats.attackSpeedRatio) * 1000) /
+      1000
     );
   }
 
+  //TODO переделать расчет армора с учетом новых характеристик:
+  // базовый армор, текущий базовый, текущий бонусный и общий армор.
   calcArmor(champion: ChampionModel, lvl: number): number {
-    const growth = this.calcGrowth(champion.armorScale, lvl);
-    return Math.trunc(champion.armorBase + growth);
+    const growth = this.calcGrowth(champion.scale.armor, lvl);
+
+    return Math.round(champion.base.armor + growth);
   }
 
   calcMagicResist(champion: ChampionModel, lvl: number): number {
-    const growth = this.calcGrowth(champion.magicResistanceScale, lvl);
-    return Math.trunc(champion.magicResistanceBase + growth);
+    const growth = this.calcGrowth(champion.scale.magicResistance, lvl);
+
+    return Math.round(champion.base.magicResistance + growth);
   }
 
   calcHealth(champion: ChampionModel, lvl: number): number {
-    const growth = this.calcGrowth(champion.healthScale, lvl);
-    return Math.trunc(champion.healthBase + growth);
+    const growth = this.calcGrowth(champion.scale.health, lvl);
+
+    return Math.round(champion.base.health + growth);
   }
 
   calcArmFlatPen(lethality: number, lvl: number): number {
-    return Math.floor(lethality * (0.6 + (0.4 * lvl) / 18) * 100) / 100;
+    return Math.round(lethality * (0.6 + (0.4 * lvl) / 18) * 100) / 100;
   }
 
   calcAsWithItems(currentAS: number, itemAS: number, asRatio: number): number {
-    return Math.floor((currentAS + itemAS * asRatio) * 1000) / 1000;
+    return Math.round((currentAS + itemAS * asRatio) * 1000) / 1000;
   }
 }
 

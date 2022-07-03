@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { FC, useMemo, useState, useEffect } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { Options } from '../../models';
 import { ChampionsStore } from '../../store';
 import { MyButton, MyInput, MySelect } from '../../ui/uiKit';
@@ -51,17 +51,15 @@ const ChampsPage: FC<Props> = (props) => {
 
   return (
     <div className={classes.wrapper}>
-      <MySelect
-        defaultValue='выберте персонажа'
+      <MySelect defaultValue='выберте персонажа'
         options={optionsChamps}
         value={selectedChamp}
         onChange={handleSelect}
       />
-      <MyInput
-        type='number'
+      <MyInput max={18}
         min={1}
-        max={18}
         placeholder='введите уровен персонажа'
+        type='number'
         value={champLvl}
         onChange={handleLvlChange}
       />
@@ -71,13 +69,18 @@ const ChampsPage: FC<Props> = (props) => {
         {!showAll &&
           champions.map((champ) => {
             if (champ.name === selectedChamp) {
-              return <ChampStats champion={champ} lvl={champLvl} key={champ.name} />;
+              return <ChampStats champion={champ}
+                key={champ.name}
+                lvl={champLvl} />;
             }
+
             return null;
           })}
         {!!showAll &&
           champions.map((champ) => {
-            return <ChampStats champion={champ} lvl={champLvl} key={champ.name} />;
+            return <ChampStats champion={champ}
+              key={champ.name}
+              lvl={champLvl} />;
           })}
       </div>
     </div>

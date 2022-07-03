@@ -1,0 +1,2 @@
+export { riotAPI } from './Api';
+

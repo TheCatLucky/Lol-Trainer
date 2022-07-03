@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { ItemModel, StatsEnum } from '../../../models';
 import classes from './ItemStats.module.scss';
 
@@ -14,16 +14,16 @@ type Props = {
 
 const ItemStats: FC<Props> = (props) => {
   const { item, onDragStart, onDragEnd, onDragLeave, onDragOver, onDrop, draggable } = props;
+
   return (
-    <div
-      className={classes.stats}
+    <div className={classes.stats}
+      draggable={draggable}
       key={item.name}
-      onDragStart={(e) => onDragStart(e, item)}
       onDragEnd={(e) => onDragEnd(e)}
       onDragLeave={(e) => onDragLeave(e)}
       onDragOver={(e) => onDragOver(e)}
+      onDragStart={(e) => onDragStart(e, item)}
       onDrop={(e) => onDrop(e, item)}
-      draggable={draggable}
     >
       <h3>{item.name}</h3>
       <ul key={item.name}>
@@ -35,6 +35,7 @@ const ItemStats: FC<Props> = (props) => {
               </li>
             );
           }
+
           return (
             <li key={field.name}>
               {field.displayName}: {field.value}

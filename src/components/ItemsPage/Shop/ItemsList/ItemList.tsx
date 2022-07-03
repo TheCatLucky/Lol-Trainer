@@ -1,17 +1,24 @@
 import { FC, useState } from 'react';
-import { ItemModel, StatsEnum } from '../../../../models';
+import { ItemModel } from '../../../../models';
 import classes from './ItemList.module.scss';
+import Popup from './Popup';
 
 type Props = {
   items: ItemModel[];
+  /**
+   * Выбор предмета для левого персонажа
+   */
   chooseItemLeftClick: (
     event: React.MouseEvent<HTMLImageElement, MouseEvent>,
-    item: ItemModel,
+    item: ItemModel
   ) => void;
 
+  /**
+   * Выбор предмета для правого персонажа
+   */
   chooseItemRightClick: (
     event: React.MouseEvent<HTMLImageElement, MouseEvent>,
-    item: ItemModel,
+    item: ItemModel
   ) => void;
 };
 const ItemList: FC<Props> = (props) => {
@@ -24,39 +31,16 @@ const ItemList: FC<Props> = (props) => {
       <div className={classes.item}>
         {items.map((item) => (
           <div key={item.name}>
-            <img
-              src={item.img}
-              alt={item.name}
+            <img alt={item.name}
               key={item.name}
-              onMouseEnter={() => setCurrentItem(item)}
-              onMouseLeave={() => setCurrentItem(null)}
+              src={item.img}
               onClick={(event) => chooseItemLeftClick(event, item)}
               onContextMenu={(event) => chooseItemRightClick(event, item)}
+              onMouseEnter={() => setCurrentItem(item)}
+              onMouseLeave={() => setCurrentItem(null)}
             />
             {curentItem?.name === item.name && (
-              <div className={classes.popup}>
-                {curentItem?.name}
-                <ul>
-                  <li>Стоимость предмета : {curentItem.cost}</li>
-                  {curentItem?.stats.map((field) => {
-                    if (
-                      field.name === StatsEnum.attackSpeed ||
-                      field.name === StatsEnum.critChance
-                    ) {
-                      return (
-                        <li key={field.name}>
-                          {field.displayName} : {field.value * 100}%
-                        </li>
-                      );
-                    }
-                    return (
-                      <li key={field.name}>
-                        {field.displayName} : {field.value}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+              <Popup curentItem={curentItem} />
             )}
           </div>
         ))}

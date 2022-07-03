@@ -14,11 +14,25 @@
       cursor: pointer;
     }
 
-    .popup {
+    .popupRight {
       position: absolute;
       width: 250px;
       max-height: 200px;
       margin-left: 10px;
+      padding: 20px;
+      background-color: #f8f8f8;
+      border: 1px solid black;
+      border-radius: 12px;
+
+      ul {
+        margin-left: 20px;
+      }
+    }
+    .popupLeft {
+      position: absolute;
+      width: 250px;
+      max-height: 200px;
+      margin-left: -260px;
       padding: 20px;
       background-color: #f8f8f8;
       border: 1px solid black;

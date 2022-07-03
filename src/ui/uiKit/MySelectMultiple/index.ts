@@ -1,1 +1,1 @@
-export {default} from './MySelectMultiple'
+export { default } from './MySelectMultiple';

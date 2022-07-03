@@ -7,6 +7,7 @@ type Props = {
 };
 
 const MyCheckBox: FC<Props> = (props) => {
-  return <input className={classes.input} {...props} />;
+  return <input className={classes.input}
+    {...props} />;
 };
 export default MyCheckBox;

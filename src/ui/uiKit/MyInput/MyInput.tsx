@@ -29,13 +29,12 @@ const MyInput: FC<Props> = (props) => {
   }
 
   return (
-    <input
-      className={classNames.join(' ')}
-      value={value}
+    <input className={classNames.join(' ')}
+      max={max}
+      min={min}
       placeholder={placeholder}
       type={type}
-      min={min}
-      max={max}
+      value={value}
       onChange={handleChange}
     />
   );

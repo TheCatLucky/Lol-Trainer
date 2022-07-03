@@ -1,0 +1,62 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:jest-formatting/recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "react":{
+      "version":"detect"
+    }
+  },
+  "rules": {
+    "array-element-newline": ["error", { "multiline": true }],
+    "arrow-spacing":["warn",{
+     "before":true,
+     "after":true
+    }],
+    "indent": ["warn", 2],
+    "key-spacing":["warn", {"afterColon": true}],
+    "newline-before-return": "warn",
+    "no-console": "warn",
+    "no-multiple-empty-lines":[ "warn",{
+      "max":1
+    }],
+    "no-multi-spaces": "warn",
+    "no-trailing-spaces": ["warn",{"skipBlankLines": false}],
+    "object-property-newline":["warn",{
+      "allowAllPropertiesOnSameLine":false
+      } ],
+    "object-curly-newline": ["warn",{
+      "ImportDeclaration": "never",
+      "ObjectExpression": "always"
+      }],
+    "quotes": ["error", "single"],
+    "space-infix-ops": "warn",
+    "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
+
+    "jest-formatting/padding-around-describe-blocks": "warn",
+    "jest-formatting/padding-around-test-blocks": "warn",
+    "react/jsx-max-props-per-line": [1, { "maximum": 1, "when":"always" }],
+    "react/jsx-first-prop-new-line": [2, "never"],
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-sort-props":[1,{
+      "shorthandFirst": true,
+      "callbacksLast":true
+      }],
+    "import/newline-after-import": ["error", { "count": 1 }],
+    "import/no-unresolved":"off",
+    "@typescript-eslint/type-annotation-spacing":["warn",{
+       "before": false,
+       "after": true
+      }],
+  }
+}
