@@ -8,14 +8,10 @@ import ItemList from '../ItemList';
 const renderComponent = (
   <BrowserRouter>
     <ItemList chooseItemLeftClick={() => {
-
       console.log('first');
-
     }}
     chooseItemRightClick={() => {
-
       console.log('first');
-
     }}
     items={itemsList}
     />
@@ -28,7 +24,7 @@ describe('Компонент ChampsPage', () => {
 
     const intersectionObserverMock = () => ({
       observe: () => null,
-      disconnect: () => null,
+      unobserve: () => null,
     });
     window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
 
@@ -42,7 +38,7 @@ describe('Компонент ChampsPage', () => {
 
   });
 
-  it('при наведении на предмет показывает его статистики', async () => {
+  it('при наведении на предмет показывает его статистики', async() => {
 
     render(renderComponent);
 
@@ -57,7 +53,7 @@ describe('Компонент ChampsPage', () => {
 
   });
 
-  it('при быстром перемещение с предмета на предмет изменяет показываемое описание', async () => {
+  it('при быстром перемещение с предмета на предмет изменяет показываемое описание', async() => {
 
     render(renderComponent);
 

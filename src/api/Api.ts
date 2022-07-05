@@ -6,7 +6,7 @@ import { ApiResponse } from '../models/ApiResponse';
 const version = '12.12.1';
 
 export const riotAPI = {
-  getRuChamps(){
+  getRuChamps() {
 
     const champs: ChampionModel[] = [];
 
@@ -29,7 +29,7 @@ export const riotAPI = {
           },
           scale: {
             attackDamage: stats.attackdamageperlevel,
-            attackSpeed: stats.attackspeedperlevel,
+            attackSpeed: stats.attackspeedperlevel / 100,
             health: stats.hpperlevel,
             armor: stats.armorperlevel,
             magicResistance: stats.spellblockperlevel
@@ -52,12 +52,16 @@ export const riotAPI = {
             armorBaseCurrent: 0,
             magicResistance: 0,
           },
-          spells: spells[champ.id]
+          spells: spells['Ahri']
         };
+        if(champ.name === 'Акшан') {
+          champion.stats.attackSpeedRatio = 0.4;
+        };
+
         champs.push(champion);
       });
 
-      return champs.sort((a,b) => {
+      return champs.sort((a, b) => {
         const collator = new Intl.Collator('ru');
 
         return collator.compare(a.name, b.name);
@@ -65,7 +69,7 @@ export const riotAPI = {
     });
   },
 
-  getEuChamps(){
+  getEuChamps() {
     return axios.get<ApiResponse>( `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`).then((data) => {
       return data.data.data;
     });

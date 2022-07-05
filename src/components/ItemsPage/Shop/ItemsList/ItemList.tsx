@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 import { ItemModel } from '../../../../models';
 import classes from './ItemList.module.scss';
 import Popup from './Popup';
@@ -21,6 +21,7 @@ type Props = {
     item: ItemModel
   ) => void;
 };
+
 const ItemList: FC<Props> = (props) => {
   const { items, chooseItemLeftClick, chooseItemRightClick } = props;
 
@@ -49,4 +50,4 @@ const ItemList: FC<Props> = (props) => {
   );
 };
 
-export default ItemList;
+export default memo(ItemList);

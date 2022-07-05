@@ -4,7 +4,7 @@ import { ChampionModel } from '../../../../models';
 import ChampStats from '../ChampStats';
 
 const champion: ChampionModel = {
-  name: 'Ahri',
+  name: 'Ари',
   base: {
     attackDamage: 53,
     abilityDamage: 0,
@@ -79,10 +79,15 @@ const renderComponent = (
 describe('Компонент ChampStats', () => {
   beforeEach(() => {
     render(renderComponent);
+    const intersectionObserverMock = () => ({
+      observe: () => null,
+      disconnect: () => null,
+    });
+    window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
   });
 
   it('отображает имя персонажа', () => {
-    const optionName = screen.getByText(/Ahri/i);
+    const optionName = screen.getByText(/Ари/i);
     expect(optionName).toBeInTheDocument();
   });
 
@@ -94,9 +99,6 @@ describe('Компонент ChampStats', () => {
     const armor = screen.getByText(/Броня/i);
     const magicResistance = screen.getByText(/Сопротивление магии/i);
     const health = screen.getByText(/Здоровье/i);
-    const critChance = screen.getByText(/Шанс критического удара/i);
-    const critDamage = screen.getByText(/Множитель критического удара/i);
-    const lethality = screen.getByText(/Смертоносность/i);
 
     expect(attackDamage).toBeInTheDocument();
     expect(abilityDamage).toBeInTheDocument();
@@ -104,9 +106,6 @@ describe('Компонент ChampStats', () => {
     expect(armor).toBeInTheDocument();
     expect(magicResistance).toBeInTheDocument();
     expect(health).toBeInTheDocument();
-    expect(critChance).toBeInTheDocument();
-    expect(critDamage).toBeInTheDocument();
-    expect(lethality).toBeInTheDocument();
     expect(attackDamage.innerHTML).toEqual('Физический урон : 0');
   });
 });

@@ -24,7 +24,7 @@ const FormField: FC<Props> = (props) => {
    */
   const [baseChampStats, setBaseChampStats] = useState<ChampionModel>(() => champions[0]);
   const [champLvl, setChampLvl] = useState(1);
-  const [compare, setCompare] = useState('Ahri');
+  const [compare, setCompare] = useState(champions[0].name);
 
   /**
    * Статы после применения предметов - первый персонаж
@@ -49,15 +49,15 @@ const FormField: FC<Props> = (props) => {
    */
   const setChampAndBaseStats = useCallback(
     (champ: string) => {
-      const champISelect = champions.filter((char) => {
+      setCompare(champ);
+      const champISelect = champions.find((char) => {
         if (char.name === champ) {
           return char;
         }
-
-        return null;
       });
-      setBaseChampStats(champISelect[0]);
-      setChampsToCompare(champISelect[0]);
+
+      champISelect && setBaseChampStats(champISelect);
+      champISelect && setChampsToCompare(champISelect);
       setSelectedItems({
         items: selectedItems.items,
         haveMythic: false,
@@ -68,7 +68,6 @@ const FormField: FC<Props> = (props) => {
         haveMythic: false,
         legendaryIDs: selectedItems2.legendaryIDs,
       });
-      setCompare(champ);
     },
     [champions],
   );
@@ -96,7 +95,7 @@ const FormField: FC<Props> = (props) => {
    */
   useEffect(() => {
     calcNewStats(baseChampStats, selectedItems, 1, champLvl);
-  }, [selectedItems]);
+  }, [selectedItems, ]);
 
   useEffect(() => {
     calcNewStats(baseChampStats, selectedItems2, 2, champLvl);
@@ -105,11 +104,6 @@ const FormField: FC<Props> = (props) => {
   useEffect(() => {
     setChampAndBaseStats(compare);
   }, [compare, setChampAndBaseStats]);
-
-  //TODO  придумать как исправить этот костыль
-  useEffect(() => {
-    setChampions(champions);
-  }, []);
 
   const handleLvlChange = (lvl: number) => {
     setChampLvl(lvl);

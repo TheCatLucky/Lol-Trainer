@@ -1,4 +1,5 @@
 {
+  "root": true,
   "env": {
     "browser": true,
     "es6": true
@@ -6,8 +7,6 @@
   "extends": [
     "eslint:recommended",
     "plugin:jest-formatting/recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
     "prettier"
   ],
@@ -17,12 +16,16 @@
       "version":"detect"
     }
   },
+  "plugins":["@typescript-eslint", "react"],
   "rules": {
-    "array-element-newline": ["error", { "multiline": true }],
+    "array-element-newline": ["error", {
+      "multiline": true
+    }],
     "arrow-spacing":["warn",{
      "before":true,
      "after":true
     }],
+    "curly":["warn"],
     "indent": ["warn", 2],
     "key-spacing":["warn", {"afterColon": true}],
     "newline-before-return": "warn",
@@ -30,19 +33,39 @@
     "no-multiple-empty-lines":[ "warn",{
       "max":1
     }],
-    "no-multi-spaces": "warn",
-    "no-trailing-spaces": ["warn",{"skipBlankLines": false}],
-    "object-property-newline":["warn",{
+    "no-multi-spaces": "warn", // множественные пробелы
+    "no-trailing-spaces": ["warn", {
+      "skipBlankLines": false
+    }],
+    "no-undef":"off",
+    "no-unused-vars":"off",
+    "object-property-newline":["warn",{ // проперти объектов с новой строки
       "allowAllPropertiesOnSameLine":false
       } ],
-    "object-curly-newline": ["warn",{
+    "object-curly-newline": ["warn", { // перевод скобок объекта на новую строку
       "ImportDeclaration": "never",
       "ObjectExpression": "always"
-      }],
+    }],
     "quotes": ["error", "single"],
-    "space-infix-ops": "warn",
-    "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
-
+    "space-before-blocks":["warn"], // пробел перед { в функции
+    "space-before-function-paren":["warn",{ //пробелы перед ( в функции
+      "anonymous": "always",
+      "named" : "never",
+      "asyncArrow": "never"
+    }],
+    "space-infix-ops":[ "warn",{
+      "int32Hint": false
+    }],
+    "space-unary-ops": ["warn", {
+          "words": true,
+          "nonwords": false,
+          "overrides": {
+            "new": false
+          }
+    }],
+    "semi": ["error", "always", { // ; в конце функций
+      "omitLastInOneLineBlock": true
+    }],
     "jest-formatting/padding-around-describe-blocks": "warn",
     "jest-formatting/padding-around-test-blocks": "warn",
     "react/jsx-max-props-per-line": [1, { "maximum": 1, "when":"always" }],
@@ -51,12 +74,20 @@
     "react/jsx-sort-props":[1,{
       "shorthandFirst": true,
       "callbacksLast":true
-      }],
-    "import/newline-after-import": ["error", { "count": 1 }],
+    }],
+    "import/newline-after-import": ["error", {
+      "count": 1
+    }],
     "import/no-unresolved":"off",
+    "@typescript-eslint/comma-spacing": ["warn", {
+      "before": false, "after": true
+    }],
     "@typescript-eslint/type-annotation-spacing":["warn",{
-       "before": false,
-       "after": true
-      }],
+      "before": false,
+      "after": true,
+      "overrides": {
+        "arrow": { "before": true, "after": true }
+      }
+    }]
   }
 }

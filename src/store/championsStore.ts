@@ -33,6 +33,14 @@ class ChampionsStore {
       calcMagicResist: action.bound,
       calcHealth: action.bound,
       calcNewStats: action.bound,
+      sortChampsByASAsc: action.bound,
+      sortChampsByASDesc: action.bound,
+      sortChampsByADAsc: action.bound,
+      sortChampsByADDesc: action.bound,
+      sortChampsByHPAsc: action.bound,
+      sortChampsByHPDesc: action.bound,
+      sortChampsByNameAsc: action.bound,
+      sortChampsByNameDesc: action.bound,
     });
     this.setChampions(champions);
     this.setChampsToCompare(champions[0]);
@@ -238,6 +246,48 @@ class ChampionsStore {
   calcAsWithItems(currentAS: number, itemAS: number, asRatio: number): number {
     return Math.round((currentAS + itemAS * asRatio) * 1000) / 1000;
   }
+
+  sortChampsByASAsc(champions: ChampionModel[], champLvl: number): void {
+    const sortedChampions = champions.sort((a, b) => b.stats.attackSpeed - a.stats.attackSpeed );
+    this.setChampions(sortedChampions, champLvl);
+  }
+  sortChampsByASDesc(champions: ChampionModel[], champLvl: number): void {
+    const sortedChampions = champions.sort((a, b) => a.stats.attackSpeed - b.stats.attackSpeed );
+    this.setChampions(sortedChampions, champLvl);
+  }
+
+  sortChampsByADAsc(champions: ChampionModel[], champLvl: number): void {
+    const sortedChampions = champions.sort((a, b) => b.stats.attackDamage - a.stats.attackDamage );
+    this.setChampions(sortedChampions, champLvl);
+  }
+
+  sortChampsByADDesc(champions: ChampionModel[], champLvl: number): void {
+    const sortedChampions = champions.sort((a, b) => a.stats.attackDamage - b.stats.attackDamage );
+    this.setChampions(sortedChampions, champLvl);
+  }
+
+  sortChampsByHPAsc(champions: ChampionModel[], champLvl: number): void {
+    const sortedChampions = champions.sort((a, b) => b.stats.health - a.stats.health );
+    this.setChampions(sortedChampions, champLvl);
+  }
+
+  sortChampsByHPDesc(champions: ChampionModel[], champLvl: number): void {
+    const sortedChampions = champions.sort((a, b) => a.stats.health - b.stats.health );
+    this.setChampions(sortedChampions, champLvl);
+  }
+
+  sortChampsByNameAsc(champions: ChampionModel[], champLvl: number): void {
+    const collator = new Intl.Collator('ru');
+    const sortedChampions = champions.sort((a, b) => collator.compare(a.name, b.name));
+    this.setChampions(sortedChampions, champLvl);
+  }
+
+  sortChampsByNameDesc(champions: ChampionModel[], champLvl: number): void {
+    const collator = new Intl.Collator('ru');
+    const sortedChampions = champions.sort((a, b) => collator.compare(b.name, a.name));
+    this.setChampions(sortedChampions, champLvl);
+  }
+
 }
 
 export default ChampionsStore;

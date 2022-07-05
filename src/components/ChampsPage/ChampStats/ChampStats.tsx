@@ -35,7 +35,7 @@ const ChampStats: FC<Props> = (props) => {
         <li>
           {Displayed.health} : {champion.stats.health}
         </li>
-        <li>
+        {/*         <li>
           {Displayed.critChance} : {champion.stats.critChance}
         </li>
         <li>
@@ -43,7 +43,7 @@ const ChampStats: FC<Props> = (props) => {
         </li>
         <li>
           {Displayed.lethality} : {champion.stats.lethality}
-        </li>
+        </li> */}
       </ul>
     </div>
   );

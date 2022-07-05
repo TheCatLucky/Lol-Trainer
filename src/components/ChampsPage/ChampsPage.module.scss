@@ -4,8 +4,20 @@
   height: calc(100vh - 80px - 40px);
   background-color: lightgray;
 
+  .menu{
+    display: flex;
+    flex-direction: row;
+
+    .column{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
   .content {
     display: flex;
     flex-flow: row wrap;
+    overflow-x: scroll;
+    overflow-x: hidden;
   }
 }

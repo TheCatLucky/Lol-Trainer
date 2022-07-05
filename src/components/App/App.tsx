@@ -8,16 +8,16 @@ import AppRouter from '../AppRouter';
 import classes from './App.module.scss';
 
 function App() {
-  const [champsStore,setChampsStore] = useState<ChampionsStore>(new ChampionsStore(champsList));
+  const [champsStore, setChampsStore] = useState<ChampionsStore>(new ChampionsStore(champsList));
 
-  const getData = async () => {
+  const getData = async() => {
     const data = await riotAPI.getRuChamps().then(data => data);
     setChampsStore( new ChampionsStore(data));
   };
 
   useEffect(() => {
     getData();
-  },[]);
+  }, []);
 
   const itemsStore = new ItemsStore(itemsList);
 

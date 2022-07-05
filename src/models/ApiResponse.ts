@@ -2,21 +2,21 @@ export type ApiResponse = {
  type: string,
  format: string,
  version: string,
- data : DataObj
+ data: DataObj
 }
 
 type DataObj = {
-  [index:string]: DataItem
+  [index: string]: DataItem
 }
 
 export type DataItem = {
-  version:string,
-  id:string,
-  key:string,
-  name:string,
-  title:string,
-  blurb:string,
-  stats : StatsType
+  version: string,
+  id: string,
+  key: string,
+  name: string,
+  title: string,
+  blurb: string,
+  stats: StatsType
 }
 
 export type StatsType = {
@@ -28,13 +28,13 @@ export type StatsType = {
   armor: number,
   armorperlevel: number,
   spellblock: number,
-  spellblockperlevel:number,
+  spellblockperlevel: number,
   attackrange: number,
-  hpregen:number,
+  hpregen: number,
   hpregenperlevel: number,
   mpregen: number,
-  mpregenperlevel:number,
-  crit:number,
+  mpregenperlevel: number,
+  crit: number,
   critperlevel: number,
   attackdamage: number,
   attackdamageperlevel: number,

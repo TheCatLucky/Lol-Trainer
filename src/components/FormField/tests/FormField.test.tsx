@@ -20,7 +20,7 @@ describe('Компонент FormField', () => {
   beforeEach(() => {
     const intersectionObserverMock = () => ({
       observe: () => null,
-      disconnect: () => null,
+      unobserve: () => null,
     });
     window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
   });
@@ -49,7 +49,7 @@ describe('Компонент FormField', () => {
     expect(dpsArray[10].innerHTML).toBe('17');
   });
 
-  it('отображает верно статистику при изменении уровня', async () => {
+  it('отображает верно статистику при изменении уровня', async() => {
     render(renderComponent);
 
     const input = screen.getByDisplayValue('1');
@@ -68,7 +68,7 @@ describe('Компонент FormField', () => {
     expect(dpsArray[10].innerHTML).toBe('29');
   });
 
-  it('отображает верно статистику при добавлении предметов', async () => {
+  it('отображает верно статистику при добавлении предметов', async() => {
     render(renderComponent);
 
     const input = screen.getByPlaceholderText('введите уровень персонажа');
@@ -139,7 +139,7 @@ describe('Компонент FormField', () => {
     expect(dpsArray[21].innerHTML).toBe('53');
   });
 
-  it('не позволяет выбрать 2 уникальных предмета', async () => {
+  it('не позволяет выбрать 2 уникальных предмета', async() => {
     render(renderComponent);
 
     const baseDamageArray = screen.getAllByTestId('baseDMG');
@@ -162,7 +162,7 @@ describe('Компонент FormField', () => {
     expect(dpsArray[10].innerHTML).toBe('37');
   });
 
-  it('позволяет выбирать не уникальный предметы 2+ раз', async () => {
+  it('позволяет выбирать не уникальный предметы 2+ раз', async() => {
     render(renderComponent);
 
     const baseDamageArray = screen.getAllByTestId('baseDMG');
@@ -182,7 +182,7 @@ describe('Компонент FormField', () => {
     expect(dpsArray[10].innerHTML).toBe('44');
   });
 
-  it('позволяет удалить выбранный легендарный предмет и взять его снова', async () => {
+  it('позволяет удалить выбранный легендарный предмет и взять его снова', async() => {
     render(renderComponent);
 
     const baseDamageArray = screen.getAllByTestId('baseDMG');
@@ -213,7 +213,7 @@ describe('Компонент FormField', () => {
     expect(dpsArray[10].innerHTML).toBe('37');
   });
 
-  it('позволяет выбрать мифический предмет, затему удалить его и взять снова', async () => {
+  it('позволяет выбрать мифический предмет, затему удалить его и взять снова', async() => {
     render(renderComponent);
 
     const baseDamageArray = screen.getAllByTestId('baseDMG');

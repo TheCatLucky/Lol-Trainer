@@ -1,10 +1,11 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ChampionModel } from '../../../models';
 import classes from './DPSTable.module.scss';
 
 type Props = {
   champion: ChampionModel;
 };
+
 const DPSTable: FC<Props> = (props) => {
   const { champion } = props;
   const {

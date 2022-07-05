@@ -12,25 +12,20 @@ type Props = {
 
 const ChampsPage: FC<Props> = (props) => {
   const { champsStore } = props;
-  const { setChampions, champions } = champsStore;
+  const { sortChampsByASAsc, sortChampsByASDesc, sortChampsByADAsc, sortChampsByADDesc, sortChampsByHPAsc, sortChampsByHPDesc, sortChampsByNameAsc, sortChampsByNameDesc, champions, setChampions } = champsStore;
 
-  const [selectedChamp, setselectedChamp] = useState('');
+  const [selectedChamp, setSelectedChamp] = useState('');
+  const [sortFunc, setSortFunc] = useState('Сортировка по имени ↑');
+
   const [showAll, setShowAll] = useState(false);
   const [champLvl, setChampLvl] = useState(1);
-
-  /**
-   * Изменение статистик ВСЕХ персонажей в сторе
-   */
-  useEffect(() => {
-    setChampions(champions, champLvl);
-  }, [champLvl]);
 
   const showAllChamps = () => {
     setShowAll(!showAll);
   };
 
   const handleSelect = (champName: string) => {
-    setselectedChamp(champName);
+    setSelectedChamp(champName);
     setShowAll(false);
   };
 
@@ -49,21 +44,92 @@ const ChampsPage: FC<Props> = (props) => {
     [champions],
   );
 
+  const optionsSort = useMemo(() => {
+    return [
+      {
+        value: 'Сортировка по имени ↑',
+        name: 'Сортировка по имени ↑'
+      },
+      {
+        value: 'Сортировка по имени ↓',
+        name: 'Сортировка по имени ↓'
+      },
+      {
+        value: 'Сортировка по АС ↑',
+        name: 'Сортировка по АС ↑'
+      },
+      {
+        value: 'Сортировка по АС ↓',
+        name: 'Сортировка по АС ↓'
+      },
+      {
+        value: 'Сортировка по АД ↑',
+        name: 'Сортировка по АД ↑'
+      },
+      {
+        value: 'Сортировка по АД ↓',
+        name: 'Сортировка по АД ↓'
+      },
+      {
+        value: 'Сортировка по ХП ↑',
+        name: 'Сортировка по ХП ↑'
+      },
+      {
+        value: 'Сортировка по ХП ↓',
+        name: 'Сортировка по ХП ↓'
+      }];
+  }, []);
+
+  /**
+   * Изменение статистик ВСЕХ персонажей в сторе
+   */
+  useEffect(() => {
+    setChampions(champions, champLvl);
+  }, [champLvl]);
+
+  useEffect(() => {
+    const sortFuncObj: {[index: string]: () => void, } = {
+      'Сортировка по АС ↑': function () { sortChampsByASAsc(champions, champLvl)},
+      'Сортировка по АС ↓': function () { sortChampsByASDesc(champions, champLvl)},
+      'Сортировка по АД ↑': function () { sortChampsByADAsc(champions, champLvl)},
+      'Сортировка по АД ↓': function () { sortChampsByADDesc(champions, champLvl)},
+      'Сортировка по ХП ↑': function () { sortChampsByHPAsc(champions, champLvl)},
+      'Сортировка по ХП ↓': function () { sortChampsByHPDesc(champions, champLvl)},
+      'Сортировка по имени ↑': function () { sortChampsByNameAsc(champions, champLvl)},
+      'Сортировка по имени ↓': function () {sortChampsByNameDesc(champions, champLvl)}
+    };
+
+    sortFuncObj[sortFunc]();
+  }, [sortFunc]);
+
   return (
     <div className={classes.wrapper}>
-      <MySelect defaultValue='выберте персонажа'
-        options={optionsChamps}
-        value={selectedChamp}
-        onChange={handleSelect}
-      />
-      <MyInput max={18}
-        min={1}
-        placeholder='введите уровен персонажа'
-        type='number'
-        value={champLvl}
-        onChange={handleLvlChange}
-      />
-      <MyButton onClick={showAllChamps}>{showAll ? 'Убрать' : 'Показать всех'}</MyButton>
+      <div className={classes.menu}>
+        <div className={classes.column}>
+          <MySelect defaultValue='выберте персонажа'
+            options={optionsChamps}
+            value={selectedChamp}
+            onChange={handleSelect}
+          />
+          <MyInput max={18}
+            min={1}
+            placeholder='введите уровен персонажа'
+            type='number'
+            value={champLvl}
+            onChange={handleLvlChange}
+          />
+          <MyButton onClick={showAllChamps}>
+            {showAll ? 'Убрать' : 'Показать всех'}
+          </MyButton>
+        </div>
+        {showAll && <div className={classes.column}>
+          <MySelect defaultValue='тип сортировки'
+            options={optionsSort}
+            value={sortFunc}
+            onChange={setSortFunc}
+          />
+        </div>}
+      </div>
       <br />
       <div className={classes.content}>
         {!showAll &&
@@ -76,7 +142,7 @@ const ChampsPage: FC<Props> = (props) => {
 
             return null;
           })}
-        {!!showAll &&
+        {showAll &&
           champions.map((champ) => {
             return <ChampStats champion={champ}
               key={champ.name}

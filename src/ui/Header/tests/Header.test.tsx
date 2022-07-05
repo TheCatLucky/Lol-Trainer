@@ -25,7 +25,7 @@ describe('Компонент Header', () => {
     expect(thirdLink).toBeInTheDocument();
   });
 
-  it('при клике на ссылку меняет URL', async () => {
+  it('при клике на ссылку меняет URL', async() => {
     render(renderComponent);
 
     const firstLink = screen.getByText(/статистики персонажей/i);

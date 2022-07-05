@@ -17,18 +17,15 @@ const Popup: FC<Props> = (props) => {
       const entry = entries[0];
       if (entry.intersectionRatio !== 1) {
         setIsRightSide(false);
-      } else {
-        setIsRightSide(true);
       }
     });
-    if (itemRef.current) {
-      observer.observe(itemRef.current);
-    }
+
+    itemRef.current && observer.observe(itemRef.current);
 
     return () => {
-      observer.disconnect();
+      itemRef.current && observer.unobserve(itemRef.current);
     };
-  }, [curentItem]);
+  }, [itemRef.current]);
 
   return (
     <div className={ifRightSide ? classes.popupRight : classes.popupLeft}

@@ -37,7 +37,7 @@ const ChampSkills: FC<Props> = (props) => {
     setSkill: setVisibleE
   }];
 
-  const handleClick = (spelllvl:number, setSpellLvl:(value: SetStateAction<number>) => void, setSpellVisible:(value: SetStateAction<boolean>) => void) => {
+  const handleClick = (spelllvl: number, setSpellLvl: (value: SetStateAction<number>) => void, setSpellVisible: (value: SetStateAction<boolean>) => void) => {
     if (spelllvl + 1 === 5) {
       setSpellVisible(false);
     }
@@ -76,7 +76,7 @@ const ChampSkills: FC<Props> = (props) => {
     setSkillPoints(champLvl - QLvl - WLvl - ELvl - RLvl);
   }, [champLvl]);
   const handleEClick = () => {
-    handleClick(ELvl,setELvl,setVisibleE);
+    handleClick(ELvl, setELvl, setVisibleE);
   };
 
   return (
@@ -85,7 +85,7 @@ const ChampSkills: FC<Props> = (props) => {
         <div className={classes.spellButton}>
           {visibleQ && (
             <button data-testid='QLvlUp'
-              onClick={() => handleClick(QLvl,setQLvl,setVisibleQ)}>
+              onClick={() => handleClick(QLvl, setQLvl, setVisibleQ)}>
               +
             </button>
           )}
@@ -100,7 +100,7 @@ const ChampSkills: FC<Props> = (props) => {
         <div className={classes.spellButton}>
           {visibleW && (
             <button data-testid='WLvlUp'
-              onClick={() => handleClick(WLvl,setWLvl,setVisibleW)}>
+              onClick={() => handleClick(WLvl, setWLvl, setVisibleW)}>
               +
             </button>
           )}
@@ -130,7 +130,7 @@ const ChampSkills: FC<Props> = (props) => {
         <div className={classes.spellButton}>
           {visibleR && (
             <button data-testid='RLvlUp'
-              onClick={() => handleClick(RLvl,setRLvl,setVisibleR)}>
+              onClick={() => handleClick(RLvl, setRLvl, setVisibleR)}>
               +
             </button>
           )}

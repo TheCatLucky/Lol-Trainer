@@ -1,11 +1,13 @@
-import { Displayed, ItemModel, LegendaryIDs, StatsEnum } from '../models';
-import {Axiom_Arc,
-  BFSword,
+import {Abyssal_Mask,
+  Amplifying_Tome,
+  Axiom_Arc,
   Berserkers,
+  BFSword,
   Black_Cleaver,
   Black_Mist_Scythe,
-  Botrk,
+  Blasting_Wand,
   Bloodthirster,
+  Botrk,
   Caulfields_Warhammer,
   Chempunk_Chainsword,
   Cloak_of_Agility,
@@ -32,10 +34,8 @@ import {Axiom_Arc,
   Kircheis_Shard,
   Kraken_Slayer,
   Last_Whisper,
-  Long_Sword,
-  Abyssal_Mask,
-  Amplifying_Tome,
-  Blasting_Wand,} from '../assets';
+  Long_Sword} from '../assets';
+import { Displayed, ItemModel, LegendaryIDs, StatsEnum } from '../models';
 
 const itemsList: ItemModel[] = [
   /*
