@@ -13,10 +13,10 @@ const Shop: FC<Props> = (props) => {
   return (
     <div className={classes.wrapper}>
       <ItemList chooseItemLeftClick={() => {
-        console.log('first');
+        return null;
       }}
       chooseItemRightClick={() => {
-        console.log('first');
+        return null;
       }}
       items={items}
       />
