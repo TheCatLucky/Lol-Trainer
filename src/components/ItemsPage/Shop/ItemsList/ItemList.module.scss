@@ -3,23 +3,27 @@
   flex-flow: column wrap;
 
   .item {
-    display: flex;
-    flex-flow: row wrap;
     position: relative;
 
+    display: flex;
+    flex-flow: row wrap;
+
     img {
-      height: 40px;
       width: 40px;
+      height: 40px;
       padding-left: 5px;
+
       cursor: pointer;
     }
 
     .popupRight {
       position: absolute;
+
       width: 250px;
       max-height: 200px;
       margin-left: 10px;
       padding: 20px;
+
       background-color: #f8f8f8;
       border: 1px solid black;
       border-radius: 12px;
@@ -28,12 +32,15 @@
         margin-left: 20px;
       }
     }
+
     .popupLeft {
       position: absolute;
+
       width: 250px;
       max-height: 200px;
       margin-left: -260px;
       padding: 20px;
+
       background-color: #f8f8f8;
       border: 1px solid black;
       border-radius: 12px;
@@ -43,6 +50,7 @@
       }
     }
   }
+
   .selectedItems {
     margin-left: 10px;
   }

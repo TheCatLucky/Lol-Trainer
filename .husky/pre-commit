@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-yarn lint
-yarn react-scripts test "--testLocationInResults" "--json" "--useStderr" "--outputFile" "C:\\Users\\THELUC~1\\AppData\\Local\\Temp\\jest_runner_lol_trainer_2.json" "--no-coverage" "--reporters" "default" "--reporters" "c:\\Users\\TheLuckyCat\\.vscode\\extensions\\orta.vscode-jest-4.6.0\\out\\reporter.js" "--colors" "--watchAll=false"

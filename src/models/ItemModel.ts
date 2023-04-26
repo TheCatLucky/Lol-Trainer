@@ -28,7 +28,7 @@ class ItemModel {
   /**
    * Идентификатор легендарного предмета
    */
-  legendaryID?: number;
+  legendaryID?: number ;
 
   /**
    * Является предмет мифическим

@@ -1,4 +1,5 @@
 import { action, configure, makeObservable, observable } from 'mobx';
+
 import { ChampionModel, SelectedItems, StatsEnum } from '../models';
 
 configure({
@@ -10,6 +11,7 @@ type ChampionsToCompare = {
   id: number;
   equipment: SelectedItems;
 };
+
 //ToDo: куда-то сетить выбранного персонажа, чтобы не изменять весь стор.
 class ChampionsStore {
   /**
@@ -45,7 +47,6 @@ class ChampionsStore {
     this.setChampions(champions);
     this.setChampsToCompare(champions[0]);
   }
-
   /**
    * @param champions Массив чемпионов
    * @param lvl Уровень персонажа
@@ -114,17 +115,18 @@ class ChampionsStore {
             ...items
           },
         };
-      } else {
-        return {
-          champion: {
-            ...champion.champion
-          },
-          id: champion.id,
-          equipment: {
-            ...champion.equipment
-          },
-        };
       }
+
+      return {
+        champion: {
+          ...champion.champion
+        },
+        id: champion.id,
+        equipment: {
+          ...champion.equipment
+        },
+      };
+
     });
   }
   /**
@@ -146,46 +148,46 @@ class ChampionsStore {
     items.items.forEach((item) => {
       item.stats.forEach((field) => {
         switch (field.name) {
-        case StatsEnum.attackSpeed: {
-          const newAS = this.calcAsWithItems(
-            newStats.stats[field.name],
-            field.value,
-            newStats.stats.attackSpeedRatio,
-          );
+          case StatsEnum.attackSpeed: {
+            const newAS = this.calcAsWithItems(
+              newStats.stats[field.name],
+              field.value,
+              newStats.stats.attackSpeedRatio,
+            );
 
-          return (newStats = {
-            ...newStats,
-            stats: {
-              ...newStats.stats,
-              [field.name]: newAS,
-            },
-          });
-        }
+            return (newStats = {
+              ...newStats,
+              stats: {
+                ...newStats.stats,
+                [field.name]: newAS,
+              },
+            });
+          }
 
-        case StatsEnum.lethality: {
-          const armorFlatPen = this.calcArmFlatPen(
-            newStats.stats[field.name] + field.value,
-            champLvl,
-          );
+          case StatsEnum.lethality: {
+            const armorFlatPen = this.calcArmFlatPen(
+              newStats.stats[field.name] + field.value,
+              champLvl,
+            );
 
-          return (newStats = {
-            ...newStats,
-            stats: {
-              ...newStats.stats,
-              [field.name]: newStats.stats[field.name] + field.value,
-              armorFlatPenetration: armorFlatPen,
-            },
-          });
-        }
+            return (newStats = {
+              ...newStats,
+              stats: {
+                ...newStats.stats,
+                [field.name]: newStats.stats[field.name] + field.value,
+                armorFlatPenetration: armorFlatPen,
+              },
+            });
+          }
 
-        default:
-          return (newStats = {
-            ...newStats,
-            stats: {
-              ...newStats.stats,
-              [field.name]: newStats.stats[field.name] + field.value,
-            },
-          });
+          default:
+            return (newStats = {
+              ...newStats,
+              stats: {
+                ...newStats.stats,
+                [field.name]: newStats.stats[field.name] + field.value,
+              },
+            });
         }
       });
     });
@@ -214,8 +216,8 @@ class ChampionsStore {
     const growth = this.calcGrowth(champion.scale.attackSpeed, lvl);
 
     return (
-      Math.round((champion.base.attackSpeed + growth * champion.stats.attackSpeedRatio) * 1000) /
-      1000
+      Math.round((champion.base.attackSpeed + growth * champion.stats.attackSpeedRatio) * 1000)
+      / 1000
     );
   }
 
@@ -248,31 +250,31 @@ class ChampionsStore {
   }
 
   sortChampsByASAsc(champions: ChampionModel[], champLvl: number): void {
-    const sortedChampions = champions.sort((a, b) => b.stats.attackSpeed - a.stats.attackSpeed );
+    const sortedChampions = champions.sort((a, b) => b.stats.attackSpeed - a.stats.attackSpeed);
     this.setChampions(sortedChampions, champLvl);
   }
   sortChampsByASDesc(champions: ChampionModel[], champLvl: number): void {
-    const sortedChampions = champions.sort((a, b) => a.stats.attackSpeed - b.stats.attackSpeed );
+    const sortedChampions = champions.sort((a, b) => a.stats.attackSpeed - b.stats.attackSpeed);
     this.setChampions(sortedChampions, champLvl);
   }
 
   sortChampsByADAsc(champions: ChampionModel[], champLvl: number): void {
-    const sortedChampions = champions.sort((a, b) => b.stats.attackDamage - a.stats.attackDamage );
+    const sortedChampions = champions.sort((a, b) => b.stats.attackDamage - a.stats.attackDamage);
     this.setChampions(sortedChampions, champLvl);
   }
 
   sortChampsByADDesc(champions: ChampionModel[], champLvl: number): void {
-    const sortedChampions = champions.sort((a, b) => a.stats.attackDamage - b.stats.attackDamage );
+    const sortedChampions = champions.sort((a, b) => a.stats.attackDamage - b.stats.attackDamage);
     this.setChampions(sortedChampions, champLvl);
   }
 
   sortChampsByHPAsc(champions: ChampionModel[], champLvl: number): void {
-    const sortedChampions = champions.sort((a, b) => b.stats.health - a.stats.health );
+    const sortedChampions = champions.sort((a, b) => b.stats.health - a.stats.health);
     this.setChampions(sortedChampions, champLvl);
   }
 
   sortChampsByHPDesc(champions: ChampionModel[], champLvl: number): void {
-    const sortedChampions = champions.sort((a, b) => a.stats.health - b.stats.health );
+    const sortedChampions = champions.sort((a, b) => a.stats.health - b.stats.health);
     this.setChampions(sortedChampions, champLvl);
   }
 

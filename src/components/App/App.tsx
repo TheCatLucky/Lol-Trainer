@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+
 import { riotAPI } from '../../api';
 import { champsList, itemsList } from '../../data';
 import { ChampionsStore, ItemsStore } from '../../store';
@@ -7,7 +8,7 @@ import Header from '../../ui/Header';
 import AppRouter from '../AppRouter';
 import classes from './App.module.scss';
 
-function App() {
+const App: FC = () => {
   const [champsStore, setChampsStore] = useState<ChampionsStore>(new ChampionsStore(champsList));
 
   const getData = async() => {
@@ -26,7 +27,8 @@ function App() {
       <Header />
       <div className={classes.content}>
         <AppRouter champsStore={champsStore}
-          itemsStore={itemsStore.items} />
+          itemsStore={itemsStore.items}
+        />
       </div>
       <div className={classes.footer}>
         <Footer />

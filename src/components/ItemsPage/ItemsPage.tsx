@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
+
 import { ItemModel } from '../../models';
 import Shop from './Shop';
-
 import classes from './ItemsPage.module.scss';
 
 type Props = {

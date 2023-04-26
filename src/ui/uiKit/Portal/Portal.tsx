@@ -13,8 +13,9 @@ const Portal: FC<Props> = ({ children }) => {
     return () => {
       document.body.removeChild(container);
     };
-  }, []);
+  }, [container]);
 
   return createPortal(children, container);
 };
+
 export default Portal;

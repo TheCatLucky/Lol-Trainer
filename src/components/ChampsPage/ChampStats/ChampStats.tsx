@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { ChampionModel, Displayed } from '../../../models';
 import classes from './ChampStats.module.scss';
 
@@ -12,7 +13,8 @@ const ChampStats: FC<Props> = (props) => {
 
   return (
     <div className={classes.stats}
-      key={champion.name}>
+      key={champion.name}
+    >
       <h3>
         {champion.name} на {lvl} уровне
       </h3>

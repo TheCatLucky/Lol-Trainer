@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import Portal from '../Portal';
 import classes from './Popup.module.scss';
 
@@ -27,4 +28,5 @@ const Popup: FC<Props> = (props) => {
     </Portal>
   );
 };
+
 export default Popup;

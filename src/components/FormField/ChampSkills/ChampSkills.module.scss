@@ -1,16 +1,20 @@
 .wrapper {
   display: flex;
   flex-direction: row;
+
   margin-left: 40px;
 
   .spellWrapper {
+    position: relative;
+
     display: flex;
     flex-direction: column;
-    position: relative;
     align-items: center;
+
     width: 32px;
-    text-align: center;
     margin-right: 5px;
+
+    text-align: center;
 
     .spellButton {
       width: 30px;
@@ -23,6 +27,7 @@
 
     .spell {
       position: absolute;
+
       margin: 20px 0px 0px 0px;
 
       img {

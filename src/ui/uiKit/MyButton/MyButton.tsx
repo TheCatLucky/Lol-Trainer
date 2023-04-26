@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import classes from './MyButton.module.scss';
 
 type Props = {
@@ -11,9 +12,11 @@ const MyButton: FC<Props> = (props) => {
 
   return (
     <button className={classes.button}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {children}
     </button>
   );
 };
+
 export default MyButton;

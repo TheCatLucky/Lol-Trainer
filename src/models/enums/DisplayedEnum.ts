@@ -10,7 +10,7 @@ enum Displayed {
   critDamage = 'Множитель критического удара',
   health = 'Здоровье',
   armor = 'Броня',
-  magicResistance = 'Сопротивление магии',
+  magicResistance = 'Сопротивление магии'
 }
 
 export default Displayed;

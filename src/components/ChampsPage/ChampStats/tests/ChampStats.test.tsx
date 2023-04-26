@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+
 import { ChampionModel } from '../../../../models';
 import ChampStats from '../ChampStats';
 
@@ -72,7 +73,8 @@ const champion: ChampionModel = {
 const renderComponent = (
   <BrowserRouter>
     <ChampStats champion={champion}
-      lvl={1} />
+      lvl={1}
+    />
   </BrowserRouter>
 );
 

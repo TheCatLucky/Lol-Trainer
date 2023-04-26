@@ -1,20 +1,42 @@
 import axios from 'axios';
+
 import { spells } from '../data/spellList';
 import { ChampionModel } from '../models';
 import { ApiResponse } from '../models/ApiResponse';
 
 const version = '12.12.1';
+const instance = axios.create({
+  baseURL: `http://ddragon.leagueoflegends.com/cdn/${version}/data/`,
+});
+
+instance.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    console.log(error);
+  }
+);
+
+instance.interceptors.response.use(
+  (config) => {
+    return config.data;
+  },
+  (error) => {
+    console.log(error);
+  }
+);
 
 export const riotAPI = {
-  getRuChamps() {
-
+  getRuChamps(): Promise<ChampionModel[]> {
     const champs: ChampionModel[] = [];
 
-    return axios.get<ApiResponse>(`http://ddragon.leagueoflegends.com/cdn/${version}/data/ru_RU/champion.json`).then((data) => {
-      const champPool = data.data.data;
+    return instance.get('ru_RU/champion.json').then((data) => {
+      console.log(data);
+      const champPool = data.data;
       const keys = Object.keys(champPool);
 
-      keys.forEach(key => {
+      keys.forEach((key) => {
         const champ = champPool[key];
         const stats = champ.stats;
         const champion: ChampionModel = {
@@ -25,14 +47,14 @@ export const riotAPI = {
             attackSpeed: stats.attackspeed,
             health: stats.hp,
             armor: stats.armor,
-            magicResistance: stats.spellblock
+            magicResistance: stats.spellblock,
           },
           scale: {
             attackDamage: stats.attackdamageperlevel,
             attackSpeed: stats.attackspeedperlevel / 100,
             health: stats.hpperlevel,
             armor: stats.armorperlevel,
-            magicResistance: stats.spellblockperlevel
+            magicResistance: stats.spellblockperlevel,
           },
           stats: {
             attackDamage: 0,
@@ -52,11 +74,12 @@ export const riotAPI = {
             armorBaseCurrent: 0,
             magicResistance: 0,
           },
-          spells: spells['Ahri']
+          spells: spells['Ahri'],
         };
-        if(champ.name === 'Акшан') {
+
+        if (champ.name === 'Акшан') {
           champion.stats.attackSpeedRatio = 0.4;
-        };
+        }
 
         champs.push(champion);
       });
@@ -70,8 +93,12 @@ export const riotAPI = {
   },
 
   getEuChamps() {
-    return axios.get<ApiResponse>( `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`).then((data) => {
-      return data.data.data;
-    });
-  }
+    return axios
+      .get<ApiResponse>(
+        `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`
+      )
+      .then((data) => {
+        return data.data.data;
+      });
+  },
 };

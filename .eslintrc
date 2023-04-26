@@ -1,61 +1,147 @@
 {
   "root": true,
-  "env": {
+   "env": {
     "browser": true,
-    "es6": true
+    "node": true,
+    "es2021": true,
+    "jest":true
   },
+  "overrides": [{
+    "files":["**/*.ts","**/*.tsx"],
+    "rules": {
+        "no-undef": "off"
+      }
+  }],
   "extends": [
-    "eslint:recommended",
     "plugin:jest-formatting/recommended",
     "plugin:import/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": ["./tsconfig.json"],
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
   "settings": {
     "react":{
       "version":"detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     }
   },
-  "plugins":["@typescript-eslint", "react"],
+  "plugins":["@typescript-eslint", "react", "hooks","ternaries"],
   "rules": {
-    "array-element-newline": ["error", {
-      "multiline": true
-    }],
+     "array-bracket-spacing": [
+      "warn",
+      "never"
+    ],
+    "array-bracket-newline":[
+      "warn",
+      "consistent"
+    ],
+    "array-element-newline": [
+      "warn",
+      "consistent"
+    ],
+    "arrow-parens":["warn","always"],//скобки вокруг аргумента стрелочной функции
     "arrow-spacing":["warn",{
      "before":true,
      "after":true
     }],
-    "curly":["warn"],
-    "indent": ["warn", 2],
-    "key-spacing":["warn", {"afterColon": true}],
-    "newline-before-return": "warn",
+    "brace-style": [
+      "warn",
+      "1tbs",
+      {
+        "allowSingleLine": false
+      }
+    ],     //скобки при if else
+    "computed-property-spacing":["warn","never"],
+    "curly":["warn"], // фигурные скобки обязательны в if и прочих разветвлениях
+    "default-case": "warn",
+    "eol-last": ["error", "always"],
+    "eqeqeq": "error", //использование строгих сравнений
+    "func-call-spacing":["warn","never"], //пробелы перед вызовом функции
+    "jsx-quotes": ["error", "prefer-double"],
+    "indent": ["off"], // Отступы
+    "import/no-unresolved":"off",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [
+          ["builtin", "external"],
+          ["sibling", "parent", "index", "internal"]
+        ]
+      }
+    ],
+    "import/newline-after-import": ["error", { // Пустая линия перед импортом
+      "count": 1
+    }],
+    "key-spacing":["warn", {
+      "afterColon": true,
+      "mode": "strict"
+    }],
+    "keyword-spacing":["warn"],
+    "max-classes-per-file": "warn",
+    "max-len": ["warn", {
+      "code": 120 ,
+      "tabWidth": 2,
+      "ignoreComments": true,
+      "ignoreTrailingComments": true,
+      "ignoreUrls": true,
+      "ignoreRegExpLiterals": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true
+      }],
+    "multiline-ternary": ["warn", "always-multiline"],
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
     "no-console": "warn",
-    "no-multiple-empty-lines":[ "warn",{
+    "no-debugger": "warn",
+    "no-else-return": "warn",
+    "no-multiple-empty-lines":[ "warn",{ //максимум 1 пустая строка
       "max":1
     }],
     "no-multi-spaces": "warn", // множественные пробелы
-    "no-trailing-spaces": ["warn", {
-      "skipBlankLines": false
-    }],
-    "no-undef":"off",
+    "no-trailing-spaces": "warn", // лишние пробелы в конце строки
+    "no-undef":"warn",
+    "no-unneeded-ternary": "warn",
     "no-unused-vars":"off",
     "object-property-newline":["warn",{ // проперти объектов с новой строки
-      "allowAllPropertiesOnSameLine":false
-      } ],
-    "object-curly-newline": ["warn", { // перевод скобок объекта на новую строку
-      "ImportDeclaration": "never",
-      "ObjectExpression": "always"
+      "allowAllPropertiesOnSameLine":true
     }],
-    "quotes": ["error", "single"],
+    "object-curly-newline": ["warn", { // перевод скобок объекта на новую строку
+      "ImportDeclaration": {
+        "multiline": true
+      },
+      "ObjectExpression": {
+          "multiline": true
+        },
+        "ObjectPattern": {
+          "multiline": true
+        }
+
+    }],
+    "object-curly-spacing":["warn","always"],
+    "operator-linebreak":["warn", "before"],
+    "padding-line-between-statements": ["off"],
+    "quotes": ["warn", "single"],
     "space-before-blocks":["warn"], // пробел перед { в функции
-    "space-before-function-paren":["warn",{ //пробелы перед ( в функции
+    "space-before-function-paren":["error",{ //пробелы перед ( в функции
       "anonymous": "always",
       "named" : "never",
       "asyncArrow": "never"
     }],
-    "space-infix-ops":[ "warn",{
-      "int32Hint": false
-    }],
+    "space-in-parens":["warn"], // пробелы внутри вызова функции
     "space-unary-ops": ["warn", {
           "words": true,
           "nonwords": false,
@@ -66,28 +152,121 @@
     "semi": ["error", "always", { // ; в конце функций
       "omitLastInOneLineBlock": true
     }],
+    "template-curly-spacing": ["warn", "never"], //без проблелов в шаблонной строке
     "jest-formatting/padding-around-describe-blocks": "warn",
     "jest-formatting/padding-around-test-blocks": "warn",
-    "react/jsx-max-props-per-line": [1, { "maximum": 1, "when":"always" }],
-    "react/jsx-first-prop-new-line": [2, "never"],
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-sort-props":[1,{
+    "hooks/sort": [
+      "warn",
+      {
+        "groups": [
+          "useReducer",
+          "useContext",
+          "useState",
+          "useRef",
+          "useDispatch",
+          "useCallback",
+          "useEffect"
+        ]
+      }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/destructuring-assignment": ["warn", "always"],
+    "react/jsx-boolean-value":["warn","never"],
+    "react/jsx-closing-bracket-location":["warn","tag-aligned"],
+    "react/jsx-curly-newline":["warn", {
+      "multiline": "require",
+      "singleline": "consistent"
+    }],
+    "react/jsx-curly-spacing":["warn", {
+      "when": "never",
+      "children": {
+        "when": "never"
+      }
+      }],
+    "react/jsx-equals-spacing": ["warn", "never"],
+    "react/jsx-max-props-per-line": ["warn", { "maximum": 1, "when":"multiline" }],
+    "react/jsx-newline":["warn", {
+      "prevent": true,
+      "allowMultilines": true
+    }],
+    "react/jsx-first-prop-new-line": ["warn", "multiline"],
+    "react/jsx-sort-props":["warn",{
       "shorthandFirst": true,
       "callbacksLast":true
     }],
-    "import/newline-after-import": ["error", {
-      "count": 1
+    "react/jsx-tag-spacing":["warn",{
+       "beforeSelfClosing": "always",
+       "beforeClosing": "never",
+       "afterOpening": "never",
+       "closingSlash": "never"
+    }], //пробел перед самозакрытием тега
+    "react/jsx-wrap-multilines":["warn",{
+      "return":"parens-new-line",
+      "condition": "parens-new-line",
+      "logical": "parens-new-line"
     }],
-    "import/no-unresolved":"off",
+    "react/jsx-props-no-multi-spaces":["warn"],
+    "react/prop-types":["warn"],
+    "react/react-in-jsx-scope": "off",
+    "react/self-closing-comp":["warn",{
+      "component": true,
+      "html": true
+    }],
+    "ternaries/no-null-ternary": 2,
+    "ternaries/no-empty-ternary": 2,
+    "@typescript-eslint/ban-types": ["warn",{
+     "types":{
+       "undefined" : "Используйте ?. вместо undefined"
+     }
+    }],
     "@typescript-eslint/comma-spacing": ["warn", {
       "before": false, "after": true
     }],
-    "@typescript-eslint/type-annotation-spacing":["warn",{
+    "@typescript-eslint/explicit-module-boundary-types": "warn",
+    "@typescript-eslint/indent": [
+      "warn",
+      2,
+      {
+          "CallExpression": {
+              "arguments": "first"
+          },
+          "FunctionDeclaration": {
+              "parameters": "first"
+          },
+          "FunctionExpression": {
+              "parameters": "first"
+          },
+          "SwitchCase": 1,
+          "StaticBlock": {"body": 1},
+          "offsetTernaryExpressions": true
+      }
+    ], // отступы в тайпскрипте
+    "@typescript-eslint/member-ordering": ["warn",{
+      "classes": ["field", "constructor","get", "set", "method", "private-method"]
+    }],
+    "@typescript-eslint/no-shadow": "warn",
+    "@typescript-eslint/no-use-before-define": "warn",
+    "@typescript-eslint/padding-line-between-statements": [
+      "warn",
+      { "blankLine": "always", "prev": ["interface", "type"], "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "export" },
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": "if", "next": "const" },
+      { "blankLine": "always", "prev": "*", "next": "case" }
+    ],
+    "@typescript-eslint/prefer-nullish-coalescing": "warn",
+    "@typescript-eslint/prefer-optional-chain": "warn",
+    "@typescript-eslint/no-unnecessary-condition": "warn",
+    "@typescript-eslint/type-annotation-spacing":["warn",{ // Пробелы в антоации типов
       "before": false,
       "after": true,
       "overrides": {
         "arrow": { "before": true, "after": true }
       }
-    }]
+    }],
+    "@typescript-eslint/space-infix-ops": ["warn"],// Пробел вокруг знаков
+    "react/jsx-child-element-spacing":["warn"]
   }
-}
+  }
+

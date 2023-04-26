@@ -1,4 +1,4 @@
-enum StatsEnum {
+enum StatsEnum{
   attackDamage = 'attackDamage',
   abilityDamage = 'abilityDamage',
 
@@ -19,6 +19,7 @@ enum StatsEnum {
   armor = 'armor',
   magicResistance = 'magicResistance',
 }
+
 /* enum ScaleStatEnum {
   magicResistanceScale = 'magicResistanceScale',
   armorScale = 'armorScale',

@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+
 import { ItemModel, SelectedItems } from '../../../models';
 
 type Props = {
@@ -6,7 +7,8 @@ type Props = {
   item: ItemModel;
   addItemFunction: Dispatch<SetStateAction<SelectedItems>>;
 };
-const addItem = (props: Props) => {
+
+const addItem = (props: Props): void => {
   const { itemsToApply, item, addItemFunction } = props;
   const actions = {
     maxItems: itemsToApply && itemsToApply.items.length >= 6,

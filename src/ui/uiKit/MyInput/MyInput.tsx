@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import classes from './MyInput.module.scss';
 
 type Props = {
@@ -29,7 +30,8 @@ const MyInput: FC<Props> = (props) => {
   }
 
   return (
-    <input className={classNames.join(' ')}
+    <input
+      className={classNames.join(' ')}
       max={max}
       min={min}
       placeholder={placeholder}
@@ -39,4 +41,5 @@ const MyInput: FC<Props> = (props) => {
     />
   );
 };
+
 export default MyInput;

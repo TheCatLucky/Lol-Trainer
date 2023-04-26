@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { Options } from '../../../models';
 import classes from './MySelect.module.scss';
 
@@ -11,21 +12,27 @@ type Props = {
 
 const MySelect: FC<Props> = (props) => {
   const { options, defaultValue, onChange } = props;
+
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(event.currentTarget.value);
   };
 
   return (
     <select className={classes.select}
-      onChange={handleSelect}>
+      onChange={handleSelect}
+    >
       <option disabled>{defaultValue}</option>
-      {options.map((option) => (
-        <option key={option.value}
-          value={option.value}>
-          {option.name}
-        </option>
-      ))}
+      {
+        options.map((option) => (
+          <option key={option.value}
+            value={option.value}
+          >
+            {option.name}
+          </option>
+        ))
+      }
     </select>
   );
 };
+
 export default MySelect;

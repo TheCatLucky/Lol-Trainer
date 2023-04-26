@@ -1,18 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
+
 import { itemsList } from '../../../../../data';
 import ItemList from '../ItemList';
 
 /* eslint-disable no-console */
 const renderComponent = (
   <BrowserRouter>
-    <ItemList chooseItemLeftClick={() => {
-      console.log('first');
-    }}
-    chooseItemRightClick={() => {
-      console.log('first');
-    }}
+    <ItemList chooseItemLeftClick={
+      () => {
+        console.log('first');
+      }
+    }
+    chooseItemRightClick={
+      () => {
+        console.log('first');
+      }
+    }
     items={itemsList}
     />
   </BrowserRouter>

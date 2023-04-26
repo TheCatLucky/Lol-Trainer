@@ -1,5 +1,8 @@
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useMemo, useState } from 'react';
+
+import { champsList } from '../../data';
 import { Options } from '../../models';
 import { ChampionsStore } from '../../store';
 import { MyButton, MyInput, MySelect } from '../../ui/uiKit';
@@ -12,11 +15,14 @@ type Props = {
 
 const ChampsPage: FC<Props> = (props) => {
   const { champsStore } = props;
-  const { sortChampsByASAsc, sortChampsByASDesc, sortChampsByADAsc, sortChampsByADDesc, sortChampsByHPAsc, sortChampsByHPDesc, sortChampsByNameAsc, sortChampsByNameDesc, champions, setChampions } = champsStore;
+  const {
+    sortChampsByASAsc, sortChampsByASDesc, sortChampsByADAsc,
+    sortChampsByADDesc, sortChampsByHPAsc, sortChampsByHPDesc,
+    sortChampsByNameAsc, sortChampsByNameDesc, champions, setChampions
+  } = champsStore;
 
   const [selectedChamp, setSelectedChamp] = useState('');
   const [sortFunc, setSortFunc] = useState('Сортировка по имени ↑');
-
   const [showAll, setShowAll] = useState(false);
   const [champLvl, setChampLvl] = useState(1);
 
@@ -77,7 +83,8 @@ const ChampsPage: FC<Props> = (props) => {
       {
         value: 'Сортировка по ХП ↓',
         name: 'Сортировка по ХП ↓'
-      }];
+      }
+    ];
   }, []);
 
   /**
@@ -89,65 +96,122 @@ const ChampsPage: FC<Props> = (props) => {
 
   useEffect(() => {
     const sortFuncObj: {[index: string]: () => void, } = {
-      'Сортировка по АС ↑': function () { sortChampsByASAsc(champions, champLvl)},
-      'Сортировка по АС ↓': function () { sortChampsByASDesc(champions, champLvl)},
-      'Сортировка по АД ↑': function () { sortChampsByADAsc(champions, champLvl)},
-      'Сортировка по АД ↓': function () { sortChampsByADDesc(champions, champLvl)},
-      'Сортировка по ХП ↑': function () { sortChampsByHPAsc(champions, champLvl)},
-      'Сортировка по ХП ↓': function () { sortChampsByHPDesc(champions, champLvl)},
-      'Сортировка по имени ↑': function () { sortChampsByNameAsc(champions, champLvl)},
-      'Сортировка по имени ↓': function () {sortChampsByNameDesc(champions, champLvl)}
+      'Сортировка по АС ↑': function () {
+        sortChampsByASAsc(champions, champLvl);
+      },
+      'Сортировка по АС ↓': function () {
+        sortChampsByASDesc(champions, champLvl);
+      },
+      'Сортировка по АД ↑': function () {
+        sortChampsByADAsc(champions, champLvl);
+      },
+      'Сортировка по АД ↓': function () {
+        sortChampsByADDesc(champions, champLvl);
+      },
+      'Сортировка по ХП ↑': function () {
+        sortChampsByHPAsc(champions, champLvl);
+      },
+      'Сортировка по ХП ↓': function () {
+        sortChampsByHPDesc(champions, champLvl);
+      },
+      'Сортировка по имени ↑': function () {
+        sortChampsByNameAsc(champions, champLvl);
+      },
+      'Сортировка по имени ↓': function () {
+        sortChampsByNameDesc(champions, champLvl);
+      }
     };
 
     sortFuncObj[sortFunc]();
   }, [sortFunc]);
 
+  const handleExport = () => {
+    const info = JSON.parse(JSON.stringify(toJS(champsList)));
+    const blob = new Blob(info, { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'fileName';
+    a.click();
+    a.remove();
+  };
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.menu}>
         <div className={classes.column}>
-          <MySelect defaultValue='выберте персонажа'
+          <MySelect
+            defaultValue="выберте персонажа"
             options={optionsChamps}
             value={selectedChamp}
             onChange={handleSelect}
           />
-          <MyInput max={18}
+
+          <MyInput
+            max={18}
             min={1}
-            placeholder='введите уровен персонажа'
-            type='number'
+            placeholder="введите уровен персонажа"
+            type="number"
             value={champLvl}
             onChange={handleLvlChange}
           />
+
           <MyButton onClick={showAllChamps}>
-            {showAll ? 'Убрать' : 'Показать всех'}
+            {
+              showAll
+                ? 'Убрать'
+                : 'Показать всех'
+            }
           </MyButton>
         </div>
-        {showAll && <div className={classes.column}>
-          <MySelect defaultValue='тип сортировки'
-            options={optionsSort}
-            value={sortFunc}
-            onChange={setSortFunc}
-          />
-        </div>}
+
+        {
+          showAll && (
+            <div className={classes.column}>
+              <MySelect
+                defaultValue="тип сортировки"
+                options={optionsSort}
+                value={sortFunc}
+                onChange={setSortFunc}
+              />
+            </div>
+          )
+        }
       </div>
+
       <br />
+      <button onClick={handleExport}>Экспорт данных</button>
+
       <div className={classes.content}>
-        {!showAll &&
-          champions.map((champ) => {
+        {
+          !showAll
+          && champions.map((champ) => {
             if (champ.name === selectedChamp) {
-              return <ChampStats champion={champ}
-                key={champ.name}
-                lvl={champLvl} />;
+              return (
+                <ChampStats
+                  champion={champ}
+                  key={champ.name}
+                  lvl={champLvl}
+                />
+              );
             }
 
             return null;
-          })}
-        {showAll &&
-          champions.map((champ) => {
-            return <ChampStats champion={champ}
-              key={champ.name}
-              lvl={champLvl} />;
-          })}
+          })
+        }
+
+        {
+          showAll
+          && champions.map((champ) => {
+            return (
+              <ChampStats
+                champion={champ}
+                key={champ.name}
+                lvl={champLvl}
+              />
+            );
+          })
+        }
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 export type ApiResponse = {
- type: string,
- format: string,
- version: string,
- data: DataObj
+  type: string,
+  format: string,
+  version: string,
+  data: DataObj
 }
 
 type DataObj = {

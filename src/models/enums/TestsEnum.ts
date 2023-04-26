@@ -9,4 +9,5 @@ enum TestsValues {
   akshan_DpsDmg_ZeroArmor = '33',
   akshan_DpsDmg_100Armor = '16',
 }
+
 export default TestsValues;

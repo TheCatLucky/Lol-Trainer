@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { FC, lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
+
 import { ItemModel } from '../../models';
 import { ChampionsStore } from '../../store';
 
@@ -22,16 +23,28 @@ const AppRouter: FC<Props> = (props) => {
         {/*
       todo:
       Сделать компонент лоадер */}
+
         <Routes>
-          <Route element={<p> Привет!</p>}
-            path='/' />
-          <Route element={<ChampsPage champsStore={champsStore} />}
-            path='/champStats' />
-          <Route element={<ItemsPage itemsStore={itemsStore} />}
-            path='/itesmStats' />
-          <Route element={<FormField champsStore={champsStore}
-            itemsStore={itemsStore} />}
-          path='/formField'
+          <Route element={<p> Привет!</p>} path="/" />
+
+          <Route
+            element={<ChampsPage champsStore={champsStore} />}
+            path="/champStats"
+          />
+
+          <Route
+            element={<ItemsPage itemsStore={itemsStore} />}
+            path="/itesmStats"
+          />
+
+          <Route
+            element={
+              <FormField
+                champsStore={champsStore}
+                itemsStore={itemsStore}
+              />
+            }
+            path="/formField"
           />
         </Routes>
       </Suspense>

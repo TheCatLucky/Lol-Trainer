@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { Options } from '../../../models';
 import classes from './MySelectMultiple.module.scss';
 
@@ -17,15 +18,20 @@ const MySelect: FC<Props> = (props) => {
 
   return (
     <select className={classes.select}
-      onChange={handleSelect}>
+      onChange={handleSelect}
+    >
       <option disabled>{defaultValue}</option>
-      {options.map((option) => (
-        <option key={option.value}
-          value={option.value}>
-          {option.name}
-        </option>
-      ))}
+      {
+        options.map((option) => (
+          <option key={option.value}
+            value={option.value}
+          >
+            {option.name}
+          </option>
+        ))
+      }
     </select>
   );
 };
+
 export default MySelect;

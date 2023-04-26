@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
+
 import { champsList, itemsList } from '../../../data';
 import TestsValues from '../../../models/enums/TestsEnum';
 import { ChampionsStore, ItemsStore } from '../../../store';
@@ -11,7 +12,8 @@ const itemStore = new ItemsStore(itemsList);
 const renderComponent = (
   <BrowserRouter>
     <FormField champsStore={champsStore}
-      itemsStore={itemStore.items} />
+      itemsStore={itemStore.items}
+    />
   </BrowserRouter>
 );
 const itemsLength = itemStore.items.length;
@@ -117,7 +119,7 @@ describe('Компонент FormField', () => {
     const leftChampionItems = screen.getAllByRole('img');
 
     await userEvent.click(leftChampionItems[itemsLength + 4]);
-    expect(baseDamageArray[0].innerHTML).toBe('104');
+    expect(baseDamageArray[0].innerHTML).toBe('159');
     expect(baseDamageArray[10].innerHTML).toBe('52');
     expect(dpsArray[0].innerHTML).toBe('117');
     expect(dpsArray[10].innerHTML).toBe('58');

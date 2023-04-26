@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+
 import { ChampionModel, ItemModel, Options, SelectedItems } from '../../models';
 import { ChampionsStore } from '../../store';
 import { MyInput, MySelect } from '../../ui/uiKit';
@@ -8,12 +9,11 @@ import ChampionTable from './ChampionTable';
 import classes from './FormField.module.scss';
 import { addItem } from './utils';
 
+//ToDo: селектор для выбора отображаемой таблицы
 type Props = {
   champsStore: ChampionsStore;
-  itemsStore: ItemModel[];
+  itemsStore: ItemModel[]
 };
-
-//ToDo: селектор для выбора отображаемой таблицы
 
 const FormField: FC<Props> = (props) => {
   const { champsStore, itemsStore } = props;
@@ -32,7 +32,7 @@ const FormField: FC<Props> = (props) => {
   const [selectedItems, setSelectedItems] = useState<SelectedItems>({
     items: [],
     haveMythic: false,
-    legendaryIDs: [],
+    legendaryIDs: []
   });
 
   /**
@@ -73,7 +73,7 @@ const FormField: FC<Props> = (props) => {
   );
 
   /**
-   * Выбор предмета для персонажа
+   * Выбор предмета cosnsole.log('для'); персонажа
    */
   const chooseItemLeftClick = (e: React.MouseEvent, item: ItemModel) => {
     e.preventDefault();
@@ -95,11 +95,11 @@ const FormField: FC<Props> = (props) => {
    */
   useEffect(() => {
     calcNewStats(baseChampStats, selectedItems, 1, champLvl);
-  }, [selectedItems, ]);
+  }, [selectedItems, champLvl]);
 
   useEffect(() => {
     calcNewStats(baseChampStats, selectedItems2, 2, champLvl);
-  }, [selectedItems2]);
+  }, [selectedItems2, champLvl]);
 
   useEffect(() => {
     setChampAndBaseStats(compare);
@@ -119,30 +119,34 @@ const FormField: FC<Props> = (props) => {
 
   return (
     <div className={classes.wrapper}>
-      <MySelect defaultValue='выберте персо нажа'
+      <MySelect defaultValue="выберте персо нажа"
         options={optionsChamps}
         value={compare}
         onChange={setChampAndBaseStats}
       />
+
       <MyInput max={18}
         min={1}
-        placeholder='введите уровень персонажа'
-        type='number'
+        placeholder="введите уровень персонажа"
+        type="number"
         value={champLvl}
         onChange={handleLvlChange}
       />
+
       <div className={classes.itemsList}>
         <ItemsList chooseItemLeftClick={chooseItemLeftClick}
           chooseItemRightClick={chooseItemLeftClick}
           items={itemsStore}
         />
       </div>
+
       <div className={classes.content}>
         <ChampionTable champLvl={champLvl}
           champion={champToCompare[0].champion}
           selectedItems={champToCompare[0].equipment}
           setSelectedItems={setSelectedItems}
         />
+
         <ChampionTable champLvl={champLvl}
           champion={champToCompare[1].champion}
           selectedItems={champToCompare[1].equipment}
@@ -151,6 +155,7 @@ const FormField: FC<Props> = (props) => {
       </div>
     </div>
   );
+
 };
 
 export default observer(FormField);

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { ItemModel, StatsEnum } from '../../../models';
 import classes from './ItemStats.module.scss';
 
@@ -7,8 +8,8 @@ type Props = {
   onDragStart: (e: React.DragEvent<HTMLDivElement>, item: ItemModel) => void;
   onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   onDrop: (e: React.DragEvent<HTMLDivElement>, item: ItemModel) => void;
+  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   draggable: boolean;
 };
 
@@ -27,21 +28,23 @@ const ItemStats: FC<Props> = (props) => {
     >
       <h3>{item.name}</h3>
       <ul key={item.name}>
-        {item.stats.map((field) => {
-          if (field.name === StatsEnum.attackSpeed || field.name === StatsEnum.critChance) {
+        {
+          item.stats.map((field) => {
+            if (field.name === StatsEnum.attackSpeed || field.name === StatsEnum.critChance) {
+              return (
+                <li key={field.name}>
+                  {field.displayName}: {field.value * 100}%
+                </li>
+              );
+            }
+
             return (
               <li key={field.name}>
-                {field.displayName}: {field.value * 100}%
+                {field.displayName}: {field.value}
               </li>
             );
-          }
-
-          return (
-            <li key={field.name}>
-              {field.displayName}: {field.value}
-            </li>
-          );
-        })}
+          })
+        }
       </ul>
     </div>
   );

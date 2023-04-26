@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+
 import { ChampionModel, Spell } from '../../../models';
 import classes from './SpellDamageTable.module.scss';
 
@@ -7,6 +8,7 @@ type Props = {
   skillLvl: number;
   spell: Spell;
 };
+
 const SpellDamageTable: FC<Props> = (props) => {
   const { champion, skillLvl, spell } = props;
   const { abilityDamage, magicPenetration, magicFlatPenetration, attackDamage } = champion.stats;
@@ -36,22 +38,26 @@ const SpellDamageTable: FC<Props> = (props) => {
       <table className={classes.table}>
         <thead>
           <tr>
-            <td></td>
+            <td />
             <td colSpan={11}>Урон {spell.name}</td>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Мрез</td>
-            {baseMagicResistance.map((mres, index) => (
-              <td key={index}>{mres}</td>
-            ))}
+            {
+              baseMagicResistance.map((mres, index) => (
+                <td key={index}>{mres}</td>
+              ))
+            }
           </tr>
           <tr>
             <td>Урон</td>
-            {damage?.map((dmg, index) => (
-              <td key={index}>{dmg}</td>
-            ))}
+            {
+              damage?.map((dmg, index) => (
+                <td key={index}>{dmg}</td>
+              ))
+            }
           </tr>
         </tbody>
       </table>

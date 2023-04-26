@@ -1,4 +1,5 @@
 import { FC, memo, useState } from 'react';
+
 import { ItemModel } from '../../../../models';
 import classes from './ItemList.module.scss';
 import Popup from './Popup';
@@ -30,21 +31,25 @@ const ItemList: FC<Props> = (props) => {
   return (
     <div className={classes.wrapper}>
       <div className={classes.item}>
-        {items.map((item) => (
-          <div key={item.name}>
-            <img alt={item.name}
-              key={item.name}
-              src={item.img}
-              onClick={(event) => chooseItemLeftClick(event, item)}
-              onContextMenu={(event) => chooseItemRightClick(event, item)}
-              onMouseEnter={() => setCurrentItem(item)}
-              onMouseLeave={() => setCurrentItem(null)}
-            />
-            {curentItem?.name === item.name && (
-              <Popup curentItem={curentItem} />
-            )}
-          </div>
-        ))}
+        {
+          items.map((item) => (
+            <div key={item.name}>
+              <img alt={item.name}
+                key={item.name}
+                src={item.img}
+                onClick={(event) => chooseItemLeftClick(event, item)}
+                onContextMenu={(event) => chooseItemRightClick(event, item)}
+                onMouseEnter={() => setCurrentItem(item)}
+                onMouseLeave={() => setCurrentItem(null)}
+              />
+              {
+                curentItem?.name === item.name && (
+                  <Popup curentItem={curentItem} />
+                )
+              }
+            </div>
+          ))
+        }
       </div>
     </div>
   );

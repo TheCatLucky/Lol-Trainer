@@ -1,4 +1,5 @@
 import { SetStateAction } from 'react';
+
 import { ItemModel, SelectedItems } from '../../../models';
 
 const removeItem = (
@@ -6,9 +7,9 @@ const removeItem = (
   removeObj: SelectedItems,
   index: number,
   item: ItemModel,
-) => {
-  const newItems = [...removeObj.items];
-  newItems.splice(index, 1);
+): void => {
+  const newItems = [...removeObj.items].splice(index, 1);
+
   if (item.isMythic) {
     removeItemSet({
       ...removeObj,
@@ -29,4 +30,5 @@ const removeItem = (
     });
   }
 };
+
 export default removeItem;

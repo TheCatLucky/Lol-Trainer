@@ -1,4 +1,5 @@
 import { action, configure, makeObservable } from 'mobx';
+
 import { ItemModel } from '../models';
 
 configure({
